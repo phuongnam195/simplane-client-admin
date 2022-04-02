@@ -1,0 +1,15 @@
+{
+    "app_name": "Simplane",
+    "error_no_internet": "Cannot connect to server, please check your connection and try again!",
+    "error_timeout": "Connection timeout. Please try again!",
+    "error": "Error",
+    "no_data": "No data",
+    "unknown_error": "Unknown error, please try again!",
+
+
+
+
+
+
+    "hahahaha": "hahahaha"
+}
