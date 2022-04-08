@@ -30,6 +30,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Connection timeout. Please try again!"),
         "hahahaha": MessageLookupByLibrary.simpleMessage("hahahaha"),
         "no_data": MessageLookupByLibrary.simpleMessage("No data"),
+        "register": MessageLookupByLibrary.simpleMessage("Register"),
+        "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
         "unknown_error": MessageLookupByLibrary.simpleMessage(
             "Unknown error, please try again!")
       };
