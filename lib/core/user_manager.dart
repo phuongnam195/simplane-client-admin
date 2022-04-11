@@ -19,6 +19,8 @@ class UserManager {
 
   User? getUser() => _user;
 
+  setUser(User user) => _user = user;
+
   clearUser() => _user = null;
 
   Future<User?> loadUser() async {

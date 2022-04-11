@@ -50,14 +50,17 @@ class _LoginCardState extends State<LoginCard> {
   final _passwordController = TextEditingController();
   final _loginBloc = LoginBloc();
 
+  _login() =>
+      _loginBloc.add(Login(_usernameController.text, _passwordController.text));
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginBloc, LoginState>(
       bloc: _loginBloc,
       listener: (context, state) {
-        // if (state is LoginSuccess) {
-        Get.offAllNamed(HomePage.routeName);
-        // }
+        if (state is LoginSuccess) {
+          Get.offAllNamed(HomePage.routeName);
+        }
       },
       child: SizedBox(
         width: 400,
@@ -68,7 +71,7 @@ class _LoginCardState extends State<LoginCard> {
               controller: _usernameController,
               decoration: const InputDecoration(
                 hintText: 'Username',
-                prefixIcon: Icon(Icons.person_outline_sharp),
+                prefixIcon: Icon(Icons.person),
               ),
             ),
             const SizedBox(height: 30),
@@ -76,8 +79,9 @@ class _LoginCardState extends State<LoginCard> {
               controller: _passwordController,
               decoration: const InputDecoration(
                 hintText: 'Password',
-                prefixIcon: Icon(Icons.key_rounded),
+                prefixIcon: Icon(MdiIcons.key),
               ),
+              onSubmitted: (_) => _login(),
             ),
             const SizedBox(height: 30),
             Row(
@@ -95,8 +99,7 @@ class _LoginCardState extends State<LoginCard> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () => _loginBloc.add(Login(
-                      _usernameController.text, _passwordController.text)),
+                  onPressed: () => _login(),
                   child: Text(S.current.sign_in),
                   style: ElevatedButton.styleFrom(
                     primary: AppColor.primary,
