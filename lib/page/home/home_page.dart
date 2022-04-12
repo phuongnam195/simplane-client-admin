@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:simplane_client_admin/core/user_manager.dart';
-import 'package:simplane_client_admin/page/login/login_page.dart';
+import 'package:simplane_client_admin/page/auth/auth_page.dart';
 import 'package:simplane_client_admin/repository/user_repository.dart';
 import 'package:simplane_client_admin/util/constants.dart';
 
@@ -93,6 +93,6 @@ class HomePage extends StatelessWidget {
   _logout() {
     UserRepository().logout();
     UserManager().clearUser();
-    Get.offAllNamed(LoginPage.routeName);
+    Get.offAllNamed(AuthPage.routeName);
   }
 }

@@ -7,6 +7,12 @@
     "unknown_error": "Unknown error, please try again!",
     "register": "Register",
     "sign_in": "Sign in",
+    "fullname": "Full name",
+    "username": "Username",
+    "password": "Password",
+    "retype_password": "Retype password",
+    "not_empty": "Cannot be empty!",
+    "retype_password_not_match": "Retype password does not match!",
 
 
 

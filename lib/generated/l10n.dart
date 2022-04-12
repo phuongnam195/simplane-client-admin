@@ -130,6 +130,66 @@ class S {
     );
   }
 
+  /// `Full name`
+  String get fullname {
+    return Intl.message(
+      'Full name',
+      name: 'fullname',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Username`
+  String get username {
+    return Intl.message(
+      'Username',
+      name: 'username',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get password {
+    return Intl.message(
+      'Password',
+      name: 'password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Retype password`
+  String get retype_password {
+    return Intl.message(
+      'Retype password',
+      name: 'retype_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cannot be empty!`
+  String get not_empty {
+    return Intl.message(
+      'Cannot be empty!',
+      name: 'not_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Retype password does not match!`
+  String get retype_password_not_match {
+    return Intl.message(
+      'Retype password does not match!',
+      name: 'retype_password_not_match',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `hahahaha`
   String get hahahaha {
     return Intl.message(

@@ -13,6 +13,16 @@ class UserRepository extends BaseRepositoryImp<User> {
     );
   }
 
+  Future<User> signup(String fullname, String username, String password) async {
+    return User.fromJson(
+      await ApiClient(SIGNUP).post({
+        "fullname": fullname,
+        "username": username,
+        "password": password,
+      }),
+    );
+  }
+
   Future logout() async {
     await ApiClient(LOGOUT).post({"commandStyle": 0});
   }

@@ -28,11 +28,19 @@ class MessageLookup extends MessageLookupByLibrary {
             "Cannot connect to server, please check your connection and try again!"),
         "error_timeout": MessageLookupByLibrary.simpleMessage(
             "Connection timeout. Please try again!"),
+        "fullname": MessageLookupByLibrary.simpleMessage("Full name"),
         "hahahaha": MessageLookupByLibrary.simpleMessage("hahahaha"),
         "no_data": MessageLookupByLibrary.simpleMessage("No data"),
+        "not_empty": MessageLookupByLibrary.simpleMessage("Cannot be empty!"),
+        "password": MessageLookupByLibrary.simpleMessage("Password"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
+        "retype_password":
+            MessageLookupByLibrary.simpleMessage("Retype password"),
+        "retype_password_not_match": MessageLookupByLibrary.simpleMessage(
+            "Retype password does not match!"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
         "unknown_error": MessageLookupByLibrary.simpleMessage(
-            "Unknown error, please try again!")
+            "Unknown error, please try again!"),
+        "username": MessageLookupByLibrary.simpleMessage("Username")
       };
 }

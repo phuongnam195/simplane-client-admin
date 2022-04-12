@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:simplane_client_admin/page/home/home_page.dart';
-import 'package:simplane_client_admin/page/login/login_page.dart';
+import 'package:simplane_client_admin/page/auth/auth_page.dart';
 import 'package:simplane_client_admin/page/splash/splash_bloc.dart';
 
 class SplashPage extends StatelessWidget {
@@ -18,7 +18,7 @@ class SplashPage extends StatelessWidget {
       bloc: _splashBloc,
       listener: (context, state) {
         if (state is HasNotLoggedIn) {
-          Get.offAllNamed(LoginPage.routeName);
+          Get.offAllNamed(AuthPage.routeName);
         } else if (state is DataLoaded) {
           Get.offAllNamed(HomePage.routeName);
         }
