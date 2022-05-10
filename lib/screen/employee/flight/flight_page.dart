@@ -8,7 +8,7 @@ import 'package:simplane_client_admin/model/flight.dart';
 import 'package:simplane_client_admin/model/ticket_class.dart';
 import 'package:simplane_client_admin/screen/employee/home/home_bloc.dart';
 import 'package:simplane_client_admin/screen/employee/home/home_screen.dart';
-import 'package:simplane_client_admin/screen/employee/home/page/widget/flight_detail.dart';
+import 'package:simplane_client_admin/screen/employee/flight/flight_detail.dart';
 import 'package:simplane_client_admin/util/constants.dart';
 import 'package:simplane_client_admin/util/date_time_utils.dart';
 
@@ -255,13 +255,7 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
     showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
-              title: Text(
-                S.current.flight_title(flight.code),
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-              ),
-              content: FlightDetail(flight));
+          return FlightDetail(flight);
         });
   }
 

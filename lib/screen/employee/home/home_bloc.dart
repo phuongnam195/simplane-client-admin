@@ -7,11 +7,11 @@ import 'package:simplane_client_admin/model/flight.dart';
 import 'package:simplane_client_admin/model/ticket.dart';
 import 'package:simplane_client_admin/repository/flight_repository.dart';
 import 'package:simplane_client_admin/repository/ticket_repository.dart';
-import 'package:simplane_client_admin/screen/employee/home/page/flight_page.dart';
+import 'package:simplane_client_admin/screen/employee/flight/flight_page.dart';
 import 'package:simplane_client_admin/util/logger.dart';
 
-import 'page/report_page.dart';
-import 'page/ticket_page.dart';
+import '../report/report_page.dart';
+import '../ticket/ticket_page.dart';
 
 abstract class HomeEvent {}
 

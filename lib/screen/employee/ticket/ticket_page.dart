@@ -9,7 +9,7 @@ import 'package:simplane_client_admin/util/constants.dart';
 import 'package:simplane_client_admin/util/date_time_utils.dart';
 import 'package:simplane_client_admin/util/utils.dart';
 
-import '../home_screen.dart';
+import '../home/home_screen.dart';
 
 class TicketPage extends StatefulWidget {
   static const pageName = 'ticket';

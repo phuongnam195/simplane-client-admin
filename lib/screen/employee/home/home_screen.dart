@@ -7,8 +7,8 @@ import 'package:simplane_client_admin/generated/l10n.dart';
 import 'package:simplane_client_admin/screen/auth/auth_screen.dart';
 import 'package:simplane_client_admin/repository/user_repository.dart';
 import 'package:simplane_client_admin/screen/employee/home/home_bloc.dart';
-import 'package:simplane_client_admin/screen/employee/home/page/flight_page.dart';
-import 'package:simplane_client_admin/screen/employee/home/page/ticket_page.dart';
+import 'package:simplane_client_admin/screen/employee/flight/flight_page.dart';
+import 'package:simplane_client_admin/screen/employee/ticket/ticket_page.dart';
 import 'package:simplane_client_admin/util/constants.dart';
 
 final homeBloc = HomeBloc();
