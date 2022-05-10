@@ -6,10 +6,10 @@ import 'auth_bloc.dart';
 import 'login_card.dart';
 import 'signup_card.dart';
 
-class AuthPage extends StatelessWidget {
+class AuthScreen extends StatelessWidget {
   static const routeName = '/auth';
 
-  const AuthPage({Key? key}) : super(key: key);
+  const AuthScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,17 +17,18 @@ class AuthPage extends StatelessWidget {
         'https://images.unsplash.com/photo-1559268950-2d7ceb2efa3a?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&dl=nick-morales-BwYcH78rcpI-unsplash.jpg&w=800';
 
     final _authBloc = AuthBloc();
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
         body: Row(
       children: [
         SizedBox(
-          height: 800,
-          width: 700,
+          height: screenWidth * 0.65,
+          width: screenWidth * 0.6,
           child: CachedNetworkImage(
             imageUrl: imageUrl,
-            height: 800,
-            width: 700,
+            height: screenWidth * 0.65,
+            width: screenWidth * 0.6,
             fit: BoxFit.cover,
             alignment: Alignment.bottomCenter,
           ),

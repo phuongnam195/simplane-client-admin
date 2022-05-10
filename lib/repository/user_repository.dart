@@ -3,7 +3,17 @@ import 'package:simplane_client_admin/model/user.dart';
 import 'package:simplane_client_admin/network/api_path.dart';
 import 'package:simplane_client_admin/network/base/api_client.dart';
 
-class UserRepository extends BaseRepositoryImp<User> {
+abstract class UserRepository extends BaseRepository<User> {
+  Future<User> login(String username, String password);
+
+  Future<User> signup(String fullname, String username, String password);
+
+  Future logout();
+}
+
+class UserRepositoryImp extends BaseRepositoryImp<User>
+    implements UserRepository {
+  @override
   Future<User> login(String username, String password) async {
     return User.fromJson(
       await ApiClient(LOGIN).post({
@@ -13,6 +23,7 @@ class UserRepository extends BaseRepositoryImp<User> {
     );
   }
 
+  @override
   Future<User> signup(String fullname, String username, String password) async {
     return User.fromJson(
       await ApiClient(SIGNUP).post({
@@ -23,6 +34,7 @@ class UserRepository extends BaseRepositoryImp<User> {
     );
   }
 
+  @override
   Future logout() async {
     await ApiClient(LOGOUT).post({"commandStyle": 0});
   }

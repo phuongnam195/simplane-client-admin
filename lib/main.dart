@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:simplane_client_admin/generated/l10n.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
-import 'page/home/home_page.dart';
-import 'page/auth/auth_page.dart';
-import 'page/splash/splash_page.dart';
+import 'core/injection.dart' as di;
+import 'screen/employee/home/home_screen.dart';
+import 'screen/auth/auth_screen.dart';
+import 'screen/splash/splash_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  di.configureDependencies();
   runApp(const App());
 }
 
@@ -15,14 +19,15 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting('vi_VN');
     return GetMaterialApp(
       title: 'Simplane',
       debugShowCheckedModeBanner: false,
-      initialRoute: SplashPage.routeName,
+      initialRoute: SplashScreen.routeName,
       getPages: [
-        GetPage(name: SplashPage.routeName, page: () => const SplashPage()),
-        GetPage(name: AuthPage.routeName, page: () => const AuthPage()),
-        GetPage(name: HomePage.routeName, page: () => const HomePage()),
+        GetPage(name: SplashScreen.routeName, page: () => const SplashScreen()),
+        GetPage(name: AuthScreen.routeName, page: () => const AuthScreen()),
+        GetPage(name: HomeScreen.routeName, page: () => const HomeScreen()),
       ],
       localizationsDelegates: const [
         S.delegate,

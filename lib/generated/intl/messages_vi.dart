@@ -1,5 +1,5 @@
 // DO NOT EDIT. This is code generated via package:intl/generate_localized.dart
-// This is a library that provides messages for a en locale. All the
+// This is a library that provides messages for a vi locale. All the
 // messages from the main program should be duplicated here with the same
 // function name.
 
@@ -18,9 +18,9 @@ final messages = new MessageLookup();
 typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 
 class MessageLookup extends MessageLookupByLibrary {
-  String get localeName => 'en';
+  String get localeName => 'vi';
 
-  static String m0(ticketClass) => "${ticketClass}\'s seat";
+  static String m0(ticketClass) => "${ticketClass} seat quantity";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -34,8 +34,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "flight_code": MessageLookupByLibrary.simpleMessage("Flight code"),
         "flight_date": MessageLookupByLibrary.simpleMessage("Date"),
         "flight_duration": MessageLookupByLibrary.simpleMessage("Duration"),
-        "flight_search_hint":
-            MessageLookupByLibrary.simpleMessage("Flight code, airport,..."),
         "from_airport": MessageLookupByLibrary.simpleMessage("From"),
         "fullname": MessageLookupByLibrary.simpleMessage("Full name"),
         "hahahaha": MessageLookupByLibrary.simpleMessage("hahahaha"),

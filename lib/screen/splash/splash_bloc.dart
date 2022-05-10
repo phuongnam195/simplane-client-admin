@@ -1,6 +1,7 @@
 //region EVENT
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:simplane_client_admin/core/rule_manager.dart';
 import 'package:simplane_client_admin/core/user_manager.dart';
 import 'package:simplane_client_admin/network/base/network_base.dart';
 import 'package:simplane_client_admin/repository/user_repository.dart';
@@ -33,18 +34,19 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   }
 
   _onCheckSession(CheckSession event, Emitter<SplashState> emit) async {
-    final user = await UserManager().loadUser();
+    final user = await UserManager.instance.loadUser();
     if (user == null) {
       emit(HasNotLoggedIn());
       return;
     }
     NetworkBase.instance.addApiHeaders({
-      'accessToken': UserManager().accessToken(),
+      'accessToken': UserManager.instance.accessToken(),
     });
     try {
       // TODO: Load data
       Future.delayed(const Duration(seconds: 2));
-      // emit(DataLoaded());
+      await RuleManager.instance.load();
+      emit(DataLoaded());
     } catch (e) {
       Logger.e('SplashBloc -> _mapCheckSessionToState()', '$e');
       emit(SplashNotLoaded('$e'));
@@ -52,13 +54,13 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   }
 
   Stream<SplashState> _mapCheckSessionToState() async* {
-    final user = await UserManager().loadUser();
+    final user = await UserManager.instance.loadUser();
     if (user == null) {
       yield HasNotLoggedIn();
       return;
     }
     NetworkBase.instance.addApiHeaders({
-      'accessToken': UserManager().accessToken(),
+      'accessToken': UserManager.instance.accessToken(),
     });
     try {
       // TODO: Load data

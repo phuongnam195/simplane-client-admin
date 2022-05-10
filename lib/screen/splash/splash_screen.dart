@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:simplane_client_admin/page/home/home_page.dart';
-import 'package:simplane_client_admin/page/auth/auth_page.dart';
-import 'package:simplane_client_admin/page/splash/splash_bloc.dart';
+import 'package:simplane_client_admin/screen/employee/home/home_screen.dart';
+import 'package:simplane_client_admin/screen/auth/auth_screen.dart';
+import 'package:simplane_client_admin/screen/splash/splash_bloc.dart';
 
-class SplashPage extends StatelessWidget {
+class SplashScreen extends StatelessWidget {
   static const routeName = '/splash';
 
-  const SplashPage({Key? key}) : super(key: key);
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +18,9 @@ class SplashPage extends StatelessWidget {
       bloc: _splashBloc,
       listener: (context, state) {
         if (state is HasNotLoggedIn) {
-          Get.offAllNamed(AuthPage.routeName);
+          Get.offAllNamed(AuthScreen.routeName);
         } else if (state is DataLoaded) {
-          Get.offAllNamed(HomePage.routeName);
+          Get.offAllNamed(HomeScreen.routeName);
         }
       },
       child: Container(

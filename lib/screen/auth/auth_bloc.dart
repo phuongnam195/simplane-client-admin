@@ -1,5 +1,6 @@
 //region EVENT
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simplane_client_admin/core/rule_manager.dart';
 import 'package:simplane_client_admin/core/setting.dart';
 import 'package:simplane_client_admin/core/user_manager.dart';
 import 'package:simplane_client_admin/model/user.dart';
@@ -32,7 +33,6 @@ class SwitchTo extends AuthEvent {
 
   SwitchTo(this.type);
 }
-
 //endregion
 
 //region STATE
@@ -75,8 +75,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       // NetworkBase.instance.addApiHeaders({
       //   'accessToken': UserManager().accessToken(),
       // });
-      UserManager()
-          .setUser(const User(123, 'nam1952001', 'Đặng Phương Nam', ''));
+      UserManager.instance
+          .setUser(const User(123, 'nam1952001', 'Đặng Phương Nam', true, ''));
+      await RuleManager.instance.load();
       emit(LoginSuccess());
     } catch (e) {
       Logger.e('AuthBloc -> _onLogin()', '$e');
@@ -93,8 +94,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       // NetworkBase.instance.addApiHeaders({
       //   'accessToken': UserManager().accessToken(),
       // });
-      UserManager()
-          .setUser(const User(123, 'nam1952001', 'Đặng Phương Nam', ''));
+      UserManager.instance
+          .setUser(const User(123, 'nam1952001', 'Đặng Phương Nam', true, ''));
+      await RuleManager.instance.load();
       emit(SignUpSuccess());
     } catch (e) {
       Logger.e('AuthBloc -> _onSignUp()', '$e');

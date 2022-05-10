@@ -44,6 +44,8 @@ dependencies:
   material_design_icons_flutter: ^5.0.6595
   flutter_bloc: ^8.0.1
   shared_preferences: ^2.0.13
+  syncfusion_flutter_datepicker: ^20.1.52
+  horizontal_data_table: ^3.6.2+1
 
 dev_dependencies:
   flutter_test:

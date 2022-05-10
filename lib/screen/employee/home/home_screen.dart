@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:simplane_client_admin/core/injection.dart' as di;
 import 'package:simplane_client_admin/core/user_manager.dart';
-import 'package:simplane_client_admin/page/auth/auth_page.dart';
+import 'package:simplane_client_admin/screen/auth/auth_screen.dart';
 import 'package:simplane_client_admin/repository/user_repository.dart';
+import 'package:simplane_client_admin/screen/employee/home/home_bloc.dart';
 import 'package:simplane_client_admin/util/constants.dart';
 
-class HomePage extends StatelessWidget {
+final homeBloc = HomeBloc();
+
+class HomeScreen extends StatelessWidget {
   static const routeName = '/home';
 
-  const HomePage({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,20 @@ class HomePage extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           _navigationSideMenu(),
-          Expanded(child: Center(child: Text('HOME'))),
+          Expanded(
+            child: BlocBuilder<HomeBloc, HomeState>(
+                bloc: homeBloc,
+                buildWhen: (previous, current) =>
+                    current is PageNavigated || current is HomeLoading,
+                builder: (context, state) {
+                  if (state is PageNavigated) {
+                    return state.page;
+                  } else if (state is HomeLoading) {
+                    return const CircularProgressIndicator();
+                  }
+                  return Container();
+                }),
+          ),
         ],
       ),
     );
@@ -47,12 +65,12 @@ class HomePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    UserManager().getUser()?.fullname ?? 'Fullname',
+                    UserManager.instance.getUser()?.fullname ?? 'Fullname',
                     style: AppStyle.subtitle.copyWith(color: Colors.white),
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    UserManager().getUser()?.username ?? 'Username',
+                    UserManager.instance.getUser()?.username ?? 'Username',
                     style: AppStyle.subtitle.copyWith(color: Colors.white),
                   ),
                 ]),
@@ -91,8 +109,9 @@ class HomePage extends StatelessWidget {
   }
 
   _logout() {
-    UserRepository().logout();
-    UserManager().clearUser();
-    Get.offAllNamed(AuthPage.routeName);
+    UserRepository repo = Get.find();
+    repo.logout();
+    UserManager.instance.clearUser();
+    Get.offAllNamed(AuthScreen.routeName);
   }
 }

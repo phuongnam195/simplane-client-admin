@@ -190,6 +190,86 @@ class S {
     );
   }
 
+  /// `Flight code`
+  String get flight_code {
+    return Intl.message(
+      'Flight code',
+      name: 'flight_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `From`
+  String get from_airport {
+    return Intl.message(
+      'From',
+      name: 'from_airport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To`
+  String get to_airport {
+    return Intl.message(
+      'To',
+      name: 'to_airport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date`
+  String get flight_date {
+    return Intl.message(
+      'Date',
+      name: 'flight_date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Duration`
+  String get flight_duration {
+    return Intl.message(
+      'Duration',
+      name: 'flight_duration',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{ticketClass}'s seat`
+  String class_seat_count(String ticketClass) {
+    return Intl.message(
+      '$ticketClass\'s seat',
+      name: 'class_seat_count',
+      desc: '',
+      args: [ticketClass],
+    );
+  }
+
+  /// `Flight code, airport,...`
+  String get flight_search_hint {
+    return Intl.message(
+      'Flight code, airport,...',
+      name: 'flight_search_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pick a duration`
+  String get pick_duration {
+    return Intl.message(
+      'Pick a duration',
+      name: 'pick_duration',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `hahahaha`
   String get hahahaha {
     return Intl.message(
@@ -207,6 +287,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'vi'),
     ];
   }
 

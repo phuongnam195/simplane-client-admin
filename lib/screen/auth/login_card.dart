@@ -3,28 +3,26 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:simplane_client_admin/generated/l10n.dart';
-import 'package:simplane_client_admin/page/home/home_page.dart';
+import 'package:simplane_client_admin/screen/employee/home/home_screen.dart';
 import 'package:simplane_client_admin/util/constants.dart';
 
 import 'auth_bloc.dart';
 
-class SignUpCard extends StatefulWidget {
-  const SignUpCard(this.authBloc, {Key? key}) : super(key: key);
+class LoginCard extends StatefulWidget {
+  const LoginCard(this.authBloc, {Key? key}) : super(key: key);
 
   final AuthBloc authBloc;
 
   @override
-  State<SignUpCard> createState() => _SignUpCardState();
+  State<LoginCard> createState() => _LoginCardState();
 }
 
-class _SignUpCardState extends State<SignUpCard> {
+class _LoginCardState extends State<LoginCard> {
   final _formKey = GlobalKey<FormState>();
-  final _fullnameController = TextEditingController();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _retypePasswordController = TextEditingController();
 
-  _signUp() {
+  _login() {
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -34,29 +32,22 @@ class _SignUpCardState extends State<SignUpCard> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return BlocListener<AuthBloc, AuthState>(
       bloc: widget.authBloc,
       listener: (context, state) {
         if (state is LoginSuccess) {
-          Get.offAllNamed(HomePage.routeName);
+          Get.offAllNamed(HomeScreen.routeName);
         }
       },
       child: SizedBox(
-        width: 400,
+        width: screenWidth * 0.35,
         child: Form(
           key: _formKey,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextFormField(
-                controller: _fullnameController,
-                decoration: InputDecoration(
-                  labelText: S.current.fullname,
-                  prefixIcon: const Icon(Icons.person_pin_rounded),
-                ),
-                validator: (_) => _validFullname(),
-              ),
-              const SizedBox(height: 30),
               TextFormField(
                 controller: _usernameController,
                 decoration: InputDecoration(
@@ -74,32 +65,27 @@ class _SignUpCardState extends State<SignUpCard> {
                 ),
                 obscureText: true,
                 validator: (_) => _validPassword(),
-              ),
-              const SizedBox(height: 30),
-              TextFormField(
-                controller: _retypePasswordController,
-                decoration: InputDecoration(
-                  labelText: S.current.retype_password,
-                  prefixIcon: const Icon(MdiIcons.key),
-                ),
-                obscureText: true,
-                validator: (_) => _validRetypePassword(),
-                onFieldSubmitted: (_) => _signUp(),
+                onFieldSubmitted: (_) => _login(),
               ),
               const SizedBox(height: 30),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back_ios_new),
-                    iconSize: 22,
+                  TextButton(
                     onPressed: () =>
-                        widget.authBloc.add(SwitchTo(AuthType.login)),
-                    color: AppColor.description,
+                        widget.authBloc.add(SwitchTo(AuthType.signup)),
+                    child: Text(
+                      S.current.register,
+                    ),
+                    style: TextButton.styleFrom(
+                      primary: AppColor.description,
+                      textStyle: const TextStyle(fontSize: 15),
+                      padding: const EdgeInsets.all(20),
+                    ),
                   ),
-                  const Spacer(),
                   ElevatedButton(
-                    onPressed: () => _signUp(),
-                    child: Text(S.current.register),
+                    onPressed: () => _login(),
+                    child: Text(S.current.sign_in),
                     style: ElevatedButton.styleFrom(
                       primary: AppColor.primary,
                       padding: const EdgeInsets.all(25),
@@ -118,13 +104,6 @@ class _SignUpCardState extends State<SignUpCard> {
     );
   }
 
-  String? _validFullname() {
-    if (_fullnameController.text.isEmpty) {
-      return S.current.not_empty;
-    }
-    return null;
-  }
-
   String? _validUsername() {
     if (_usernameController.text.isEmpty) {
       return S.current.not_empty;
@@ -135,17 +114,6 @@ class _SignUpCardState extends State<SignUpCard> {
   String? _validPassword() {
     if (_passwordController.text.isEmpty) {
       return S.current.not_empty;
-    }
-    return null;
-  }
-
-  String? _validRetypePassword() {
-    if (_retypePasswordController.text.isEmpty) {
-      return S.current.not_empty;
-    }
-    if (_retypePasswordController.text.compareTo(_passwordController.text) !=
-        0) {
-      return S.current.retype_password_not_match;
     }
     return null;
   }

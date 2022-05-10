@@ -2,10 +2,7 @@ import 'package:simplane_client_admin/core/setting.dart';
 import 'package:simplane_client_admin/model/user.dart';
 
 class UserManager {
-  static final UserManager _instance = UserManager._internal();
-  factory UserManager() {
-    return _instance;
-  }
+  static final UserManager instance = UserManager._internal();
   UserManager._internal();
 
   User? _user;

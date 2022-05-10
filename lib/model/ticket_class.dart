@@ -26,4 +26,11 @@ class TicketClass extends Equatable {
 
   @override
   bool get stringify => true;
+
+  static List<TicketClass> mapToList(List<dynamic>? maps) {
+    if (maps == null || maps.isEmpty) {
+      return [];
+    }
+    return maps.map((data) => TicketClass.fromJson(data)).toList();
+  }
 }
