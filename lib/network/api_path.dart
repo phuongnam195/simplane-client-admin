@@ -12,6 +12,9 @@ const LOGOUT = '$URL/api/auth/logout';
 const FLIGHT_GET = '$URL/api/flight/get';
 const FLIGHT_GETS = '$URL/api/flight/gets';
 
+const TICKET_GET = '$URL/api/ticket/get';
+const TICKET_GETS = '$URL/api/ticket/gets';
+
 const TICKET_CLASS_GETS = '$URL/api/ticket-class/gets';
 
 Future<List<dynamic>> getListFromApi(

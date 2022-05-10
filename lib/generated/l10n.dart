@@ -220,11 +220,11 @@ class S {
     );
   }
 
-  /// `Date`
-  String get flight_date {
+  /// `Date/time`
+  String get flight_datetime {
     return Intl.message(
-      'Date',
-      name: 'flight_date',
+      'Date/time',
+      name: 'flight_datetime',
       desc: '',
       args: [],
     );
@@ -265,6 +265,156 @@ class S {
     return Intl.message(
       'Pick a duration',
       name: 'pick_duration',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Flight {flightCode}`
+  String flight_title(String flightCode) {
+    return Intl.message(
+      'Flight $flightCode',
+      name: 'flight_title',
+      desc: '',
+      args: [flightCode],
+    );
+  }
+
+  /// `Intermediate airport`
+  String get intermediate_airport {
+    return Intl.message(
+      'Intermediate airport',
+      name: 'intermediate_airport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stop duration`
+  String get stop_duration {
+    return Intl.message(
+      'Stop duration',
+      name: 'stop_duration',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ticket code`
+  String get ticket_code {
+    return Intl.message(
+      'Ticket code',
+      name: 'ticket_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Flight date`
+  String get flight_date {
+    return Intl.message(
+      'Flight date',
+      name: 'flight_date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passenger`
+  String get passenger {
+    return Intl.message(
+      'Passenger',
+      name: 'passenger',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Identity`
+  String get identity_number {
+    return Intl.message(
+      'Identity',
+      name: 'identity_number',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone number`
+  String get phone_number {
+    return Intl.message(
+      'Phone number',
+      name: 'phone_number',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ticket class`
+  String get ticket_class {
+    return Intl.message(
+      'Ticket class',
+      name: 'ticket_class',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Price`
+  String get price {
+    return Intl.message(
+      'Price',
+      name: 'price',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Time of booking`
+  String get booked_time {
+    return Intl.message(
+      'Time of booking',
+      name: 'booked_time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Flight schedule`
+  String get flight_schedule {
+    return Intl.message(
+      'Flight schedule',
+      name: 'flight_schedule',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ticket`
+  String get ticket {
+    return Intl.message(
+      'Ticket',
+      name: 'ticket',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Report`
+  String get report {
+    return Intl.message(
+      'Report',
+      name: 'report',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logout`
+  String get logout {
+    return Intl.message(
+      'Logout',
+      name: 'logout',
       desc: '',
       args: [],
     );

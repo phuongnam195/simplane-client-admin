@@ -1,3 +1,7 @@
+import 'package:intl/intl.dart';
+
+import 'logger.dart';
+
 bool isNullOrEmpty(dynamic s) {
   if (s != null && s is String) {
     s = s.trim();
@@ -41,5 +45,14 @@ String getUrlWithQuery(String url, {Map<String, dynamic>? query}) {
     return result.toString();
   } else {
     return url;
+  }
+}
+
+String formatCurrency(dynamic price) {
+  try {
+    return NumberFormat("#,##0", "en_US").format(price);
+  } catch (e) {
+    Logger.e('utils.dart -> formatCurrency($price)', '$e');
+    return '0';
   }
 }

@@ -12,8 +12,14 @@ class Passenger extends Equatable {
   final String email;
   final String phoneNumber;
 
-  const Passenger(this.id, this.firstName, this.lastName, this.identityNumber,
-      this.email, this.phoneNumber);
+  const Passenger({
+    required this.id,
+    required this.firstName,
+    required this.lastName,
+    required this.identityNumber,
+    required this.email,
+    required this.phoneNumber,
+  });
 
   factory Passenger.fromJson(Map<String, dynamic> json) =>
       _$PassengerFromJson(json);
@@ -26,4 +32,6 @@ class Passenger extends Equatable {
 
   @override
   bool get stringify => true;
+
+  String get name => firstName + ' ' + lastName;
 }

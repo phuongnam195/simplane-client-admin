@@ -11,22 +11,22 @@ class Flight extends Equatable {
   final String code;
   final Airport fromAirport;
   final Airport toAirport;
-  final DateTime date;
+  final DateTime datetime;
   final int duration;
   final Map<String, int> seatAmount; // key = ticketClassId, value: quantity
-  final Map<String, int> orderedAmount; // key = ticketClassId, value: quantity
+  final Map<String, int> bookedAmount; // key = ticketClassId, value: quantity
   final List<Airport> middleAirports;
-  final List<int> stopDurations;
+  final List<int> stopDurations; // milisecond
 
   const Flight(
       {required this.id,
       required this.code,
       required this.fromAirport,
       required this.toAirport,
-      required this.date,
+      required this.datetime,
       required this.duration,
       required this.seatAmount,
-      required this.orderedAmount,
+      required this.bookedAmount,
       required this.middleAirports,
       required this.stopDurations});
 
@@ -40,10 +40,10 @@ class Flight extends Equatable {
         code,
         fromAirport,
         toAirport,
-        date,
+        datetime,
         duration,
         seatAmount,
-        orderedAmount,
+        bookedAmount,
         middleAirports,
         stopDurations
       ];

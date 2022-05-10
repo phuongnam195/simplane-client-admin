@@ -3,17 +3,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:simplane_client_admin/core/injection.dart' as di;
 import 'package:simplane_client_admin/core/user_manager.dart';
+import 'package:simplane_client_admin/generated/l10n.dart';
 import 'package:simplane_client_admin/screen/auth/auth_screen.dart';
 import 'package:simplane_client_admin/repository/user_repository.dart';
 import 'package:simplane_client_admin/screen/employee/home/home_bloc.dart';
+import 'package:simplane_client_admin/screen/employee/home/page/flight_page.dart';
+import 'package:simplane_client_admin/screen/employee/home/page/ticket_page.dart';
 import 'package:simplane_client_admin/util/constants.dart';
 
 final homeBloc = HomeBloc();
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static const routeName = '/home';
 
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int curPageIdx = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -23,19 +33,19 @@ class HomeScreen extends StatelessWidget {
         children: [
           _navigationSideMenu(),
           Expanded(
-            child: BlocBuilder<HomeBloc, HomeState>(
-                bloc: homeBloc,
-                buildWhen: (previous, current) =>
-                    current is PageNavigated || current is HomeLoading,
-                builder: (context, state) {
-                  if (state is PageNavigated) {
-                    return state.page;
-                  } else if (state is HomeLoading) {
-                    return const CircularProgressIndicator();
-                  }
-                  return Container();
-                }),
-          ),
+            child: Builder(
+              builder: (context) {
+                switch (curPageIdx) {
+                  case 0:
+                    return const FlightPage();
+                  case 1:
+                    return const TicketPage();
+                  default:
+                    return Container();
+                }
+              },
+            ),
+          )
         ],
       ),
     );
@@ -77,28 +87,43 @@ class HomeScreen extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.flight),
-            title: const Text('Lịch bay'),
-            onTap: () {},
-            selected: true,
+            title: Text(S.current.flight_schedule),
+            onTap: () {
+              if (curPageIdx == 0) return;
+              setState(() {
+                curPageIdx = 0;
+              });
+            },
+            selected: curPageIdx == 0,
             selectedColor: AppColor.primary,
           ),
           ListTile(
             leading: const Icon(Icons.airplane_ticket_outlined),
-            title: const Text('Vé'),
-            onTap: () {},
-            selected: false,
+            title: Text(S.current.ticket),
+            onTap: () {
+              if (curPageIdx == 1) return;
+              setState(() {
+                curPageIdx = 1;
+              });
+            },
+            selected: curPageIdx == 1,
             selectedColor: AppColor.primary,
           ),
           ListTile(
             leading: const Icon(Icons.summarize_outlined),
-            title: const Text('Báo cáo'),
-            onTap: () {},
-            selected: false,
+            title: Text(S.current.report),
+            onTap: () {
+              if (curPageIdx == 2) return;
+              setState(() {
+                curPageIdx = 2;
+              });
+            },
+            selected: curPageIdx == 2,
             selectedColor: AppColor.primary,
           ),
           ListTile(
             leading: const Icon(Icons.logout_outlined),
-            title: const Text('Đăng xuất'),
+            title: Text(S.current.logout),
             onTap: () => _logout(),
             selected: false,
             selectedColor: AppColor.primary,

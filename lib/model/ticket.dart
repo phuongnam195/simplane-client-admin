@@ -8,23 +8,46 @@ part 'ticket.g.dart';
 @JsonSerializable()
 class Ticket extends Equatable {
   final int id;
+  final String code;
   final String flightCode;
-  final Passenger passenger;
+  final DateTime flightDate;
+  final Passenger? passenger;
   final String ticketClassId;
   final double price;
-  final DateTime orderTime;
+  final DateTime? bookedTime;
 
-  const Ticket(this.id, this.flightCode, this.passenger, this.ticketClassId,
-      this.price, this.orderTime);
+  const Ticket(
+      {required this.id,
+      required this.code,
+      required this.flightCode,
+      required this.flightDate,
+      required this.passenger,
+      required this.ticketClassId,
+      required this.price,
+      this.bookedTime});
 
   factory Ticket.fromJson(Map<String, dynamic> json) => _$TicketFromJson(json);
 
   Map<String, dynamic> toJson() => _$TicketToJson(this);
 
   @override
-  List<Object> get props =>
-      [flightCode, passenger, ticketClassId, price, orderTime];
+  List<Object?> get props => [
+        code,
+        flightCode,
+        flightDate,
+        passenger,
+        ticketClassId,
+        price,
+        bookedTime
+      ];
 
   @override
   bool get stringify => true;
+
+  static List<Ticket> mapToList(List<dynamic>? maps) {
+    if (maps == null || maps.isEmpty) {
+      return [];
+    }
+    return maps.map((data) => Ticket.fromJson(data)).toList();
+  }
 }

@@ -22,9 +22,12 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(ticketClass) => "${ticketClass}\'s seat";
 
+  static String m1(flightCode) => "Flight ${flightCode}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "app_name": MessageLookupByLibrary.simpleMessage("Simplane"),
+        "booked_time": MessageLookupByLibrary.simpleMessage("Time of booking"),
         "class_seat_count": m0,
         "error": MessageLookupByLibrary.simpleMessage("Error"),
         "error_no_internet": MessageLookupByLibrary.simpleMessage(
@@ -32,24 +35,40 @@ class MessageLookup extends MessageLookupByLibrary {
         "error_timeout": MessageLookupByLibrary.simpleMessage(
             "Connection timeout. Please try again!"),
         "flight_code": MessageLookupByLibrary.simpleMessage("Flight code"),
-        "flight_date": MessageLookupByLibrary.simpleMessage("Date"),
+        "flight_date": MessageLookupByLibrary.simpleMessage("Flight date"),
+        "flight_datetime": MessageLookupByLibrary.simpleMessage("Date/time"),
         "flight_duration": MessageLookupByLibrary.simpleMessage("Duration"),
+        "flight_schedule":
+            MessageLookupByLibrary.simpleMessage("Flight schedule"),
         "flight_search_hint":
             MessageLookupByLibrary.simpleMessage("Flight code, airport,..."),
+        "flight_title": m1,
         "from_airport": MessageLookupByLibrary.simpleMessage("From"),
         "fullname": MessageLookupByLibrary.simpleMessage("Full name"),
         "hahahaha": MessageLookupByLibrary.simpleMessage("hahahaha"),
+        "identity_number": MessageLookupByLibrary.simpleMessage("Identity"),
+        "intermediate_airport":
+            MessageLookupByLibrary.simpleMessage("Intermediate airport"),
+        "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "no_data": MessageLookupByLibrary.simpleMessage("No data"),
         "not_empty": MessageLookupByLibrary.simpleMessage("Cannot be empty!"),
+        "passenger": MessageLookupByLibrary.simpleMessage("Passenger"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "phone_number": MessageLookupByLibrary.simpleMessage("Phone number"),
         "pick_duration":
             MessageLookupByLibrary.simpleMessage("Pick a duration"),
+        "price": MessageLookupByLibrary.simpleMessage("Price"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
+        "report": MessageLookupByLibrary.simpleMessage("Report"),
         "retype_password":
             MessageLookupByLibrary.simpleMessage("Retype password"),
         "retype_password_not_match": MessageLookupByLibrary.simpleMessage(
             "Retype password does not match!"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
+        "stop_duration": MessageLookupByLibrary.simpleMessage("Stop duration"),
+        "ticket": MessageLookupByLibrary.simpleMessage("Ticket"),
+        "ticket_class": MessageLookupByLibrary.simpleMessage("Ticket class"),
+        "ticket_code": MessageLookupByLibrary.simpleMessage("Ticket code"),
         "to_airport": MessageLookupByLibrary.simpleMessage("To"),
         "unknown_error": MessageLookupByLibrary.simpleMessage(
             "Unknown error, please try again!"),

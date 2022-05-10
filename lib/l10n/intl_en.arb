@@ -16,7 +16,7 @@
     "flight_code": "Flight code",
     "from_airport": "From",
     "to_airport": "To",
-    "flight_date": "Date",
+    "flight_datetime": "Date/time",
     "flight_duration": "Duration",
     "class_seat_count": "{ticketClass}'s seat",
     "@class_seat_count": {
@@ -28,7 +28,28 @@
     },
     "flight_search_hint": "Flight code, airport,...",
     "pick_duration": "Pick a duration",
-
+    "flight_title": "Flight {flightCode}",
+    "@flight_title": {
+        "placeholders": {
+            "flightCode": {
+                "type": "String"
+            }
+        }
+    },
+    "intermediate_airport": "Intermediate airport",
+    "stop_duration": "Stop duration",
+    "ticket_code": "Ticket code",
+    "flight_date": "Flight date",
+    "passenger": "Passenger",
+    "identity_number": "Identity",
+    "phone_number": "Phone number",
+    "ticket_class": "Ticket class",
+    "price": "Price",
+    "booked_time": "Time of booking",
+    "flight_schedule": "Flight schedule",
+    "ticket": "Ticket",
+    "report": "Report",
+    "logout": "Logout",
 
 
     "hahahaha": "hahahaha"

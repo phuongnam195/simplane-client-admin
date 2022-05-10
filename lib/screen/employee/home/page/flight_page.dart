@@ -8,6 +8,7 @@ import 'package:simplane_client_admin/model/flight.dart';
 import 'package:simplane_client_admin/model/ticket_class.dart';
 import 'package:simplane_client_admin/screen/employee/home/home_bloc.dart';
 import 'package:simplane_client_admin/screen/employee/home/home_screen.dart';
+import 'package:simplane_client_admin/screen/employee/home/page/widget/flight_detail.dart';
 import 'package:simplane_client_admin/util/constants.dart';
 import 'package:simplane_client_admin/util/date_time_utils.dart';
 
@@ -24,27 +25,27 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
   static const int sortCode = 0;
   static const int sortFlightDate = 1;
 
-  List<Flight> data = [];
-  List<Flight> dataToShow = [];
-  bool isLoading = false;
+  List<Flight> _data = [];
+  List<Flight> _dataToShow = [];
+  bool _isLoading = false;
 
   bool isAscending = true;
   int sortType = sortCode;
 
-  final listTicketClass = RuleManager.instance.getListTicketClass();
+  final ticketClasses = RuleManager.instance.getListTicketClass();
 
   final Map<String, double> colWidths = {
     'code': 120,
     'from': 150,
     'to': 150,
-    'date': 150,
+    'date': 200,
     'duration': 150,
     'seat': 150,
   };
   double get tableWidth =>
       colWidths.values.fold<double>(0, (v, e) => v + e) -
       colWidths['seat']! +
-      listTicketClass.length * colWidths['seat']!;
+      ticketClasses.length * colWidths['seat']!;
 
   @override
   void initState() {
@@ -94,47 +95,49 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
                   style: TextButton.styleFrom(
                     primary: AppColor.primary,
                     onSurface: AppColor.primary,
-                    textStyle: AppStyle.subtitle,
+                    textStyle: AppStyle.title,
                   ),
                   onPressed: () => showDateFilterDialog(context),
                 ),
               )
             ],
           ),
-          BlocListener(
+          BlocListener<HomeBloc, HomeState>(
             bloc: homeBloc,
             listenWhen: (previous, current) =>
                 current is FlightsLoaded || current is DataLoading,
             listener: (context, state) {
               if (state is DataLoading) {
                 setState(() {
-                  isLoading = true;
+                  _isLoading = true;
                 });
               } else if (state is FlightsLoaded) {
                 setState(() {
-                  isLoading = false;
-                  data = state.flights;
-                  dataToShow = data;
+                  _isLoading = false;
+                  _data = state.flights;
+                  _dataToShow = _data;
                 });
               } else if (state is LoadDataFailed) {
                 //TODO: show error dialog
               }
             },
             child: Expanded(
-              child: HorizontalDataTable(
-                leftHandSideColumnWidth: colWidths['code']!,
-                rightHandSideColumnWidth: tableWidth - colWidths['code']!,
-                isFixedHeader: true,
-                headerWidgets: _getTitleWidget(),
-                leftSideItemBuilder: _generateFirstColumnRow,
-                rightSideItemBuilder: _generateRightHandSideColumnRow,
-                itemCount: dataToShow.length,
-                rowSeparatorWidget: const Divider(
-                  color: Colors.black54,
-                  height: 1.0,
-                  thickness: 0.0,
-                ),
-              ),
+              child: _isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : HorizontalDataTable(
+                      leftHandSideColumnWidth: colWidths['code']!,
+                      rightHandSideColumnWidth: tableWidth - colWidths['code']!,
+                      isFixedHeader: true,
+                      headerWidgets: _getTitleWidget(),
+                      leftSideItemBuilder: _generateFirstColumnRow,
+                      rightSideItemBuilder: _generateRightHandSideColumnRow,
+                      itemCount: _dataToShow.length,
+                      rowSeparatorWidget: const Divider(
+                        color: Colors.black54,
+                        height: 1.0,
+                        thickness: 0.0,
+                      ),
+                    ),
             ),
           ),
         ],
@@ -155,7 +158,7 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
         onPressed: () {
           sortType = sortCode;
           isAscending = !isAscending;
-          dataToShow.sort(
+          _dataToShow.sort(
               ((a, b) => (isAscending ? 1 : -1) * a.code.compareTo(b.code)));
           setState(() {});
         },
@@ -167,14 +170,14 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
           padding: EdgeInsets.zero,
         ),
         child: _getTitleItemWidget(
-            S.current.flight_date +
+            S.current.flight_datetime +
                 (sortType == sortFlightDate ? (isAscending ? '↓' : '↑') : ''),
             colWidths['date']!),
         onPressed: () {
           sortType = sortFlightDate;
           isAscending = !isAscending;
-          dataToShow.sort(
-              ((a, b) => (isAscending ? 1 : -1) * a.date.compareTo(b.date)));
+          _dataToShow.sort(((a, b) =>
+              (isAscending ? 1 : -1) * a.datetime.compareTo(b.datetime)));
           setState(() {});
         },
       ),
@@ -196,27 +199,27 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
   }
 
   Widget _generateFirstColumnRow(BuildContext context, int index) {
-    return _rightHandSideColumnRow(dataToShow[index].code, colWidths['code']!);
+    return _rightHandSideColumnRow(_dataToShow[index].code, colWidths['code']!);
   }
 
   Widget _generateRightHandSideColumnRow(BuildContext context, int index) {
     return InkWell(
-      onTap: () => showAboutDialog(context: context),
+      onTap: () => _showFlightDetail(_dataToShow[index]),
       child: Row(
         children: [
           _rightHandSideColumnRow(
-              dataToShow[index].fromAirport.name, colWidths['from']!),
+              _dataToShow[index].fromAirport.name, colWidths['from']!),
           _rightHandSideColumnRow(
-              dataToShow[index].toAirport.name, colWidths['to']!),
+              _dataToShow[index].toAirport.name, colWidths['to']!),
           _rightHandSideColumnRow(
-              DateTimeUtils.formatDate(dataToShow[index].date),
+              DateTimeUtils.formatDateTimeWOSec(_dataToShow[index].datetime),
               colWidths['date']!),
           _rightHandSideColumnRow(
-              DateTimeUtils.formatDuration(dataToShow[index].duration * 60),
+              DateTimeUtils.formatDuration(_dataToShow[index].duration * 60),
               colWidths['duration']!),
           for (TicketClass tc in RuleManager.instance.getListTicketClass())
             _rightHandSideColumnRow(
-              dataToShow[index].seatAmount[tc.id].toString(),
+              _dataToShow[index].seatAmount[tc.id]?.toString() ?? '0',
               colWidths['seat']!,
             ),
         ],
@@ -236,7 +239,7 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
 
   _onSearch(String keyword) {
     setState(() {
-      dataToShow = data
+      _dataToShow = _data
           .where((e) => [
                 e.code,
                 e.fromAirport.code,
@@ -246,6 +249,20 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
               ].join('###').toLowerCase().contains(keyword.toLowerCase()))
           .toList();
     });
+  }
+
+  _showFlightDetail(Flight flight) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+              title: Text(
+                S.current.flight_title(flight.code),
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+              ),
+              content: FlightDetail(flight));
+        });
   }
 
   @override

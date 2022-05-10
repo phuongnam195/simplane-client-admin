@@ -10,9 +10,17 @@ class DateTimeUtils {
     return DateFormat('dd/MM/yyyy').format(dateTime);
   }
 
+  static String formatDateTime(DateTime dateTime) {
+    return DateFormat('hh:mm:ss dd/MM/yyyy').format(dateTime);
+  }
+
+  static String formatDateTimeWOSec(DateTime dateTime) {
+    return DateFormat('hh:mm dd/MM/yyyy').format(dateTime);
+  }
+
   // duration's unit = seconds
   static String formatDuration(int duration) {
-    final time = DateTime.fromMillisecondsSinceEpoch(duration * 1000);
+    final time = DateTime(2001, 5, 19, 0, 0, duration);
     String res = '';
     if (time.hour != 0) res += '${time.hour}h';
     if (time.minute != 0) res += ' ${time.minute}m';
