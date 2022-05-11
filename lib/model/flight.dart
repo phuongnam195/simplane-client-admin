@@ -13,8 +13,10 @@ class Flight extends Equatable {
   final Airport toAirport;
   final DateTime datetime;
   final int duration;
-  final Map<String, int> seatAmount; // key = ticketClassId, value: quantity
-  final Map<String, int> bookedAmount; // key = ticketClassId, value: quantity
+  final Map<String, int>
+      seatAmount; // total seat, key = ticketClassId, value: quantity
+  final Map<String, int>
+      bookedAmount; // booked seat, key = ticketClassId, value: quantity
   final List<Airport> middleAirports;
   final List<int> stopDurations; // milisecond
 

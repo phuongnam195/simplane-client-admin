@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:simplane_client_admin/screen/employee/home/home_screen.dart';
+import 'package:simplane_client_admin/screen/staff/home/home_screen.dart';
 import 'package:simplane_client_admin/screen/auth/auth_screen.dart';
 import 'package:simplane_client_admin/screen/splash/splash_bloc.dart';
 

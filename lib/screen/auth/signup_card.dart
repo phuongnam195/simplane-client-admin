@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:simplane_client_admin/generated/l10n.dart';
-import 'package:simplane_client_admin/screen/employee/home/home_screen.dart';
+import 'package:simplane_client_admin/screen/staff/home/home_screen.dart';
 import 'package:simplane_client_admin/util/constants.dart';
 
 import 'auth_bloc.dart';

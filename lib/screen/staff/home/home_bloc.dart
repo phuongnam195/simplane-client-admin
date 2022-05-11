@@ -9,7 +9,7 @@ import 'package:simplane_client_admin/model/ticket.dart';
 import 'package:simplane_client_admin/repository/flight_repository.dart';
 import 'package:simplane_client_admin/repository/report_repository.dart';
 import 'package:simplane_client_admin/repository/ticket_repository.dart';
-import 'package:simplane_client_admin/screen/employee/flight/flight_page.dart';
+import 'package:simplane_client_admin/screen/staff/flight/flight_page.dart';
 import 'package:simplane_client_admin/util/logger.dart';
 
 import '../report/report_page.dart';

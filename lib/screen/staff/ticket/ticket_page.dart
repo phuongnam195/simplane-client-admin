@@ -4,7 +4,7 @@ import 'package:horizontal_data_table/horizontal_data_table.dart';
 import 'package:simplane_client_admin/core/base_mixin_function.dart';
 import 'package:simplane_client_admin/generated/l10n.dart';
 import 'package:simplane_client_admin/model/ticket.dart';
-import 'package:simplane_client_admin/screen/employee/home/home_bloc.dart';
+import 'package:simplane_client_admin/screen/staff/home/home_bloc.dart';
 import 'package:simplane_client_admin/util/constants.dart';
 import 'package:simplane_client_admin/util/date_time_utils.dart';
 import 'package:simplane_client_admin/util/utils.dart';

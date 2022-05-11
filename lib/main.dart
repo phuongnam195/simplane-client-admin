@@ -4,7 +4,7 @@ import 'package:simplane_client_admin/generated/l10n.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import 'core/injection.dart' as di;
-import 'screen/employee/home/home_screen.dart';
+import 'screen/staff/home/home_screen.dart';
 import 'screen/auth/auth_screen.dart';
 import 'screen/splash/splash_screen.dart';
 
