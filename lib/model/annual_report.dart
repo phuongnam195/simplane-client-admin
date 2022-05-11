@@ -8,9 +8,9 @@ part 'annual_report.g.dart';
 class AnnualReport extends Equatable {
   final int year;
   final List<MonthlyReport> monthlyReports; // 0-11 (1-12)
-  final int? userId;
+  final int? staffId;
 
-  const AnnualReport(this.year, this.monthlyReports, [this.userId]);
+  const AnnualReport(this.year, this.monthlyReports, [this.staffId]);
 
   factory AnnualReport.fromJson(Map<String, dynamic> json) =>
       _$AnnualReportFromJson(json);
@@ -18,13 +18,13 @@ class AnnualReport extends Equatable {
   Map<String, dynamic> toJson() => _$AnnualReportToJson(this);
 
   @override
-  List<Object?> get props => [year, monthlyReports, userId];
+  List<Object?> get props => [year, monthlyReports, staffId];
 
   @override
   bool get stringify => true;
 
   int? get totalFlight {
-    if (userId != null) return null;
+    if (staffId != null) return null;
     int s = 0;
     for (MonthlyReport report in monthlyReports) {
       s += report.flightCount!;

@@ -5,7 +5,7 @@ part 'monthly_report.g.dart';
 
 @JsonSerializable()
 class MonthlyReport extends Equatable {
-  final int? userId;
+  final int? staffId;
   final int year;
   final int month;
   final int? flightCount;
@@ -13,13 +13,13 @@ class MonthlyReport extends Equatable {
   final double revenue;
 
   const MonthlyReport({
-    this.userId,
+    this.staffId,
     required this.year,
     required this.month,
     this.flightCount,
     required this.ticketCount,
     required this.revenue,
-  }) : assert(!((userId == null) ^ (flightCount != null)));
+  }) : assert(!((staffId == null) ^ (flightCount != null)));
 
   factory MonthlyReport.fromJson(Map<String, dynamic> json) =>
       _$MonthlyReportFromJson(json);
@@ -28,7 +28,7 @@ class MonthlyReport extends Equatable {
 
   @override
   List<Object?> get props =>
-      [userId, year, month, flightCount, ticketCount, revenue];
+      [staffId, year, month, flightCount, ticketCount, revenue];
 
   @override
   bool get stringify => true;

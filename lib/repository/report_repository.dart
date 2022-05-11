@@ -6,13 +6,13 @@ import 'package:simplane_client_admin/network/base/api_client.dart';
 import '../dummy_data.dart';
 
 abstract class ReportRepository extends BaseRepository<AnnualReport> {
-  Future<AnnualReport> getReport(int year, [int? userId]);
+  Future<AnnualReport> getReport(int year, [int? staffId]);
 }
 
 class ReportRepositoryImp extends BaseRepositoryImp<AnnualReport>
     implements ReportRepository {
   @override
-  Future<AnnualReport> getReport(int year, [int? userId]) async {
+  Future<AnnualReport> getReport(int year, [int? staffId]) async {
     return reportsDummy.firstWhere(
       (e) => e.year == year,
       orElse: () => AnnualReport(year, const []),
@@ -21,7 +21,7 @@ class ReportRepositoryImp extends BaseRepositoryImp<AnnualReport>
     // TODO: api
 
     // return AnnualReport.fromJson(await ApiClient(REPORT_GET).get(
-    //     params: {'year': year, 'userId': userId}
+    //     params: {'year': year, 'staffId': staffId}
     //       ..removeWhere((_, v) => v == null)));
   }
 }
