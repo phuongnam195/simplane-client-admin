@@ -50,6 +50,15 @@
     "ticket": "Ticket",
     "report": "Report",
     "logout": "Logout",
+    "all": "All",
+    "not_sold": "Not sold",
+    "is_sold": "Sold",
+    "pending": "Pending",
+    "month": "Month",
+    "flight_count": "Number of flights",
+    "ticket_count": "Number of tickets",
+    "revenue": "Revenue",
+    "annual_revenue_report": "Annual Revenue Report",
 
 
     "hahahaha": "hahahaha"

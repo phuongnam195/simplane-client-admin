@@ -420,6 +420,96 @@ class S {
     );
   }
 
+  /// `All`
+  String get all {
+    return Intl.message(
+      'All',
+      name: 'all',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Not sold`
+  String get not_sold {
+    return Intl.message(
+      'Not sold',
+      name: 'not_sold',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sold`
+  String get is_sold {
+    return Intl.message(
+      'Sold',
+      name: 'is_sold',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pending`
+  String get pending {
+    return Intl.message(
+      'Pending',
+      name: 'pending',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Month`
+  String get month {
+    return Intl.message(
+      'Month',
+      name: 'month',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Number of flights`
+  String get flight_count {
+    return Intl.message(
+      'Number of flights',
+      name: 'flight_count',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Number of tickets`
+  String get ticket_count {
+    return Intl.message(
+      'Number of tickets',
+      name: 'ticket_count',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Revenue`
+  String get revenue {
+    return Intl.message(
+      'Revenue',
+      name: 'revenue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Annual Revenue Report`
+  String get annual_revenue_report {
+    return Intl.message(
+      'Annual Revenue Report',
+      name: 'annual_revenue_report',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `hahahaha`
   String get hahahaha {
     return Intl.message(

@@ -1,11 +1,13 @@
 //region EVENT
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:simplane_client_admin/core/injection.dart';
+import 'package:simplane_client_admin/core/user_manager.dart';
+import 'package:simplane_client_admin/model/annual_report.dart';
 import 'package:simplane_client_admin/model/flight.dart';
 import 'package:simplane_client_admin/model/ticket.dart';
 import 'package:simplane_client_admin/repository/flight_repository.dart';
+import 'package:simplane_client_admin/repository/report_repository.dart';
 import 'package:simplane_client_admin/repository/ticket_repository.dart';
 import 'package:simplane_client_admin/screen/employee/flight/flight_page.dart';
 import 'package:simplane_client_admin/util/logger.dart';
@@ -29,6 +31,12 @@ class LoadTickets extends HomeEvent {
 
   LoadTickets(this.fromDate, this.toDate, this.extraQuery);
 }
+
+class LoadReport extends HomeEvent {
+  final int year;
+
+  LoadReport(this.year);
+}
 //endregion
 
 //region STATE
@@ -50,10 +58,16 @@ class TicketsLoaded extends HomeState {
   TicketsLoaded(this.tickets);
 }
 
-class LoadDataFailed extends HomeState {
+class ReportLoaded extends HomeState {
+  final AnnualReport report;
+
+  ReportLoaded(this.report);
+}
+
+class DataLoadFailed extends HomeState {
   final String error;
 
-  LoadDataFailed(this.error);
+  DataLoadFailed(this.error);
 }
 //endregion
 
@@ -61,6 +75,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeLoading()) {
     on<LoadFlights>(_onLoadFlights);
     on<LoadTickets>(_onLoadTickets);
+    on<LoadReport>(_onLoadReport);
   }
 
   _onLoadFlights(LoadFlights event, Emitter<HomeState> emit) async {
@@ -71,7 +86,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           await repo.getFlights(fromDate: event.fromDate, toDate: event.toDate);
       emit(FlightsLoaded(flights));
     } catch (e) {
-      emit(LoadDataFailed(e.toString()));
+      emit(DataLoadFailed(e.toString()));
       Logger.e('HomeBloc -> _onLoadFlights()', e);
     }
   }
@@ -86,8 +101,21 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           extraQuery: event.extraQuery);
       emit(TicketsLoaded(tickets));
     } catch (e) {
-      emit(LoadDataFailed(e.toString()));
+      emit(DataLoadFailed(e.toString()));
       Logger.e('HomeBloc -> _onLoadTickets()', e);
+    }
+  }
+
+  _onLoadReport(LoadReport event, Emitter<HomeState> emit) async {
+    emit(DataLoading());
+    ReportRepository repo = Get.find();
+    try {
+      final report =
+          await repo.getReport(event.year, UserManager.instance.getUser()!.id);
+      emit(ReportLoaded(report));
+    } catch (e) {
+      emit(DataLoadFailed(e.toString()));
+      Logger.e('HomeBloc -> _onLoadReport()', e);
     }
   }
 }

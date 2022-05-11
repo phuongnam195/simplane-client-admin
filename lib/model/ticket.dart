@@ -21,10 +21,11 @@ class Ticket extends Equatable {
       required this.code,
       required this.flightCode,
       required this.flightDate,
-      required this.passenger,
+      this.passenger,
       required this.ticketClassId,
       required this.price,
-      this.bookedTime});
+      this.bookedTime})
+      : assert(!((passenger == null) ^ (bookedTime == null)));
 
   factory Ticket.fromJson(Map<String, dynamic> json) => _$TicketFromJson(json);
 
@@ -50,4 +51,7 @@ class Ticket extends Equatable {
     }
     return maps.map((data) => Ticket.fromJson(data)).toList();
   }
+
+  bool get isBooked => passenger != null && bookedTime != null;
+  bool get isPending => passenger != null && bookedTime == null;
 }

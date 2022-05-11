@@ -1,6 +1,8 @@
 import 'package:simplane_client_admin/model/ticket_class.dart';
 import 'package:simplane_client_admin/network/api_path.dart';
 
+import '../dummy_data.dart';
+
 class RuleManager {
   static final RuleManager instance = RuleManager._internal();
   RuleManager._internal();
@@ -15,9 +17,6 @@ class RuleManager {
   Future<void> load() async {
     // TODO: chưa có API
     // _listTicketClass = TicketClass.mapToList(await getListFromApi(apiUrl: TICKET_CLASS_GETS));
-    _listTicketClass = [
-      const TicketClass('E', 'Economy', false, 0, false, 0),
-      const TicketClass('B', 'Business', true, 100000, true, 100000),
-    ];
+    _listTicketClass = ticketClassesDummy;
   }
 }

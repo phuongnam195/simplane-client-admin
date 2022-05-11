@@ -31,7 +31,15 @@ class TicketRepositoryImp extends BaseRepositoryImp<Ticket>
     Map<String, dynamic>? extraQuery,
   }) async {
     await fakeDelay;
-    return allTicketsDummy;
+    if (extraQuery == null) {
+      return allTicketsDummy;
+    } else if (extraQuery['isBooked'] == true) {
+      return allTicketsDummy.where((e) => e.isBooked).toList();
+    } else if (extraQuery['isBooked'] == false) {
+      return allTicketsDummy.where((e) => !e.isBooked).toList();
+    } else {
+      return allTicketsDummy;
+    }
 
     // TODO: chưa có API
 

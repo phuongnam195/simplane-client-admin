@@ -10,6 +10,7 @@ import 'package:simplane_client_admin/util/date_time_utils.dart';
 import 'package:simplane_client_admin/util/utils.dart';
 
 import '../home/home_screen.dart';
+import 'choice_bar.dart';
 
 class TicketPage extends StatefulWidget {
   static const pageName = 'ticket';
@@ -21,18 +22,24 @@ class TicketPage extends StatefulWidget {
 }
 
 class _TicketPageState extends State<TicketPage> with DatePickerFunction {
-  static const int sortFlightCode = 0;
-  static const int sortFlightDate = 1;
-  static const int sortTicketClass = 2;
-  static const int sortPrice = 3;
-  static const int sortBookedTime = 4;
+  static const int CHOICE_ALL = 0;
+  static const int CHOICE_PENDING = 1;
+  static const int CHOICE_NOT_BOOKED = 2;
+  static const int CHOICE_BOOKED = 3;
+
+  static const int SORT_FLIGHT_CODE = 0;
+  static const int SORT_FLIGHT_DATE = 1;
+  static const int SORT_TICKET_CLASS = 2;
+  static const int SORT_PRICE = 3;
+  static const int SORT_BOOKED_TIME = 4;
 
   List<Ticket> _data = [];
   List<Ticket> _dataToShow = [];
   bool _isLoading = false;
 
   bool isAscending = true;
-  int sortType = sortFlightCode;
+  int sortType = SORT_FLIGHT_CODE;
+  int choiceType = CHOICE_ALL;
 
   final Map<String, double> colWidths = {
     'code': 120,
@@ -45,7 +52,24 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
     'price': 120,
     'bookedTime': 150,
   };
-  double get tableWidth => colWidths.values.fold<double>(0, (v, e) => v + e);
+  double get tableWidth {
+    var res = colWidths.values.fold<double>(0, (v, e) => v + e);
+    switch (choiceType) {
+      case CHOICE_ALL:
+      case CHOICE_BOOKED:
+        return res;
+      case CHOICE_PENDING:
+        return res - colWidths['bookedTime']!;
+      case CHOICE_NOT_BOOKED:
+        return res -
+            (colWidths['passenger']! +
+                colWidths['identity']! +
+                colWidths['phone']! +
+                colWidths['bookedTime']!);
+      default:
+        return 0;
+    }
+  }
 
   @override
   void initState() {
@@ -102,10 +126,40 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
               )
             ],
           ),
+          const SizedBox(height: 10),
+          ChoiceBar(
+            {
+              S.current.all: () {
+                choiceType = CHOICE_ALL;
+                homeBloc.add(LoadTickets(fromDate, toDate, {}));
+              },
+              S.current.pending: () {
+                choiceType = CHOICE_PENDING;
+                homeBloc.add(LoadTickets(fromDate, toDate, {
+                  'isPending': true,
+                }));
+              },
+              S.current.is_sold: () {
+                choiceType = CHOICE_BOOKED;
+                homeBloc.add(LoadTickets(fromDate, toDate, {
+                  'isBooked': true,
+                }));
+              },
+              S.current.not_sold: () {
+                choiceType = CHOICE_NOT_BOOKED;
+                homeBloc.add(LoadTickets(fromDate, toDate, {
+                  'isBooked': false,
+                }));
+              },
+            },
+          ),
+          const SizedBox(height: 10),
           BlocListener<HomeBloc, HomeState>(
             bloc: homeBloc,
             listenWhen: (previous, current) =>
-                current is TicketsLoaded || current is DataLoading,
+                current is TicketsLoaded ||
+                current is DataLoading ||
+                current is DataLoadFailed,
             listener: (context, state) {
               if (state is DataLoading) {
                 setState(() {
@@ -117,7 +171,7 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
                   _data = state.tickets;
                   _dataToShow = _data;
                 });
-              } else if (state is LoadDataFailed) {
+              } else if (state is DataLoadFailed) {
                 //TODO: show error dialog
               }
             },
@@ -149,15 +203,13 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
     return [
       _getTitleItemWidget(S.current.ticket_code, colWidths['code']!),
       TextButton(
-        style: TextButton.styleFrom(
-          padding: EdgeInsets.zero,
-        ),
+        style: TextButton.styleFrom(padding: EdgeInsets.zero),
         child: _getTitleItemWidget(
             S.current.flight_code +
-                (sortType == sortFlightCode ? (isAscending ? '↓' : '↑') : ''),
+                (sortType == SORT_FLIGHT_CODE ? (isAscending ? '↓' : '↑') : ''),
             colWidths['flightCode']!),
         onPressed: () {
-          sortType = sortFlightCode;
+          sortType = SORT_FLIGHT_CODE;
           isAscending = !isAscending;
           _dataToShow.sort(((a, b) =>
               (isAscending ? 1 : -1) * a.flightCode.compareTo(b.flightCode)));
@@ -165,34 +217,35 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
         },
       ),
       TextButton(
-        style: TextButton.styleFrom(
-          padding: EdgeInsets.zero,
-        ),
+        style: TextButton.styleFrom(padding: EdgeInsets.zero),
         child: _getTitleItemWidget(
             S.current.flight_date +
-                (sortType == sortFlightDate ? (isAscending ? '↓' : '↑') : ''),
+                (sortType == SORT_FLIGHT_DATE ? (isAscending ? '↓' : '↑') : ''),
             colWidths['flightDate']!),
         onPressed: () {
-          sortType = sortFlightDate;
+          sortType = SORT_FLIGHT_DATE;
           isAscending = !isAscending;
           _dataToShow.sort(((a, b) =>
               (isAscending ? 1 : -1) * a.flightDate.compareTo(b.flightDate)));
           setState(() {});
         },
       ),
-      _getTitleItemWidget(S.current.passenger, colWidths['passenger']!),
-      _getTitleItemWidget(S.current.identity_number, colWidths['identity']!),
-      _getTitleItemWidget(S.current.phone_number, colWidths['phone']!),
+      if (choiceType != CHOICE_NOT_BOOKED)
+        _getTitleItemWidget(S.current.passenger, colWidths['passenger']!),
+      if (choiceType != CHOICE_NOT_BOOKED)
+        _getTitleItemWidget(S.current.identity_number, colWidths['identity']!),
+      if (choiceType != CHOICE_NOT_BOOKED)
+        _getTitleItemWidget(S.current.phone_number, colWidths['phone']!),
       TextButton(
-        style: TextButton.styleFrom(
-          padding: EdgeInsets.zero,
-        ),
+        style: TextButton.styleFrom(padding: EdgeInsets.zero),
         child: _getTitleItemWidget(
             S.current.ticket_class +
-                (sortType == sortTicketClass ? (isAscending ? '↓' : '↑') : ''),
+                (sortType == SORT_TICKET_CLASS
+                    ? (isAscending ? '↓' : '↑')
+                    : ''),
             colWidths['ticketClass']!),
         onPressed: () {
-          sortType = sortTicketClass;
+          sortType = SORT_TICKET_CLASS;
           isAscending = !isAscending;
           _dataToShow.sort(((a, b) =>
               (isAscending ? 1 : -1) *
@@ -201,37 +254,36 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
         },
       ),
       TextButton(
-        style: TextButton.styleFrom(
-          padding: EdgeInsets.zero,
-        ),
+        style: TextButton.styleFrom(padding: EdgeInsets.zero),
         child: _getTitleItemWidget(
             S.current.price +
-                (sortType == sortPrice ? (isAscending ? '↓' : '↑') : ''),
+                (sortType == SORT_PRICE ? (isAscending ? '↓' : '↑') : ''),
             colWidths['price']!),
         onPressed: () {
-          sortType = sortPrice;
+          sortType = SORT_PRICE;
           isAscending = !isAscending;
           _dataToShow.sort(
               ((a, b) => (isAscending ? 1 : -1) * a.price.compareTo(b.price)));
           setState(() {});
         },
       ),
-      TextButton(
-        style: TextButton.styleFrom(
-          padding: EdgeInsets.zero,
+      if (choiceType == CHOICE_ALL || choiceType == CHOICE_BOOKED)
+        TextButton(
+          style: TextButton.styleFrom(padding: EdgeInsets.zero),
+          child: _getTitleItemWidget(
+              S.current.booked_time +
+                  (sortType == SORT_BOOKED_TIME
+                      ? (isAscending ? '↓' : '↑')
+                      : ''),
+              colWidths['bookedTime']!),
+          onPressed: () {
+            sortType = SORT_PRICE;
+            isAscending = !isAscending;
+            _dataToShow.sort(((a, b) =>
+                (isAscending ? 1 : -1) * a.price.compareTo(b.price)));
+            setState(() {});
+          },
         ),
-        child: _getTitleItemWidget(
-            S.current.booked_time +
-                (sortType == sortBookedTime ? (isAscending ? '↓' : '↑') : ''),
-            colWidths['bookedTime']!),
-        onPressed: () {
-          sortType = sortPrice;
-          isAscending = !isAscending;
-          _dataToShow.sort(
-              ((a, b) => (isAscending ? 1 : -1) * a.price.compareTo(b.price)));
-          setState(() {});
-        },
-      ),
     ];
   }
 
@@ -251,7 +303,10 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
 
   Widget _generateRightHandSideColumnRow(BuildContext context, int index) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        //TODO: need code
+        showAboutDialog(context: context);
+      },
       child: Row(
         children: [
           _rightHandSideColumnRow(
@@ -259,24 +314,28 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
           _rightHandSideColumnRow(
               DateTimeUtils.formatDateTimeWOSec(_dataToShow[index].flightDate),
               colWidths['flightDate']!),
-          _rightHandSideColumnRow(_dataToShow[index].passenger?.name ?? '',
-              colWidths['passenger']!),
-          _rightHandSideColumnRow(
-              _dataToShow[index].passenger?.identityNumber ?? '',
-              colWidths['identity']!),
-          _rightHandSideColumnRow(
-              _dataToShow[index].passenger?.phoneNumber ?? '',
-              colWidths['phone']!),
+          if (choiceType != CHOICE_NOT_BOOKED)
+            _rightHandSideColumnRow(_dataToShow[index].passenger?.name ?? '',
+                colWidths['passenger']!),
+          if (choiceType != CHOICE_NOT_BOOKED)
+            _rightHandSideColumnRow(
+                _dataToShow[index].passenger?.identityNumber ?? '',
+                colWidths['identity']!),
+          if (choiceType != CHOICE_NOT_BOOKED)
+            _rightHandSideColumnRow(
+                _dataToShow[index].passenger?.phoneNumber ?? '',
+                colWidths['phone']!),
           _rightHandSideColumnRow(
               _dataToShow[index].ticketClassId, colWidths['ticketClass']!),
           _rightHandSideColumnRow(
-              formatCurrency(_dataToShow[index].price) + ' d',
-              colWidths['price']!),
-          _rightHandSideColumnRow(
-              _dataToShow[index].bookedTime != null
-                  ? DateTimeUtils.formatDateTime(_dataToShow[index].bookedTime!)
-                  : '',
-              colWidths['bookedTime']!),
+              formatCurrency(_dataToShow[index].price), colWidths['price']!),
+          if (choiceType == CHOICE_ALL || choiceType == CHOICE_BOOKED)
+            _rightHandSideColumnRow(
+                _dataToShow[index].bookedTime != null
+                    ? DateTimeUtils.formatDateTime(
+                        _dataToShow[index].bookedTime!)
+                    : '',
+                colWidths['bookedTime']!),
         ],
       ),
     );

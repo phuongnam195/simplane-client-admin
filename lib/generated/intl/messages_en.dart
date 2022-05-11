@@ -26,6 +26,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "all": MessageLookupByLibrary.simpleMessage("All"),
+        "annual_revenue_report":
+            MessageLookupByLibrary.simpleMessage("Annual Revenue Report"),
         "app_name": MessageLookupByLibrary.simpleMessage("Simplane"),
         "booked_time": MessageLookupByLibrary.simpleMessage("Time of booking"),
         "class_seat_count": m0,
@@ -35,6 +38,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "error_timeout": MessageLookupByLibrary.simpleMessage(
             "Connection timeout. Please try again!"),
         "flight_code": MessageLookupByLibrary.simpleMessage("Flight code"),
+        "flight_count":
+            MessageLookupByLibrary.simpleMessage("Number of flights"),
         "flight_date": MessageLookupByLibrary.simpleMessage("Flight date"),
         "flight_datetime": MessageLookupByLibrary.simpleMessage("Date/time"),
         "flight_duration": MessageLookupByLibrary.simpleMessage("Duration"),
@@ -49,11 +54,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "identity_number": MessageLookupByLibrary.simpleMessage("Identity"),
         "intermediate_airport":
             MessageLookupByLibrary.simpleMessage("Intermediate airport"),
+        "is_sold": MessageLookupByLibrary.simpleMessage("Sold"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+        "month": MessageLookupByLibrary.simpleMessage("Month"),
         "no_data": MessageLookupByLibrary.simpleMessage("No data"),
         "not_empty": MessageLookupByLibrary.simpleMessage("Cannot be empty!"),
+        "not_sold": MessageLookupByLibrary.simpleMessage("Not sold"),
         "passenger": MessageLookupByLibrary.simpleMessage("Passenger"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "pending": MessageLookupByLibrary.simpleMessage("Pending"),
         "phone_number": MessageLookupByLibrary.simpleMessage("Phone number"),
         "pick_duration":
             MessageLookupByLibrary.simpleMessage("Pick a duration"),
@@ -64,11 +73,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Retype password"),
         "retype_password_not_match": MessageLookupByLibrary.simpleMessage(
             "Retype password does not match!"),
+        "revenue": MessageLookupByLibrary.simpleMessage("Revenue"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
         "stop_duration": MessageLookupByLibrary.simpleMessage("Stop duration"),
         "ticket": MessageLookupByLibrary.simpleMessage("Ticket"),
         "ticket_class": MessageLookupByLibrary.simpleMessage("Ticket class"),
         "ticket_code": MessageLookupByLibrary.simpleMessage("Ticket code"),
+        "ticket_count":
+            MessageLookupByLibrary.simpleMessage("Number of tickets"),
         "to_airport": MessageLookupByLibrary.simpleMessage("To"),
         "unknown_error": MessageLookupByLibrary.simpleMessage(
             "Unknown error, please try again!"),

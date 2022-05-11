@@ -1,9 +1,9 @@
 //region EVENT
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:simplane_client_admin/core/rule_manager.dart';
 import 'package:simplane_client_admin/core/setting.dart';
 import 'package:simplane_client_admin/core/user_manager.dart';
-import 'package:simplane_client_admin/dummy_data.dart';
 import 'package:simplane_client_admin/model/user.dart';
 import 'package:simplane_client_admin/network/base/network_base.dart';
 import 'package:simplane_client_admin/repository/user_repository.dart';
@@ -70,13 +70,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   _onLogin(Login event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
     try {
-      // TODO: Chưa có API
-      // final user = await UserRepository().login(event.username, event.password);
+      UserRepository repo = Get.find();
+      final user = await repo.login(event.username, event.password);
       // await Setting().saveUserInfo(user);
       // NetworkBase.instance.addApiHeaders({
       //   'accessToken': UserManager().accessToken(),
       // });
-      UserManager.instance.setUser(userDummy);
+      UserManager.instance.setUser(user);
       await RuleManager.instance.load();
       emit(LoginSuccess());
     } catch (e) {
@@ -88,13 +88,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   _onSignUp(SignUp event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
     try {
-      // TODO: Chưa có API
-      // final user = await UserRepository().signup(event.fullname, event.username, event.password);
+      UserRepository repo = Get.find();
+      final user =
+          await repo.signup(event.fullname, event.username, event.password);
       // await Setting().saveUserInfo(user);
       // NetworkBase.instance.addApiHeaders({
       //   'accessToken': UserManager().accessToken(),
       // });
-      UserManager.instance.setUser(userDummy);
+      UserManager.instance.setUser(user);
       await RuleManager.instance.load();
       emit(SignUpSuccess());
     } catch (e) {

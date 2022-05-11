@@ -8,7 +8,7 @@ part 'flight.g.dart';
 @JsonSerializable()
 class Flight extends Equatable {
   final int id;
-  final String code;
+  final String code; // not unique (different `datetime` may have same `code`)
   final Airport fromAirport;
   final Airport toAirport;
   final DateTime datetime;

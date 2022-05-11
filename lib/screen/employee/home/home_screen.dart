@@ -8,6 +8,7 @@ import 'package:simplane_client_admin/screen/auth/auth_screen.dart';
 import 'package:simplane_client_admin/repository/user_repository.dart';
 import 'package:simplane_client_admin/screen/employee/home/home_bloc.dart';
 import 'package:simplane_client_admin/screen/employee/flight/flight_page.dart';
+import 'package:simplane_client_admin/screen/employee/report/report_page.dart';
 import 'package:simplane_client_admin/screen/employee/ticket/ticket_page.dart';
 import 'package:simplane_client_admin/util/constants.dart';
 
@@ -40,6 +41,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     return const FlightPage();
                   case 1:
                     return const TicketPage();
+                  case 2:
+                    return const ReportPage();
                   default:
                     return Container();
                 }
@@ -133,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  _logout() {
+  _logout() async {
     UserRepository repo = Get.find();
     repo.logout();
     UserManager.instance.clearUser();

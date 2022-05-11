@@ -105,7 +105,9 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
           BlocListener<HomeBloc, HomeState>(
             bloc: homeBloc,
             listenWhen: (previous, current) =>
-                current is FlightsLoaded || current is DataLoading,
+                current is FlightsLoaded ||
+                current is DataLoading ||
+                current is DataLoadFailed,
             listener: (context, state) {
               if (state is DataLoading) {
                 setState(() {
@@ -117,7 +119,7 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
                   _data = state.flights;
                   _dataToShow = _data;
                 });
-              } else if (state is LoadDataFailed) {
+              } else if (state is DataLoadFailed) {
                 //TODO: show error dialog
               }
             },
@@ -148,9 +150,7 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
   List<Widget> _getTitleWidget() {
     return [
       TextButton(
-        style: TextButton.styleFrom(
-          padding: EdgeInsets.zero,
-        ),
+        style: TextButton.styleFrom(padding: EdgeInsets.zero),
         child: _getTitleItemWidget(
             S.current.flight_code +
                 (sortType == sortCode ? (isAscending ? '↓' : '↑') : ''),
@@ -166,9 +166,7 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
       _getTitleItemWidget(S.current.from_airport, colWidths['from']!),
       _getTitleItemWidget(S.current.to_airport, colWidths['to']!),
       TextButton(
-        style: TextButton.styleFrom(
-          padding: EdgeInsets.zero,
-        ),
+        style: TextButton.styleFrom(padding: EdgeInsets.zero),
         child: _getTitleItemWidget(
             S.current.flight_datetime +
                 (sortType == sortFlightDate ? (isAscending ? '↓' : '↑') : ''),
@@ -255,7 +253,7 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
     showDialog(
         context: context,
         builder: (context) {
-          return FlightDetail(flight);
+          return AlertDialog(content: FlightDetail(flight));
         });
   }
 

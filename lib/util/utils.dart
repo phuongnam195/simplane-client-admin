@@ -50,7 +50,7 @@ String getUrlWithQuery(String url, {Map<String, dynamic>? query}) {
 
 String formatCurrency(dynamic price) {
   try {
-    return NumberFormat("#,##0", "en_US").format(price);
+    return NumberFormat("#,##0", "en_US").format(price) + ' đ';
   } catch (e) {
     Logger.e('utils.dart -> formatCurrency($price)', '$e');
     return '0';

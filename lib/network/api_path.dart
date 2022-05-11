@@ -15,6 +15,8 @@ const FLIGHT_GETS = '$URL/api/flight/gets';
 const TICKET_GET = '$URL/api/ticket/get';
 const TICKET_GETS = '$URL/api/ticket/gets';
 
+const REPORT_GET = '$URL/api/report/get';
+
 const TICKET_CLASS_GETS = '$URL/api/ticket-class/gets';
 
 Future<List<dynamic>> getListFromApi(
