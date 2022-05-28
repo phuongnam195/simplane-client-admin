@@ -15,17 +15,19 @@ class Ticket extends Equatable {
   final String ticketClassId;
   final double price;
   final DateTime? bookedTime;
+  final DateTime? approvedTime;
 
-  const Ticket(
-      {required this.id,
-      required this.code,
-      required this.flightCode,
-      required this.flightDate,
-      this.passenger,
-      required this.ticketClassId,
-      required this.price,
-      this.bookedTime})
-      : assert(!((passenger == null) ^ (bookedTime == null)));
+  const Ticket({
+    required this.id,
+    required this.code,
+    required this.flightCode,
+    required this.flightDate,
+    this.passenger,
+    required this.ticketClassId,
+    required this.price,
+    this.bookedTime,
+    this.approvedTime,
+  });
 
   factory Ticket.fromJson(Map<String, dynamic> json) => _$TicketFromJson(json);
 
@@ -39,7 +41,8 @@ class Ticket extends Equatable {
         passenger,
         ticketClassId,
         price,
-        bookedTime
+        bookedTime,
+        approvedTime,
       ];
 
   @override
@@ -53,5 +56,8 @@ class Ticket extends Equatable {
   }
 
   bool get isBooked => passenger != null && bookedTime != null;
-  bool get isPending => passenger != null && bookedTime == null;
+  bool get isPending =>
+      passenger != null && bookedTime != null && approvedTime == null;
+  bool get isApproved =>
+      passenger != null && bookedTime != null && approvedTime != null;
 }

@@ -44,8 +44,8 @@ class TicketRepositoryImp extends BaseRepositoryImp<Ticket>
     // TODO: chưa có API
 
     // Map<String, dynamic> customQuery = {
-    //   'from': fromDate.toIso8601String(),
-    //   'to': toDate.toIso8601String(),
+    //   'fromDate': fromDate.toIso8601String(),
+    //   'toDate': toDate.toIso8601String(),
     // };
 
     // customQuery.addAll(extraQuery ?? {});
