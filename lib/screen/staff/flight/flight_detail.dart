@@ -90,7 +90,7 @@ class FlightDetail extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: ticketClasses.map((tc) {
-                      String title = S.current.class_seat_count(tc.name);
+                      String title = S.current.class_seat_count(tc.enName);
                       int fullAmount = data.seatAmount[tc.id] ?? 0;
                       int bookedAmount = data.bookedAmount[tc.id] ?? 0;
                       String value = '$bookedAmount/$fullAmount';

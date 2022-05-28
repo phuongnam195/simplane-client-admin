@@ -182,7 +182,7 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
       _getTitleItemWidget(S.current.flight_duration, colWidths['duration']!),
       for (TicketClass tc in RuleManager.instance.getListTicketClass())
         _getTitleItemWidget(
-            S.current.class_seat_count(tc.name), colWidths['seat']!),
+            S.current.class_seat_count(tc.enName), colWidths['seat']!),
     ];
   }
 

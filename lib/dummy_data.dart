@@ -362,6 +362,6 @@ const reportsDummy = [
 ];
 
 final ticketClassesDummy = [
-  const TicketClass('E', 'Economy', false, 0, false, 0),
-  const TicketClass('B', 'Business', true, 100000, true, 100000),
+  const TicketClass('E', 'Economy', 'Phổ thông', false, 0, false, 0),
+  const TicketClass('B', 'Business', 'Thương gia', true, 100000, true, 100000),
 ];
