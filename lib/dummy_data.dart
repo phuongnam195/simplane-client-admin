@@ -163,6 +163,7 @@ final allTicketsDummy = [
     price: 3000000,
     flightDate: DateTime(2022, 6, 11),
     bookedTime: DateTime(2022, 5, 16, 17, 4, 23),
+    approvedTime: DateTime(2022, 5, 16, 17, 5, 23),
   ),
   Ticket(
     id: 2,
@@ -179,6 +180,7 @@ final allTicketsDummy = [
     price: 450000,
     flightDate: DateTime(2022, 5, 22),
     bookedTime: DateTime(2022, 5, 16, 17, 4, 23),
+    approvedTime: DateTime(2022, 5, 16, 17, 5, 23),
   ),
   Ticket(
     id: 3,
@@ -195,6 +197,7 @@ final allTicketsDummy = [
     price: 900000,
     flightDate: DateTime(2022, 5, 22),
     bookedTime: DateTime(2022, 5, 16, 17, 4, 23),
+    approvedTime: DateTime(2022, 5, 16, 17, 5, 23),
   ),
   Ticket(
     id: 4,

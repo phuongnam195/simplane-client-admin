@@ -32,6 +32,7 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
   static const int SORT_TICKET_CLASS = 2;
   static const int SORT_PRICE = 3;
   static const int SORT_BOOKED_TIME = 4;
+  static const int SORT_APPROVED_TIME = 4;
 
   List<Ticket> _data = [];
   List<Ticket> _dataToShow = [];
@@ -51,6 +52,7 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
     'ticketClass': 100,
     'price': 120,
     'bookedTime': 150,
+    'approvedTime': 150,
   };
   double get tableWidth {
     var res = colWidths.values.fold<double>(0, (v, e) => v + e);
@@ -284,6 +286,21 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
             setState(() {});
           },
         ),
+      if (choiceType == CHOICE_ALL || choiceType == CHOICE_BOOKED)
+        TextButton(
+          style: TextButton.styleFrom(padding: EdgeInsets.zero),
+          child: _getTitleItemWidget(
+              S.current.approved_time +
+                  (sortType == SORT_APPROVED_TIME ? (isAscending ? '↓' : '↑') : ''),
+              colWidths['bookedTime']!),
+          onPressed: () {
+            sortType = SORT_PRICE;
+            isAscending = !isAscending;
+            _dataToShow.sort(((a, b) =>
+                (isAscending ? 1 : -1) * a.price.compareTo(b.price)));
+            setState(() {});
+          },
+        ),
     ];
   }
 
@@ -336,6 +353,13 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
                         _dataToShow[index].bookedTime!)
                     : '',
                 colWidths['bookedTime']!),
+          if (choiceType == CHOICE_ALL || choiceType == CHOICE_BOOKED)
+            _rightHandSideColumnRow(
+                _dataToShow[index].approvedTime != null
+                    ? DateTimeUtils.formatDateTime(
+                        _dataToShow[index].approvedTime!)
+                    : '',
+                colWidths['approvedTime']!),
         ],
       ),
     );
