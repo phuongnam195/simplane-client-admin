@@ -7,6 +7,8 @@ import 'package:simplane_client_admin/model/ticket.dart';
 import 'package:simplane_client_admin/util/constants.dart';
 import 'package:simplane_client_admin/util/utils.dart';
 
+import '../../../util/date_time_utils.dart';
+
 class TicketDetail extends StatelessWidget {
   final Ticket data;
 
@@ -55,19 +57,24 @@ class TicketDetail extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 80),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _wxInfo(S.current.flight_code, data.flightCode),
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: _wxInfo(S.current.ticket_class, data.ticketClassId),
+                Column(
+                  children: [  
+                    _wxInfo(S.current.flight_code, data.flightCode),
+                    _wxInfo(S.current.ticket_class, data.ticketClassId),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: _wxInfo(S.current.price, formatCurrency(data.price)),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _wxInfo(S.current.flight_datetime,
+                        DateTimeUtils.formatDateTimeWOSec(data.flightDate)),
+                    _wxInfo(S.current.price, formatCurrency(data.price)),
+                  ],
                 ),
               ],
             ),
