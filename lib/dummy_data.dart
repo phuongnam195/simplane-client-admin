@@ -197,7 +197,7 @@ final allTicketsDummy = [
     price: 900000,
     flightDate: DateTime(2022, 5, 22),
     bookedTime: DateTime(2022, 5, 16, 17, 4, 23),
-    approvedTime: DateTime(2022, 5, 16, 17, 5, 23),
+   
   ),
   Ticket(
     id: 4,

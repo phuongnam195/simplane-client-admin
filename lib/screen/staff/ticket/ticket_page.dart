@@ -5,6 +5,7 @@ import 'package:simplane_client_admin/core/base_mixin_function.dart';
 import 'package:simplane_client_admin/generated/l10n.dart';
 import 'package:simplane_client_admin/model/ticket.dart';
 import 'package:simplane_client_admin/screen/staff/home/home_bloc.dart';
+import 'package:simplane_client_admin/screen/staff/ticket/ticket_detail.dart';
 import 'package:simplane_client_admin/util/constants.dart';
 import 'package:simplane_client_admin/util/date_time_utils.dart';
 import 'package:simplane_client_admin/util/utils.dart';
@@ -321,8 +322,7 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
   Widget _generateRightHandSideColumnRow(BuildContext context, int index) {
     return InkWell(
       onTap: () {
-        //TODO: need code
-        showAboutDialog(context: context);
+        _showTicketDetail(_dataToShow[index]);
       },
       child: Row(
         children: [
@@ -392,5 +392,13 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
               ].join('###').toLowerCase().contains(keyword.toLowerCase()))
           .toList();
     });
+  }
+
+   _showTicketDetail(Ticket ticket) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(content: TicketDetail(ticket));
+        });
   }
 }
