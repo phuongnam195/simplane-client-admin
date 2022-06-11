@@ -33,7 +33,7 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
   static const int SORT_TICKET_CLASS = 2;
   static const int SORT_PRICE = 3;
   static const int SORT_BOOKED_TIME = 4;
-  static const int SORT_APPROVED_TIME = 4;
+  static const int SORT_APPROVED_TIME = 5;
 
   List<Ticket> _data = [];
   List<Ticket> _dataToShow = [];
@@ -62,7 +62,7 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
       case CHOICE_BOOKED:
         return res;
       case CHOICE_PENDING:
-        return res - colWidths['bookedTime']!;
+        return res - colWidths['approvedTime']!;
       case CHOICE_NOT_BOOKED:
         return res -
             (colWidths['passenger']! +
@@ -270,7 +270,7 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
           setState(() {});
         },
       ),
-      if (choiceType == CHOICE_ALL || choiceType == CHOICE_BOOKED)
+      if (choiceType == CHOICE_ALL || choiceType == CHOICE_BOOKED || choiceType == CHOICE_PENDING)
         TextButton(
           style: TextButton.styleFrom(padding: EdgeInsets.zero),
           child: _getTitleItemWidget(
@@ -292,8 +292,10 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
           style: TextButton.styleFrom(padding: EdgeInsets.zero),
           child: _getTitleItemWidget(
               S.current.approved_time +
-                  (sortType == SORT_APPROVED_TIME ? (isAscending ? '↓' : '↑') : ''),
-              colWidths['bookedTime']!),
+                  (sortType == SORT_APPROVED_TIME
+                      ? (isAscending ? '↓' : '↑')
+                      : ''),
+              colWidths['approvedTime']!),
           onPressed: () {
             sortType = SORT_PRICE;
             isAscending = !isAscending;
@@ -346,7 +348,7 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
               _dataToShow[index].ticketClassId, colWidths['ticketClass']!),
           _rightHandSideColumnRow(
               formatCurrency(_dataToShow[index].price), colWidths['price']!),
-          if (choiceType == CHOICE_ALL || choiceType == CHOICE_BOOKED)
+          if (choiceType == CHOICE_ALL || choiceType == CHOICE_BOOKED || choiceType == CHOICE_PENDING)
             _rightHandSideColumnRow(
                 _dataToShow[index].bookedTime != null
                     ? DateTimeUtils.formatDateTime(
@@ -394,7 +396,7 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
     });
   }
 
-   _showTicketDetail(Ticket ticket) {
+  _showTicketDetail(Ticket ticket) {
     showDialog(
         context: context,
         builder: (context) {
