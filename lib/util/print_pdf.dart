@@ -23,42 +23,23 @@ class Pdf {
     // ];
 
     final data = report!.monthlyReports
-        .map((rp) => [rp.month, rp.ticketCount, formatCurrency(rp.revenue)])
+        .map((rp) => [rp.month, rp.ticketCount, formatCurrencyPdf(rp.revenue)])
         .toList();
 
-    // //  _data?.monthlyReports ?? []
-    // //                         .map(
-    // //                           (rp) => DataRow(
-    // //                             cells: [
-    // //                               DataCell(Align(
-    // //                                   alignment: Alignment.center,
-    // //                                   child: Text(rp.month.toString()))),
-    // //                               DataCell(Align(
-    // //                                   alignment: Alignment.centerRight,
-    // //                                   child: Text(rp.ticketCount.toString()))),
-    // //                               DataCell(Align(
-    // //                                   alignment: Alignment.centerRight,
-    // //                                   child: Text(formatCurrency(rp.revenue)))),
-    // //                             ],
-    // //                           ),
-    // //                         )
-    // //                         .toList(),
-    // final data = users.map((user) => [user.name, user.age]).toList();
-
     pdf.addPage(Page(
-      pageTheme: const PageTheme() ,
+        pageTheme: const PageTheme(),
         build: (context) => Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Text(
-                    S.current.annual_revenue_report.toUpperCase() + (' ${report.year}'),
-                    style: TextStyle(font: Font.timesBold(),fontSize: 25)
-                  ),
+                      S.current.annual_revenue_report.toUpperCase() +
+                          (' ${report.year}'),
+                      style: TextStyle(font: Font.timesBold(), fontSize: 25)),
                 ),
                 Table.fromTextArray(
                   headers: headers,
-                  headerStyle: TextStyle(font: Font.timesBold(),fontSize: 15),
+                  headerStyle: TextStyle(font: Font.timesBold(), fontSize: 15),
                   data: data,
                 ),
               ],

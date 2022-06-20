@@ -56,3 +56,12 @@ String formatCurrency(dynamic price) {
     return '0';
   }
 }
+
+String formatCurrencyPdf(dynamic price) {
+  try {
+    return NumberFormat("#,##0", "en_US").format(price) + ' VND';
+  } catch (e) {
+    Logger.e('utils.dart -> formatCurrency($price)', '$e');
+    return '0';
+  }
+}
