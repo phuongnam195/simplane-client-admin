@@ -175,7 +175,7 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
           sortType = sortFlightDate;
           isAscending = !isAscending;
           _dataToShow.sort(((a, b) =>
-              (isAscending ? 1 : -1) * a.datetime.compareTo(b.datetime)));
+              (isAscending ? 1 : -1) * a.dateTime.compareTo(b.dateTime)));
           setState(() {});
         },
       ),
@@ -210,14 +210,15 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
           _rightHandSideColumnRow(
               _dataToShow[index].toAirport.name, colWidths['to']!),
           _rightHandSideColumnRow(
-              DateTimeUtils.formatDateTimeWOSec(_dataToShow[index].datetime),
+              DateTimeUtils.formatDateTimeWOSec(_dataToShow[index].dateTime),
               colWidths['date']!),
           _rightHandSideColumnRow(
-              DateTimeUtils.formatDuration(_dataToShow[index].duration * 60),
+              DateTimeUtils.formatDuration(
+                  _dataToShow[index].duration.toInt() * 60),
               colWidths['duration']!),
           for (TicketClass tc in RuleManager.instance.getListTicketClass())
             _rightHandSideColumnRow(
-              _dataToShow[index].seatAmount[tc.id]?.toString() ?? '0',
+              _dataToShow[index].seatAmount[tc.id]?.toInt().toString() ?? '0',
               colWidths['seat']!,
             ),
         ],

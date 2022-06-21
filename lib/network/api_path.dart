@@ -2,22 +2,21 @@ import 'package:simplane_client_admin/util/utils.dart';
 
 import 'base/api_client.dart';
 
-const DOMAIN = 'https://heroku.com'; //Temporary
+const DOMAIN = 'http://localhost:8282/simplane-service'; //Temporary
 const URL = DOMAIN;
 
-const LOGIN = '$URL/api/auth/login';
-const SIGNUP = '$URL/api/auth/signup';
-const LOGOUT = '$URL/api/auth/logout';
+const LOGIN = '$URL/auth/sign-in';
+const SIGNUP = '$URL/auth/sign-up';
+const LOGOUT = '$URL/auth/sign-out';
 
-const FLIGHT_GET = '$URL/api/flight/get';
-const FLIGHT_GETS = '$URL/api/flight/gets';
+const FLIGHT_GET = '$URL/flight';
 
-const TICKET_GET = '$URL/api/ticket/get';
-const TICKET_GETS = '$URL/api/ticket/gets';
+const TICKET_GET = '$URL/ticket/get';
+const TICKET_GETS = '$URL/ticket/gets';
 
-const REPORT_GET = '$URL/api/report/get';
+const REPORT_GET = '$URL/report/get';
 
-const TICKET_CLASS_GETS = '$URL/api/ticket-class/gets';
+const TICKET_CLASS_GETS = '$URL/ticket-class/gets';
 
 Future<List<dynamic>> getListFromApi(
     {required String apiUrl, Map<String, dynamic>? customQuery}) async {

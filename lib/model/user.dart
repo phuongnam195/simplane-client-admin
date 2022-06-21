@@ -5,15 +5,14 @@ part 'user.g.dart';
 
 @JsonSerializable()
 class User extends Equatable {
-  final int id;
+  final String id;
   final String username;
   final String fullname;
   final bool isVerified;
-  final String accessToken;
+  final String token;
   final bool isAdmin;
 
-  const User(
-      this.id, this.username, this.fullname, this.isVerified, this.accessToken,
+  const User(this.id, this.username, this.fullname, this.isVerified, this.token,
       [this.isAdmin = false]);
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
@@ -22,7 +21,7 @@ class User extends Equatable {
 
   @override
   List<Object> get props =>
-      [id, username, fullname, isVerified, accessToken, isAdmin];
+      [id, username, fullname, isVerified, token, isAdmin];
 
   @override
   bool get stringify => true;

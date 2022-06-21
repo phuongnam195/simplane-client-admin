@@ -77,7 +77,7 @@ class ApiClient {
       }
       if (!isSuccess(response)) {
         throw ApiException(
-            response.data?.errorMessage ?? '', response.statusCode ?? 0);
+            response.data?.message ?? '', response.statusCode ?? 0);
       }
       if (isNullOrEmpty(response.data)) {
         throw ApiException(S.current.no_data, EXCEPTION_CLIENT_UNKNOWN);
@@ -110,15 +110,15 @@ class ApiClient {
       Logger.e('ApiClient -> callApi() -> parse response', '$e');
       throw ApiException(S.current.unknown_error, EXCEPTION_CLIENT_UNKNOWN);
     }
-    if (baseResponse.result != 0) {
+    if (baseResponse.statusCode != 0) {
       throw ApiException(
           (isNullOrEmpty(baseResponse.friendlyMessage)
-                  ? (isNullOrEmpty(baseResponse.errorMessage)
+                  ? (isNullOrEmpty(baseResponse.message)
                       ? S.current.unknown_error
-                      : baseResponse.errorMessage)
+                      : baseResponse.message)
                   : baseResponse.friendlyMessage) ??
               S.current.unknown_error,
-          baseResponse.result ?? -1);
+          baseResponse.statusCode ?? -1);
     }
     return baseResponse.data;
   }

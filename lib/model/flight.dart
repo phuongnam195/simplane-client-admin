@@ -7,25 +7,25 @@ part 'flight.g.dart';
 
 @JsonSerializable()
 class Flight extends Equatable {
-  final int id;
+  final String id;
   final String code; // not unique (different `datetime` may have same `code`)
   final Airport fromAirport;
   final Airport toAirport;
-  final DateTime datetime;
-  final int duration;
-  final Map<String, int>
+  final DateTime dateTime;
+  final double duration;
+  final Map<String, double>
       seatAmount; // total seat, key = ticketClassId, value: quantity
-  final Map<String, int>
+  final Map<String, double>
       bookedAmount; // booked seat, key = ticketClassId, value: quantity
   final List<Airport> middleAirports;
-  final List<int> stopDurations; // milisecond
+  final List<double> stopDurations; // milisecond
 
   const Flight(
       {required this.id,
       required this.code,
       required this.fromAirport,
       required this.toAirport,
-      required this.datetime,
+      required this.dateTime,
       required this.duration,
       required this.seatAmount,
       required this.bookedAmount,
@@ -42,7 +42,7 @@ class Flight extends Equatable {
         code,
         fromAirport,
         toAirport,
-        datetime,
+        dateTime,
         duration,
         seatAmount,
         bookedAmount,

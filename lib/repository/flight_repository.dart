@@ -28,17 +28,15 @@ class FlightRepositoryImp extends BaseRepositoryImp<Flight>
     required DateTime toDate,
     Map<String, dynamic>? extraQuery,
   }) async {
-    await fakeDelay;
-    return allFlightsDummy;
+    // await fakeDelay;
+    // return allFlightsDummy;
 
-    // TODO: chưa có API
-
-    // Map<String, dynamic> customQuery = {
-    //   'from': fromDate.toIso8601String(),
-    //   'to': toDate.toIso8601String(),
-    // };
-    // customQuery.addAll(extraQuery ?? {});
-    // return Flight.mapToList(
-    //     await getListFromApi(apiUrl: FLIGHT_GETS, customQuery: customQuery));
+    Map<String, dynamic> customQuery = {
+      'fromDate': fromDate.millisecondsSinceEpoch,
+      'toDate': toDate.millisecondsSinceEpoch,
+    };
+    customQuery.addAll(extraQuery ?? {});
+    return Flight.mapToList(
+        await getListFromApi(apiUrl: FLIGHT_GET, customQuery: customQuery));
   }
 }

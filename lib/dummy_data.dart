@@ -10,141 +10,141 @@ import 'model/user.dart';
 
 final fakeDelay = Future.delayed(const Duration(milliseconds: 500));
 
-const userDummy = User(123, 'nam1952001', 'Đặng Phương Nam', true, '');
+const userDummy = User('123', 'nam1952001', 'Đặng Phương Nam', true, '');
 
 final allFlightsDummy = [
-  Flight(
-      id: 1,
-      code: 'VN32134',
-      fromAirport: const Airport('VDH', 'Dong Hoi', 'Viet Nam'),
-      toAirport: const Airport('SGN', 'TPHCM', 'Viet Nam'),
-      datetime: DateTime(2022, 4, 12),
-      duration: 60,
-      seatAmount: const {
-        'E': 80,
-        'B': 20
-      },
-      bookedAmount: const {
-        'E': 56,
-        'B': 10
-      },
-      middleAirports: const [
-        Airport('HUI', 'Hue', 'Viet Nam'),
-        Airport('HAN', 'Ha Noi', 'Viet Nam'),
-      ],
-      stopDurations: const [
-        10,
-        15,
-      ]),
-  Flight(
-      id: 2,
-      code: 'VN56456',
-      fromAirport: const Airport('HUI', 'Hue', 'Viet Nam'),
-      toAirport: const Airport('HAN', 'Ha Noi', 'Viet Nam'),
-      datetime: DateTime(2022, 5, 1),
-      duration: 80,
-      seatAmount: const {
-        'E': 80,
-        'B': 20
-      },
-      bookedAmount: const {
-        'E': 56,
-        'B': 10
-      },
-      middleAirports: const [
-        Airport('SGN', 'TPHCM', 'Viet Nam'),
-      ],
-      stopDurations: const [
-        12,
-      ]),
-  Flight(
-      id: 3,
-      code: 'VN76745',
-      fromAirport: const Airport('HAN', 'Ha Noi', 'Viet Nam'),
-      toAirport: const Airport('HUI', 'Hue', 'Viet Nam'),
-      datetime: DateTime(2022, 6, 10),
-      duration: 60,
-      seatAmount: const {'E': 80, 'B': 20},
-      bookedAmount: const {'E': 56, 'B': 10},
-      middleAirports: const [],
-      stopDurations: const []),
-  Flight(
-      id: 4,
-      code: 'VN86786',
-      fromAirport: const Airport('SGN', 'TPHCM', 'Viet Nam'),
-      toAirport: const Airport('VDH', 'Dong Hoi', 'Viet Nam'),
-      datetime: DateTime(2022, 6, 11),
-      duration: 60,
-      seatAmount: const {'E': 80, 'B': 20},
-      bookedAmount: const {'E': 56, 'B': 10},
-      middleAirports: const [],
-      stopDurations: const []),
-  Flight(
-      id: 4,
-      code: 'VN86786',
-      fromAirport: const Airport('SGN', 'TPHCM', 'Viet Nam'),
-      toAirport: const Airport('VDH', 'Dong Hoi', 'Viet Nam'),
-      datetime: DateTime(2022, 6, 11),
-      duration: 60,
-      seatAmount: const {'E': 80, 'B': 20},
-      bookedAmount: const {'E': 56, 'B': 10},
-      middleAirports: const [],
-      stopDurations: const []),
-  Flight(
-      id: 4,
-      code: 'VN86786',
-      fromAirport: const Airport('SGN', 'TPHCM', 'Viet Nam'),
-      toAirport: const Airport('VDH', 'Dong Hoi', 'Viet Nam'),
-      datetime: DateTime(2022, 6, 11),
-      duration: 60,
-      seatAmount: const {'E': 80, 'B': 20},
-      bookedAmount: const {'E': 56, 'B': 10},
-      middleAirports: const [],
-      stopDurations: const []),
-  Flight(
-      id: 4,
-      code: 'VN86786',
-      fromAirport: const Airport('SGN', 'TPHCM', 'Viet Nam'),
-      toAirport: const Airport('VDH', 'Dong Hoi', 'Viet Nam'),
-      datetime: DateTime(2022, 6, 11),
-      duration: 60,
-      seatAmount: const {'E': 80, 'B': 20},
-      bookedAmount: const {'E': 56, 'B': 10},
-      middleAirports: const [],
-      stopDurations: const []),
-  Flight(
-      id: 4,
-      code: 'VN86786',
-      fromAirport: const Airport('SGN', 'TPHCM', 'Viet Nam'),
-      toAirport: const Airport('VDH', 'Dong Hoi', 'Viet Nam'),
-      datetime: DateTime(2022, 6, 11),
-      duration: 60,
-      seatAmount: const {'E': 80, 'B': 20},
-      bookedAmount: const {'E': 56, 'B': 10},
-      middleAirports: const [],
-      stopDurations: const []),
-  Flight(
-      id: 4,
-      code: 'VN86786',
-      fromAirport: const Airport('SGN', 'TPHCM', 'Viet Nam'),
-      toAirport: const Airport('VDH', 'Dong Hoi', 'Viet Nam'),
-      datetime: DateTime(2022, 6, 11),
-      duration: 60,
-      seatAmount: const {'E': 80, 'B': 20},
-      bookedAmount: const {'E': 56, 'B': 10},
-      middleAirports: const [],
-      stopDurations: const []),
-  Flight(
-      id: 4,
-      code: 'VN86786',
-      fromAirport: const Airport('SGN', 'TPHCM', 'Viet Nam'),
-      toAirport: const Airport('VDH', 'Dong Hoi', 'Viet Nam'),
-      datetime: DateTime(2022, 6, 11),
-      duration: 60,
-      seatAmount: const {'E': 80, 'B': 20},
-      bookedAmount: const {'E': 56, 'B': 10},
-      middleAirports: const [],
-      stopDurations: const []),
+  // Flight(
+  //     id: 1,
+  //     code: 'VN32134',
+  //     fromAirport: const Airport('VDH', 'Dong Hoi', 'Viet Nam'),
+  //     toAirport: const Airport('SGN', 'TPHCM', 'Viet Nam'),
+  //     datetime: DateTime(2022, 4, 12),
+  //     duration: 60,
+  //     seatAmount: const {
+  //       'E': 80,
+  //       'B': 20
+  //     },
+  //     bookedAmount: const {
+  //       'E': 56,
+  //       'B': 10
+  //     },
+  //     middleAirports: const [
+  //       Airport('HUI', 'Hue', 'Viet Nam'),
+  //       Airport('HAN', 'Ha Noi', 'Viet Nam'),
+  //     ],
+  //     stopDurations: const [
+  //       10,
+  //       15,
+  //     ]),
+  // Flight(
+  //     id: 2,
+  //     code: 'VN56456',
+  //     fromAirport: const Airport('HUI', 'Hue', 'Viet Nam'),
+  //     toAirport: const Airport('HAN', 'Ha Noi', 'Viet Nam'),
+  //     datetime: DateTime(2022, 5, 1),
+  //     duration: 80,
+  //     seatAmount: const {
+  //       'E': 80,
+  //       'B': 20
+  //     },
+  //     bookedAmount: const {
+  //       'E': 56,
+  //       'B': 10
+  //     },
+  //     middleAirports: const [
+  //       Airport('SGN', 'TPHCM', 'Viet Nam'),
+  //     ],
+  //     stopDurations: const [
+  //       12,
+  //     ]),
+  // Flight(
+  //     id: 3,
+  //     code: 'VN76745',
+  //     fromAirport: const Airport('HAN', 'Ha Noi', 'Viet Nam'),
+  //     toAirport: const Airport('HUI', 'Hue', 'Viet Nam'),
+  //     datetime: DateTime(2022, 6, 10),
+  //     duration: 60,
+  //     seatAmount: const {'E': 80, 'B': 20},
+  //     bookedAmount: const {'E': 56, 'B': 10},
+  //     middleAirports: const [],
+  //     stopDurations: const []),
+  // Flight(
+  //     id: 4,
+  //     code: 'VN86786',
+  //     fromAirport: const Airport('SGN', 'TPHCM', 'Viet Nam'),
+  //     toAirport: const Airport('VDH', 'Dong Hoi', 'Viet Nam'),
+  //     datetime: DateTime(2022, 6, 11),
+  //     duration: 60,
+  //     seatAmount: const {'E': 80, 'B': 20},
+  //     bookedAmount: const {'E': 56, 'B': 10},
+  //     middleAirports: const [],
+  //     stopDurations: const []),
+  // Flight(
+  //     id: 4,
+  //     code: 'VN86786',
+  //     fromAirport: const Airport('SGN', 'TPHCM', 'Viet Nam'),
+  //     toAirport: const Airport('VDH', 'Dong Hoi', 'Viet Nam'),
+  //     datetime: DateTime(2022, 6, 11),
+  //     duration: 60,
+  //     seatAmount: const {'E': 80, 'B': 20},
+  //     bookedAmount: const {'E': 56, 'B': 10},
+  //     middleAirports: const [],
+  //     stopDurations: const []),
+  // Flight(
+  //     id: 4,
+  //     code: 'VN86786',
+  //     fromAirport: const Airport('SGN', 'TPHCM', 'Viet Nam'),
+  //     toAirport: const Airport('VDH', 'Dong Hoi', 'Viet Nam'),
+  //     datetime: DateTime(2022, 6, 11),
+  //     duration: 60,
+  //     seatAmount: const {'E': 80, 'B': 20},
+  //     bookedAmount: const {'E': 56, 'B': 10},
+  //     middleAirports: const [],
+  //     stopDurations: const []),
+  // Flight(
+  //     id: 4,
+  //     code: 'VN86786',
+  //     fromAirport: const Airport('SGN', 'TPHCM', 'Viet Nam'),
+  //     toAirport: const Airport('VDH', 'Dong Hoi', 'Viet Nam'),
+  //     datetime: DateTime(2022, 6, 11),
+  //     duration: 60,
+  //     seatAmount: const {'E': 80, 'B': 20},
+  //     bookedAmount: const {'E': 56, 'B': 10},
+  //     middleAirports: const [],
+  //     stopDurations: const []),
+  // Flight(
+  //     id: 4,
+  //     code: 'VN86786',
+  //     fromAirport: const Airport('SGN', 'TPHCM', 'Viet Nam'),
+  //     toAirport: const Airport('VDH', 'Dong Hoi', 'Viet Nam'),
+  //     datetime: DateTime(2022, 6, 11),
+  //     duration: 60,
+  //     seatAmount: const {'E': 80, 'B': 20},
+  //     bookedAmount: const {'E': 56, 'B': 10},
+  //     middleAirports: const [],
+  //     stopDurations: const []),
+  // Flight(
+  //     id: 4,
+  //     code: 'VN86786',
+  //     fromAirport: const Airport('SGN', 'TPHCM', 'Viet Nam'),
+  //     toAirport: const Airport('VDH', 'Dong Hoi', 'Viet Nam'),
+  //     datetime: DateTime(2022, 6, 11),
+  //     duration: 60,
+  //     seatAmount: const {'E': 80, 'B': 20},
+  //     bookedAmount: const {'E': 56, 'B': 10},
+  //     middleAirports: const [],
+  //     stopDurations: const []),
+  // Flight(
+  //     id: 4,
+  //     code: 'VN86786',
+  //     fromAirport: const Airport('SGN', 'TPHCM', 'Viet Nam'),
+  //     toAirport: const Airport('VDH', 'Dong Hoi', 'Viet Nam'),
+  //     datetime: DateTime(2022, 6, 11),
+  //     duration: 60,
+  //     seatAmount: const {'E': 80, 'B': 20},
+  //     bookedAmount: const {'E': 56, 'B': 10},
+  //     middleAirports: const [],
+  //     stopDurations: const []),
 ];
 
 final allTicketsDummy = [
@@ -362,6 +362,8 @@ const reportsDummy = [
 ];
 
 final ticketClassesDummy = [
-  const TicketClass('E', 'Economy', 'Phổ thông', false, 0, false, 0),
-  const TicketClass('B', 'Business', 'Thương gia', true, 100000, true, 100000),
+  const TicketClass(
+      'P', 'Super lite', 'Phổ thông siêu tiết kiệm', false, 0, false, 0),
+  const TicketClass('L', 'Economy', 'Phổ thông', true, 120000.0, true, 0.0),
+  const TicketClass('C', 'Business', 'Thương gia', true, 0, true, 30000.0),
 ];

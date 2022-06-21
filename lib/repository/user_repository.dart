@@ -16,37 +16,31 @@ class UserRepositoryImp extends BaseRepositoryImp<User>
     implements UserRepository {
   @override
   Future<User> login(String username, String password) async {
-    return userDummy;
+    // return userDummy;
 
-    //TODO: api
-
-    // return User.fromJson(
-    //   await ApiClient(LOGIN).post({
-    //     "username": username,
-    //     "password": password,
-    //   }),
-    // );
+    return User.fromJson(
+      await ApiClient(LOGIN).post({
+        "username": username,
+        "password": password,
+      }),
+    );
   }
 
   @override
   Future<User> signup(String fullname, String username, String password) async {
-    return userDummy;
+    // return userDummy;
 
-    //TODO: api
-
-    // return User.fromJson(
-    //   await ApiClient(SIGNUP).post({
-    //     "fullname": fullname,
-    //     "username": username,
-    //     "password": password,
-    //   }),
-    // );
+    return User.fromJson(
+      await ApiClient(SIGNUP).post({
+        "fullname": fullname,
+        "username": username,
+        "password": password,
+      }),
+    );
   }
 
   @override
   Future logout() async {
-    //TODO: api
-
-    // await ApiClient(LOGOUT).post({"commandStyle": 0});
+    await ApiClient(LOGOUT).post({"commandStyle": 0});
   }
 }

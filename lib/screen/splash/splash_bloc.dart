@@ -52,23 +52,4 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
       emit(SplashNotLoaded('$e'));
     }
   }
-
-  Stream<SplashState> _mapCheckSessionToState() async* {
-    final user = await UserManager.instance.loadUser();
-    if (user == null) {
-      yield HasNotLoggedIn();
-      return;
-    }
-    NetworkBase.instance.addApiHeaders({
-      'accessToken': UserManager.instance.accessToken(),
-    });
-    try {
-      // TODO: Load data
-      Future.delayed(const Duration(seconds: 2));
-      // yield DataLoaded();
-    } catch (e) {
-      Logger.e('SplashBloc -> _mapCheckSessionToState()', '$e');
-      yield SplashNotLoaded('$e');
-    }
-  }
 }

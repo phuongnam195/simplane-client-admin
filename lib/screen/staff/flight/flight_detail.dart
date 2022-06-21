@@ -80,9 +80,9 @@ class FlightDetail extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _wxInfo(S.current.flight_datetime,
-                        DateTimeUtils.formatDateTimeWOSec(data.datetime)),
+                        DateTimeUtils.formatDateTimeWOSec(data.dateTime)),
                     _wxInfo(S.current.flight_duration,
-                        DateTimeUtils.formatDuration(data.duration)),
+                        DateTimeUtils.formatDuration(data.duration.toInt())),
                   ],
                 ),
                 Padding(
@@ -91,8 +91,8 @@ class FlightDetail extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: ticketClasses.map((tc) {
                       String title = S.current.class_seat_count(tc.enName);
-                      int fullAmount = data.seatAmount[tc.id] ?? 0;
-                      int bookedAmount = data.bookedAmount[tc.id] ?? 0;
+                      int fullAmount = data.seatAmount[tc.id]?.toInt() ?? 0;
+                      int bookedAmount = data.bookedAmount[tc.id]?.toInt() ?? 0;
                       String value = '$bookedAmount/$fullAmount';
                       return _wxInfo(title, value);
                     }).toList(),
@@ -128,7 +128,8 @@ class FlightDetail extends StatelessWidget {
                           textAlign: TextAlign.center,
                         )),
                         DataCell(Text(
-                          DateTimeUtils.formatDuration(data.stopDurations[i]),
+                          DateTimeUtils.formatDuration(
+                              data.stopDurations[i].toInt()),
                           textAlign: TextAlign.center,
                         )),
                       ]))
