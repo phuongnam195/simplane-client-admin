@@ -1,24 +1,24 @@
 {
     "app_name": "Simplane",
-    "error_no_internet": "Cannot connect to server, please check your connection and try again!",
-    "error_timeout": "Connection timeout. Please try again!",
-    "error": "Error",
-    "no_data": "No data",
-    "unknown_error": "Unknown error, please try again!",
-    "register": "Register",
-    "sign_in": "Sign in",
-    "fullname": "Full name",
-    "username": "Username",
-    "password": "Password",
-    "retype_password": "Retype password",
-    "not_empty": "Cannot be empty!",
-    "retype_password_not_match": "Retype password does not match!",
-    "flight_code": "Flight code",
-    "from_airport": "From",
-    "to_airport": "To",
-    "flight_date": "Date",
-    "flight_duration": "Duration",
-    "class_seat_count": "{ticketClass} seat quantity",
+    "error_no_internet": "Không thể kết nối với máy chủ, vui lòng kiểm tra kết nối của bạn và thử lại!",
+    "error_timeout": "Hết thời gian kết nối. Vui lòng thử lại!",
+    "error": "Lỗi",
+    "no_data": "Không có dữ liệu",
+    "unknown_error": "Lỗi không xác định, vui lòng thử lại!",
+    "register": "Đăng ký",
+    "sign_in": "Đăng nhập",
+    "fullname": "Họ và tên",
+    "username": "Tên đăng nhập",
+    "password": "Mật khẩu",
+    "retype_password": "Nhập lại mật khẩu",
+    "not_empty": "Không được để trống!",
+    "retype_password_not_match": "Mật khẩu nhập lại không khớp!",
+    "flight_code": "Mã chuyến bay",
+    "from_airport": "Từ",
+    "to_airport": "Đến",
+    "flight_datetime": "Ngày/giờ",
+    "flight_duration": "Thời gian bay",
+    "class_seat_count": "{ticketClass}'s chỗ",
     "@class_seat_count": {
         "placeholders": {
             "ticketClass": {
@@ -26,10 +26,40 @@
             }
         }
     },
-    "pick_duration": "Pick a duration",
-
-
-
+    "flight_search_hint": "Mã chuyến bay, sân bay,...",
+    "pick_duration": "Chọn khoảng thời gian",
+    "flight_title": "Chuyến bay {flightCode}",
+    "@flight_title": {
+        "placeholders": {
+            "flightCode": {
+                "type": "String"
+            }
+        }
+    },
+    "intermediate_airport": "Sân bay trung gian",
+    "stop_duration": "Thời gian dừng",
+    "ticket_code": "Mã vé",
+    "flight_date": "Ngày bay",
+    "passenger": "Hành khách",
+    "identity_number": "CCCD",
+    "phone_number": "Số điện thoại",
+    "ticket_class": "Hạng vé",
+    "price": "Giá",
+    "booked_time": "Thời gian đặt vé",
+    "approved_time": "Thời gian phê duyệt",
+    "flight_schedule": "Lịch trình chuyến bay",
+    "ticket": "Vé",
+    "report": "Báo cáo",
+    "logout": "Đăng xuất",
+    "all": "Tất cả",
+    "not_sold": "Chưa bán",
+    "is_sold": "Đã bán",
+    "pending": "Chờ xét duyệt",
+    "month": "Tháng",
+    "flight_count": "Số lượng chuyến bay",
+    "ticket_count": "Số lượng vé",
+    "revenue": "Doanh thu",
+    "annual_revenue_report": "Báo cáo doanh thu hàng năm",
 
 
     "hahahaha": "hahahaha"

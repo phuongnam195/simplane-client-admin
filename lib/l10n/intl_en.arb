@@ -46,6 +46,7 @@
     "ticket_class": "Ticket class",
     "price": "Price",
     "booked_time": "Time of booking",
+    "approved_time": "Time of approving",
     "flight_schedule": "Flight schedule",
     "ticket": "Ticket",
     "report": "Report",
