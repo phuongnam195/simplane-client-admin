@@ -8,6 +8,8 @@ import 'package:simplane_client_admin/screen/staff/home/home_screen.dart';
 import 'package:simplane_client_admin/util/constants.dart';
 import 'package:simplane_client_admin/util/utils.dart';
 
+import '../../../util/print_pdf.dart';
+
 class ReportPage extends StatefulWidget {
   static const pageName = 'report';
 
@@ -151,10 +153,13 @@ class _ReportPageState extends State<ReportPage> {
           child: FloatingActionButton(
             backgroundColor: AppColor.primary,
             child: const Icon(Icons.print),
-            onPressed: () {},
+            onPressed: () async {
+              final pdfFile = await Pdf.generateReport(_data);
+              Pdf.openFile(pdfFile);
+            },
           ),
         ),
       )
     ]);
-  }
+  }  // Page
 }

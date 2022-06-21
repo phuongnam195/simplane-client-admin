@@ -380,6 +380,16 @@ class S {
     );
   }
 
+  /// `Time of approving`
+  String get approved_time {
+    return Intl.message(
+      'Time of approving',
+      name: 'approved_time',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Flight schedule`
   String get flight_schedule {
     return Intl.message(

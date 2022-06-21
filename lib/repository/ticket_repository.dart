@@ -34,9 +34,11 @@ class TicketRepositoryImp extends BaseRepositoryImp<Ticket>
     if (extraQuery == null) {
       return allTicketsDummy;
     } else if (extraQuery['isBooked'] == true) {
-      return allTicketsDummy.where((e) => e.isBooked).toList();
+      return allTicketsDummy.where((e) => e.isApproved).toList();
     } else if (extraQuery['isBooked'] == false) {
       return allTicketsDummy.where((e) => !e.isBooked).toList();
+    } else if (extraQuery['isPending'] == true) {
+      return allTicketsDummy.where((e) => e.isPending).toList();
     } else {
       return allTicketsDummy;
     }

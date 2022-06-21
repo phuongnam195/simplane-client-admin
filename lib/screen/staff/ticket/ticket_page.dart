@@ -5,6 +5,7 @@ import 'package:simplane_client_admin/core/base_mixin_function.dart';
 import 'package:simplane_client_admin/generated/l10n.dart';
 import 'package:simplane_client_admin/model/ticket.dart';
 import 'package:simplane_client_admin/screen/staff/home/home_bloc.dart';
+import 'package:simplane_client_admin/screen/staff/ticket/ticket_detail.dart';
 import 'package:simplane_client_admin/util/constants.dart';
 import 'package:simplane_client_admin/util/date_time_utils.dart';
 import 'package:simplane_client_admin/util/utils.dart';
@@ -32,6 +33,7 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
   static const int SORT_TICKET_CLASS = 2;
   static const int SORT_PRICE = 3;
   static const int SORT_BOOKED_TIME = 4;
+  static const int SORT_APPROVED_TIME = 5;
 
   List<Ticket> _data = [];
   List<Ticket> _dataToShow = [];
@@ -51,6 +53,7 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
     'ticketClass': 100,
     'price': 120,
     'bookedTime': 150,
+    'approvedTime': 150,
   };
   double get tableWidth {
     var res = colWidths.values.fold<double>(0, (v, e) => v + e);
@@ -59,7 +62,7 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
       case CHOICE_BOOKED:
         return res;
       case CHOICE_PENDING:
-        return res - colWidths['bookedTime']!;
+        return res - colWidths['approvedTime']!;
       case CHOICE_NOT_BOOKED:
         return res -
             (colWidths['passenger']! +
@@ -267,7 +270,7 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
           setState(() {});
         },
       ),
-      if (choiceType == CHOICE_ALL || choiceType == CHOICE_BOOKED)
+      if (choiceType == CHOICE_ALL || choiceType == CHOICE_BOOKED || choiceType == CHOICE_PENDING)
         TextButton(
           style: TextButton.styleFrom(padding: EdgeInsets.zero),
           child: _getTitleItemWidget(
@@ -276,6 +279,23 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
                       ? (isAscending ? '↓' : '↑')
                       : ''),
               colWidths['bookedTime']!),
+          onPressed: () {
+            sortType = SORT_PRICE;
+            isAscending = !isAscending;
+            _dataToShow.sort(((a, b) =>
+                (isAscending ? 1 : -1) * a.price.compareTo(b.price)));
+            setState(() {});
+          },
+        ),
+      if (choiceType == CHOICE_ALL || choiceType == CHOICE_BOOKED)
+        TextButton(
+          style: TextButton.styleFrom(padding: EdgeInsets.zero),
+          child: _getTitleItemWidget(
+              S.current.approved_time +
+                  (sortType == SORT_APPROVED_TIME
+                      ? (isAscending ? '↓' : '↑')
+                      : ''),
+              colWidths['approvedTime']!),
           onPressed: () {
             sortType = SORT_PRICE;
             isAscending = !isAscending;
@@ -304,8 +324,7 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
   Widget _generateRightHandSideColumnRow(BuildContext context, int index) {
     return InkWell(
       onTap: () {
-        //TODO: need code
-        showAboutDialog(context: context);
+        _showTicketDetail(_dataToShow[index]);
       },
       child: Row(
         children: [
@@ -329,13 +348,20 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
               _dataToShow[index].ticketClassId, colWidths['ticketClass']!),
           _rightHandSideColumnRow(
               formatCurrency(_dataToShow[index].price), colWidths['price']!),
-          if (choiceType == CHOICE_ALL || choiceType == CHOICE_BOOKED)
+          if (choiceType == CHOICE_ALL || choiceType == CHOICE_BOOKED || choiceType == CHOICE_PENDING)
             _rightHandSideColumnRow(
                 _dataToShow[index].bookedTime != null
                     ? DateTimeUtils.formatDateTime(
                         _dataToShow[index].bookedTime!)
                     : '',
                 colWidths['bookedTime']!),
+          if (choiceType == CHOICE_ALL || choiceType == CHOICE_BOOKED)
+            _rightHandSideColumnRow(
+                _dataToShow[index].approvedTime != null
+                    ? DateTimeUtils.formatDateTime(
+                        _dataToShow[index].approvedTime!)
+                    : '',
+                colWidths['approvedTime']!),
         ],
       ),
     );
@@ -368,5 +394,13 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
               ].join('###').toLowerCase().contains(keyword.toLowerCase()))
           .toList();
     });
+  }
+
+  _showTicketDetail(Ticket ticket) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(content: TicketDetail(ticket));
+        });
   }
 }
