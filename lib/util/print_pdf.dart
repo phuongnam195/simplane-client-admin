@@ -14,16 +14,10 @@ class Pdf {
   static Future<File> generateReport(AnnualReport? report) async {
     final pdf = Document();
 
-    final headers = ['Month', 'Number of tickets', 'Revenue'];
-
-    // final users = [
-    //   User(name: 'James', age: 19),
-    //   User(name: 'Sarah', age: 21),
-    //   User(name: 'Emma', age: 28),
-    // ];
+    final headers = ['Month', 'Number of flights', 'Number of tickets', 'Revenue'];
 
     final data = report!.monthlyReports
-        .map((rp) => [rp.month, rp.ticketCount, formatCurrencyPdf(rp.revenue)])
+        .map((rp) => [rp.month, rp.flightCount, rp.ticketCount, formatCurrencyPdf(rp.revenue)])
         .toList();
 
     pdf.addPage(Page(
