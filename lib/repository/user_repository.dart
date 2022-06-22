@@ -1,5 +1,4 @@
 import 'package:simplane_client_admin/core/base_repository.dart';
-import 'package:simplane_client_admin/dummy_data.dart';
 import 'package:simplane_client_admin/model/user.dart';
 import 'package:simplane_client_admin/network/api_path.dart';
 import 'package:simplane_client_admin/network/base/api_client.dart';
@@ -35,12 +34,14 @@ class UserRepositoryImp extends BaseRepositoryImp<User>
         "fullname": fullname,
         "username": username,
         "password": password,
+        "idAdmin": false,
+        "isVerified": true,
       }),
     );
   }
 
   @override
   Future logout() async {
-    await ApiClient(LOGOUT).post({"commandStyle": 0});
+    // await ApiClient(LOGOUT).post({"commandStyle": 0});
   }
 }

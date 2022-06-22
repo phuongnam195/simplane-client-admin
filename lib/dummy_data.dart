@@ -2,7 +2,6 @@ import 'package:simplane_client_admin/model/annual_report.dart';
 import 'package:simplane_client_admin/model/passenger.dart';
 
 import 'model/airport.dart';
-import 'model/flight.dart';
 import 'model/monthly_report.dart';
 import 'model/ticket.dart';
 import 'model/ticket_class.dart';
@@ -149,11 +148,10 @@ final allFlightsDummy = [
 
 final allTicketsDummy = [
   Ticket(
-    id: 1,
-    code: 'AF7D87ASF',
+    id: 'AF7D87ASF',
     flightCode: 'VN86786',
     passenger: const Passenger(
-        id: 1,
+        id: '1',
         firstName: 'Dang',
         lastName: 'Nam',
         identityNumber: '1232131232',
@@ -163,14 +161,12 @@ final allTicketsDummy = [
     price: 3000000,
     flightDate: DateTime(2022, 6, 11),
     bookedTime: DateTime(2022, 5, 16, 17, 4, 23),
-    approvedTime: DateTime(2022, 5, 16, 17, 5, 23),
   ),
   Ticket(
-    id: 2,
-    code: 'H3JH435J5',
+    id: 'H3JH435J5',
     flightCode: 'VN86324',
     passenger: const Passenger(
-        id: 1,
+        id: '1',
         firstName: 'Trung',
         lastName: 'Truc',
         identityNumber: '42343423523',
@@ -180,14 +176,12 @@ final allTicketsDummy = [
     price: 450000,
     flightDate: DateTime(2022, 5, 22),
     bookedTime: DateTime(2022, 5, 16, 17, 4, 23),
-    approvedTime: DateTime(2022, 5, 16, 17, 5, 23),
   ),
   Ticket(
-    id: 3,
-    code: 'H3JH4345H',
+    id: 'H3JH4345H',
     flightCode: 'VN86327',
     passenger: const Passenger(
-        id: 1,
+        id: '1',
         firstName: 'Hoang Thao',
         lastName: 'Linh',
         identityNumber: '43847234897',
@@ -197,23 +191,6 @@ final allTicketsDummy = [
     price: 900000,
     flightDate: DateTime(2022, 5, 22),
     bookedTime: DateTime(2022, 5, 16, 17, 4, 23),
-   
-  ),
-  Ticket(
-    id: 4,
-    code: 'DASD2FD73',
-    flightCode: 'VN86324',
-    ticketClassId: 'E',
-    price: 450000,
-    flightDate: DateTime(2022, 5, 20),
-  ),
-  Ticket(
-    id: 5,
-    code: 'DA43JHD73',
-    flightCode: 'VN86325',
-    ticketClassId: 'B',
-    price: 2000000,
-    flightDate: DateTime(2022, 5, 22),
   ),
 ];
 
@@ -364,9 +341,18 @@ const reportsDummy = [
   ),
 ];
 
+final airportsDummy = [
+  const Airport('SGN', 'Tân Sơn Nhất', 'TP.HCM'),
+  const Airport('HAN', 'Nội Bài', 'Hà Nội'),
+  const Airport('VDH', 'Đồng Hới', 'Quảng Bình'),
+  const Airport('VII', 'Vinh', 'Nghệ An'),
+  const Airport('CXR', 'Cam Ranh', 'Khánh Hòa'),
+  const Airport('VCA', 'Cần Thơ', 'Cần Thơ'),
+  const Airport('DAD', 'Đà Nẵng', 'Đà Nẵng'),
+];
+
 final ticketClassesDummy = [
-  const TicketClass(
-      'P', 'Super lite', 'Phổ thông siêu tiết kiệm', false, 0, false, 0),
+  const TicketClass('P', 'Super lite', 'Siêu tiết kiệm', false, 0, false, 0),
   const TicketClass('L', 'Economy', 'Phổ thông', true, 120000.0, true, 0.0),
   const TicketClass('C', 'Business', 'Thương gia', true, 0, true, 30000.0),
 ];
