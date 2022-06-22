@@ -46,8 +46,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "booked_time": MessageLookupByLibrary.simpleMessage("Time of booking"),
         "booking": MessageLookupByLibrary.simpleMessage("Booking"),
         "booking_title": m1,
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "class_seat_count": m2,
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
+        "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "delete_staff": MessageLookupByLibrary.simpleMessage("Delete staff"),
+        "delete_staff_confirm": MessageLookupByLibrary.simpleMessage(
+            "Are you sure to delete this staff?"),
         "departure_airport":
             MessageLookupByLibrary.simpleMessage("Departure airport"),
         "email_address": MessageLookupByLibrary.simpleMessage("Email address"),
@@ -71,6 +76,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "from_airport": MessageLookupByLibrary.simpleMessage("From"),
         "fullname": MessageLookupByLibrary.simpleMessage("Full name"),
         "hahahaha": MessageLookupByLibrary.simpleMessage("hahahaha"),
+        "id": MessageLookupByLibrary.simpleMessage("ID"),
         "identity_number":
             MessageLookupByLibrary.simpleMessage("Identity number"),
         "intermediate_airport":
@@ -104,6 +110,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "revenue": MessageLookupByLibrary.simpleMessage("Revenue"),
         "seat_amount": MessageLookupByLibrary.simpleMessage("Seat amount"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
+        "staff": MessageLookupByLibrary.simpleMessage("Staff"),
         "stop_duration": MessageLookupByLibrary.simpleMessage("Stop duration"),
         "ticket": MessageLookupByLibrary.simpleMessage("Ticket"),
         "ticket_class": MessageLookupByLibrary.simpleMessage("Ticket class"),

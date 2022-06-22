@@ -1,5 +1,6 @@
 import 'package:simplane_client_admin/model/annual_report.dart';
 import 'package:simplane_client_admin/model/passenger.dart';
+import 'package:simplane_client_admin/model/staff.dart';
 
 import 'model/airport.dart';
 import 'model/monthly_report.dart';
@@ -194,7 +195,7 @@ final allTicketsDummy = [
   ),
 ];
 
-const reportsDummy = [
+const managerReportsDummy = [
   AnnualReport(
     2022,
     [
@@ -202,8 +203,183 @@ const reportsDummy = [
           month: 1,
           year: 2022,
           ticketCount: 39,
-          revenue: 2440000,
-          staffId: 123),
+          flightCount: 15,
+          revenue: 2440000),
+      MonthlyReport(
+          month: 2,
+          year: 2022,
+          ticketCount: 12,
+          flightCount: 7,
+          revenue: 1500000),
+      MonthlyReport(
+        month: 3,
+        year: 2022,
+        ticketCount: 4,
+        revenue: 1200000,
+        flightCount: 5,
+      ),
+      MonthlyReport(
+        month: 4,
+        year: 2022,
+        ticketCount: 5,
+        revenue: 14200000,
+        flightCount: 7,
+      ),
+      MonthlyReport(
+        month: 5,
+        year: 2022,
+        ticketCount: 43,
+        revenue: 3200000,
+        flightCount: 21,
+      ),
+      MonthlyReport(
+        month: 6,
+        year: 2022,
+        ticketCount: 23,
+        revenue: 2320000,
+        flightCount: 22,
+      ),
+      MonthlyReport(
+        month: 7,
+        year: 2022,
+        ticketCount: 17,
+        revenue: 8760000,
+        flightCount: 14,
+      ),
+      MonthlyReport(
+        month: 8,
+        year: 2022,
+        ticketCount: 8,
+        revenue: 2300000,
+        flightCount: 12,
+      ),
+      MonthlyReport(
+        month: 9,
+        year: 2022,
+        ticketCount: 37,
+        revenue: 2400000,
+        flightCount: 5,
+      ),
+      MonthlyReport(
+        month: 10,
+        year: 2022,
+        ticketCount: 23,
+        revenue: 244000,
+        flightCount: 38,
+      ),
+      MonthlyReport(
+        month: 11,
+        year: 2022,
+        ticketCount: 35,
+        flightCount: 23,
+        revenue: 244000,
+      ),
+      MonthlyReport(
+        month: 12,
+        year: 2022,
+        ticketCount: 13,
+        revenue: 244000,
+        flightCount: 34,
+      ),
+    ],
+  ),
+  AnnualReport(
+    2021,
+    [
+      MonthlyReport(
+        month: 1,
+        year: 2021,
+        ticketCount: 23,
+        revenue: 2440000,
+        flightCount: 15,
+      ),
+      MonthlyReport(
+        month: 2,
+        year: 2021,
+        ticketCount: 12,
+        revenue: 1500000,
+        flightCount: 15,
+      ),
+      MonthlyReport(
+        month: 3,
+        year: 2021,
+        ticketCount: 45,
+        revenue: 1200000,
+        flightCount: 15,
+      ),
+      MonthlyReport(
+        month: 4,
+        year: 2021,
+        ticketCount: 23,
+        revenue: 1420000,
+        flightCount: 15,
+      ),
+      MonthlyReport(
+        month: 5,
+        year: 2021,
+        ticketCount: 12,
+        revenue: 3200000,
+        flightCount: 15,
+      ),
+      MonthlyReport(
+        month: 6,
+        year: 2021,
+        ticketCount: 33,
+        revenue: 2320000,
+        flightCount: 15,
+      ),
+      MonthlyReport(
+        month: 7,
+        year: 2021,
+        ticketCount: 17,
+        revenue: 8760000,
+        flightCount: 15,
+      ),
+      MonthlyReport(
+        month: 8,
+        year: 2021,
+        ticketCount: 8,
+        revenue: 2300000,
+        flightCount: 15,
+      ),
+      MonthlyReport(
+        month: 9,
+        year: 2021,
+        ticketCount: 37,
+        revenue: 2400000,
+        flightCount: 15,
+      ),
+      MonthlyReport(
+        month: 10,
+        year: 2021,
+        ticketCount: 23,
+        revenue: 244000,
+        flightCount: 15,
+      ),
+      MonthlyReport(
+        month: 11,
+        year: 2021,
+        ticketCount: 35,
+        revenue: 244000,
+        flightCount: 15,
+      ),
+      MonthlyReport(
+        month: 12,
+        year: 2021,
+        ticketCount: 13,
+        revenue: 244000,
+        flightCount: 15,
+      ),
+    ],
+  ),
+];
+
+const staffReportsDummy = [
+  AnnualReport(
+    2022,
+    [
+      MonthlyReport(
+          month: 1, year: 2022, ticketCount: 8, revenue: 245000, staffId: 123),
       MonthlyReport(
           month: 2,
           year: 2022,
@@ -221,7 +397,7 @@ const reportsDummy = [
       MonthlyReport(
           month: 5,
           year: 2022,
-          ticketCount: 43,
+          ticketCount: 21,
           revenue: 3200000,
           staffId: 123),
       MonthlyReport(
@@ -241,95 +417,55 @@ const reportsDummy = [
       MonthlyReport(
           month: 9,
           year: 2022,
-          ticketCount: 37,
+          ticketCount: 12,
           revenue: 2400000,
           staffId: 123),
       MonthlyReport(
           month: 10,
           year: 2022,
-          ticketCount: 23,
+          ticketCount: 14,
           revenue: 244000,
           staffId: 123),
       MonthlyReport(
           month: 11,
           year: 2022,
-          ticketCount: 35,
+          ticketCount: 12,
           revenue: 244000,
           staffId: 123),
       MonthlyReport(
           month: 12,
           year: 2022,
-          ticketCount: 13,
+          ticketCount: 15,
           revenue: 244000,
           staffId: 123),
     ],
-    123,
+    '123',
   ),
   AnnualReport(
     2021,
     [
       MonthlyReport(
-          month: 1,
-          year: 2021,
-          ticketCount: 23,
-          revenue: 2440000,
-          staffId: 123),
+          month: 1, year: 2021, ticketCount: 12, revenue: 244000, staffId: 123),
       MonthlyReport(
-          month: 2,
-          year: 2021,
-          ticketCount: 12,
-          revenue: 1500000,
-          staffId: 123),
+          month: 2, year: 2021, ticketCount: 23, revenue: 150000, staffId: 123),
       MonthlyReport(
-          month: 3,
-          year: 2021,
-          ticketCount: 45,
-          revenue: 1200000,
-          staffId: 123),
+          month: 3, year: 2021, ticketCount: 16, revenue: 120000, staffId: 123),
       MonthlyReport(
-          month: 4,
-          year: 2021,
-          ticketCount: 23,
-          revenue: 1420000,
-          staffId: 123),
+          month: 4, year: 2021, ticketCount: 8, revenue: 1420000, staffId: 123),
       MonthlyReport(
-          month: 5,
-          year: 2021,
-          ticketCount: 12,
-          revenue: 3200000,
-          staffId: 123),
+          month: 5, year: 2021, ticketCount: 6, revenue: 3200000, staffId: 123),
       MonthlyReport(
-          month: 6,
-          year: 2021,
-          ticketCount: 33,
-          revenue: 2320000,
-          staffId: 123),
+          month: 6, year: 2021, ticketCount: 9, revenue: 2320000, staffId: 123),
       MonthlyReport(
-          month: 7,
-          year: 2021,
-          ticketCount: 17,
-          revenue: 8760000,
-          staffId: 123),
+          month: 7, year: 2021, ticketCount: 17, revenue: 876000, staffId: 123),
       MonthlyReport(
           month: 8, year: 2021, ticketCount: 8, revenue: 2300000, staffId: 123),
       MonthlyReport(
-          month: 9,
-          year: 2021,
-          ticketCount: 37,
-          revenue: 2400000,
-          staffId: 123),
+          month: 9, year: 2021, ticketCount: 6, revenue: 2400000, staffId: 123),
       MonthlyReport(
-          month: 10,
-          year: 2021,
-          ticketCount: 23,
-          revenue: 244000,
-          staffId: 123),
+          month: 10, year: 2021, ticketCount: 7, revenue: 244000, staffId: 123),
       MonthlyReport(
-          month: 11,
-          year: 2021,
-          ticketCount: 35,
-          revenue: 244000,
-          staffId: 123),
+          month: 11, year: 2021, ticketCount: 4, revenue: 244000, staffId: 123),
       MonthlyReport(
           month: 12,
           year: 2021,
@@ -337,7 +473,7 @@ const reportsDummy = [
           revenue: 244000,
           staffId: 123),
     ],
-    123,
+    '123',
   ),
 ];
 
@@ -355,4 +491,14 @@ final ticketClassesDummy = [
   const TicketClass('P', 'Super lite', 'Siêu tiết kiệm', false, 0, false, 0),
   const TicketClass('L', 'Economy', 'Phổ thông', true, 120000.0, true, 0.0),
   const TicketClass('C', 'Business', 'Thương gia', true, 0, true, 30000.0),
+];
+
+final staffsDummy = [
+  const Staff(
+      User('324', 'anhminh', 'Nguyen Anh Minh', true, ''), 87, 31200000),
+  const Staff(
+      User('324', 'minhanh', 'Nguyen Minh Anh', true, ''), 120, 54300000),
+  const Staff(
+      User('325', 'minhminh', 'Nguyen Minh Minh', true, ''), 46, 34200000),
+  const Staff(User('326', 'anhanh', 'Nguyen Anh Anh', true, ''), 66, 23400000),
 ];

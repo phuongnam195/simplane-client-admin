@@ -680,6 +680,66 @@ class S {
     );
   }
 
+  /// `Staff`
+  String get staff {
+    return Intl.message(
+      'Staff',
+      name: 'staff',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete staff`
+  String get delete_staff {
+    return Intl.message(
+      'Delete staff',
+      name: 'delete_staff',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure to delete this staff?`
+  String get delete_staff_confirm {
+    return Intl.message(
+      'Are you sure to delete this staff?',
+      name: 'delete_staff_confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete`
+  String get delete {
+    return Intl.message(
+      'Delete',
+      name: 'delete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ID`
+  String get id {
+    return Intl.message(
+      'ID',
+      name: 'id',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `hahahaha`
   String get hahahaha {
     return Intl.message(

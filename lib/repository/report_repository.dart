@@ -7,21 +7,60 @@ import '../dummy_data.dart';
 
 abstract class ReportRepository extends BaseRepository<AnnualReport> {
   Future<AnnualReport> getReport(int year, [String? staffId]);
+
+  Future<double> getTotalTicketCount([String? staffId]);
+
+  Future<double> getTotalRevenue([String? staffId]);
 }
 
 class ReportRepositoryImp extends BaseRepositoryImp<AnnualReport>
     implements ReportRepository {
   @override
   Future<AnnualReport> getReport(int year, [String? staffId]) async {
-    return reportsDummy.firstWhere(
-      (e) => e.year == year,
-      orElse: () => AnnualReport(year, const []),
-    );
+    if (staffId == null) {
+      return managerReportsDummy.firstWhere(
+        (e) => e.year == year,
+        orElse: () => AnnualReport(year, const []),
+      );
+    } else {
+      return staffReportsDummy.firstWhere(
+        (e) => e.year == year,
+        orElse: () => AnnualReport(year, const []),
+      );
+    }
 
     // TODO: api
 
     // return AnnualReport.fromJson(await ApiClient(REPORT_GET).get(
     //     params: {'year': year, 'staffId': staffId}
     //       ..removeWhere((_, v) => v == null)));
+  }
+
+  @override
+  Future<double> getTotalTicketCount([String? staffId]) async {
+    // TODO: api
+
+    double result = 0;
+    for (var annualReport in staffReportsDummy) {
+      for (var monthlyReport in annualReport.monthlyReports) {
+        result += monthlyReport.ticketCount;
+      }
+    }
+
+    return result;
+  }
+
+  @override
+  Future<double> getTotalRevenue([String? staffId]) async {
+    // TODO: api
+
+    double result = 0;
+    for (var annualReport in staffReportsDummy) {
+      for (var monthlyReport in annualReport.monthlyReports) {
+        result += monthlyReport.revenue;
+      }
+    }
+
+    return result;
   }
 }

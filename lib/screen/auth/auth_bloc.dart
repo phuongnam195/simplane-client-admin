@@ -1,4 +1,3 @@
-//region EVENT
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:simplane_client_admin/core/rule_manager.dart';
@@ -10,6 +9,7 @@ import 'package:simplane_client_admin/repository/user_repository.dart';
 import 'package:simplane_client_admin/util/logger.dart';
 import 'package:simplane_client_admin/util/my_exception.dart';
 
+//region EVENT
 abstract class AuthEvent {}
 
 class Login extends AuthEvent {
@@ -35,7 +35,6 @@ class SwitchTo extends AuthEvent {
 
   SwitchTo(this.type);
 }
-
 //endregion
 
 //region STATE

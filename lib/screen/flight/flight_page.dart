@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:horizontal_data_table/horizontal_data_table.dart';
 import 'package:simplane_client_admin/core/base_mixin_function.dart';
@@ -127,7 +128,7 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
                     _dataToShow = _data;
                   });
                 } else if (state is DataLoadFailed) {
-                  //TODO: show error dialog
+                  EasyLoading.showError(state.error);
                 }
               },
               child: Expanded(

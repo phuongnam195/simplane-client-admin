@@ -97,6 +97,12 @@
     },
     "seat_amount": "Seat amount",
     "add_flight_successfully": "Add flight successfully!",
+    "staff": "Staff",
+    "delete_staff": "Delete staff",
+    "delete_staff_confirm": "Are you sure to delete this staff?",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "id": "ID",
 
     "hahahaha": "hahahaha"
 }

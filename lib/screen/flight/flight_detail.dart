@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:simplane_client_admin/core/rule_manager.dart';
+import 'package:simplane_client_admin/core/user_manager.dart';
 import 'package:simplane_client_admin/generated/l10n.dart';
 import 'package:simplane_client_admin/model/flight.dart';
 import 'package:simplane_client_admin/screen/booking/booking_screen.dart';
@@ -137,22 +138,23 @@ class FlightDetail extends StatelessWidget {
                       ]))
                   .toList(),
             ),
-          ElevatedButton(
-            child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                child: Text(
-                  S.current.booking,
-                  style: AppStyle.content.copyWith(color: Colors.white),
-                )),
-            onPressed: () {
-              Get.toNamed(BookingScreen.routeName, arguments: data);
-            },
-            style: ElevatedButton.styleFrom(
-              primary: AppColor.primary,
-              shape: const StadiumBorder(),
+          if (UserManager.instance.getUser()!.isAdmin == false)
+            ElevatedButton(
+              child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                  child: Text(
+                    S.current.booking,
+                    style: AppStyle.content.copyWith(color: Colors.white),
+                  )),
+              onPressed: () {
+                Get.toNamed(BookingScreen.routeName, arguments: data);
+              },
+              style: ElevatedButton.styleFrom(
+                primary: AppColor.primary,
+                shape: const StadiumBorder(),
+              ),
             ),
-          ),
         ],
       ),
     );

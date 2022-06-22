@@ -1,4 +1,3 @@
-//region EVENT
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:simplane_client_admin/core/setting.dart';
@@ -12,6 +11,7 @@ import 'package:simplane_client_admin/repository/ticket_repository.dart';
 import 'package:simplane_client_admin/repository/user_repository.dart';
 import 'package:simplane_client_admin/util/logger.dart';
 
+//region EVENT
 abstract class HomeEvent {}
 
 class LoadFlights extends HomeEvent {
@@ -123,7 +123,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   _onLogout(Logout event, Emitter<HomeState> emit) async {
-    emit(DataLoading());
     UserRepository repo = Get.find();
     try {
       await repo.logout();
