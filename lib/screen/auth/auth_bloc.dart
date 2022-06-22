@@ -4,10 +4,11 @@ import 'package:get/get.dart';
 import 'package:simplane_client_admin/core/rule_manager.dart';
 import 'package:simplane_client_admin/core/setting.dart';
 import 'package:simplane_client_admin/core/user_manager.dart';
-import 'package:simplane_client_admin/model/user.dart';
+import 'package:simplane_client_admin/generated/l10n.dart';
 import 'package:simplane_client_admin/network/base/network_base.dart';
 import 'package:simplane_client_admin/repository/user_repository.dart';
 import 'package:simplane_client_admin/util/logger.dart';
+import 'package:simplane_client_admin/util/my_exception.dart';
 
 abstract class AuthEvent {}
 
@@ -34,6 +35,7 @@ class SwitchTo extends AuthEvent {
 
   SwitchTo(this.type);
 }
+
 //endregion
 
 //region STATE
@@ -43,14 +45,12 @@ class AuthInit extends AuthState {}
 
 class AuthLoading extends AuthState {}
 
-class LoginSuccess extends AuthState {}
+class AuthSuccess extends AuthState {}
 
-class SignUpSuccess extends AuthState {}
-
-class AuthFailure extends AuthState {
+class AuthError extends AuthState {
   final String error;
 
-  AuthFailure(this.error);
+  AuthError(this.error);
 }
 
 class SetAuthType extends AuthState {
@@ -78,16 +78,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       });
       UserManager.instance.setUser(user);
       await RuleManager.instance.load();
-      emit(LoginSuccess());
+      emit(AuthSuccess());
     } catch (e) {
       Logger.e('AuthBloc -> _onLogin()', '$e');
-      emit(AuthFailure('$e'));
+      emit(AuthError('$e'));
     }
   }
 
   _onSignUp(SignUp event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
     try {
+      if (event.password != event.retypePassword) {
+        throw MyException(S.current.retype_password_not_match);
+      }
       UserRepository repo = Get.find();
       final user =
           await repo.signup(event.fullname, event.username, event.password);
@@ -97,10 +100,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       });
       UserManager.instance.setUser(user);
       await RuleManager.instance.load();
-      emit(SignUpSuccess());
+      emit(AuthSuccess());
     } catch (e) {
       Logger.e('AuthBloc -> _onSignUp()', '$e');
-      emit(AuthFailure('$e'));
+      emit(AuthError('$e'));
     }
   }
 }
