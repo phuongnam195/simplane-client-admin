@@ -5,7 +5,7 @@ part 'passenger.g.dart';
 
 @JsonSerializable()
 class Passenger extends Equatable {
-  final int id;
+  final String id;
   final String firstName;
   final String lastName;
   final String identityNumber;

@@ -14,6 +14,8 @@ class Flight extends Equatable {
   final DateTime dateTime;
   final double duration;
   final Map<String, double>
+      ticketClassPrice; // prices of ticket classes, key = ticketClassId, value: price
+  final Map<String, double>
       seatAmount; // total seat, key = ticketClassId, value: quantity
   final Map<String, double>
       bookedAmount; // booked seat, key = ticketClassId, value: quantity
@@ -27,6 +29,7 @@ class Flight extends Equatable {
       required this.toAirport,
       required this.dateTime,
       required this.duration,
+      required this.ticketClassPrice,
       required this.seatAmount,
       required this.bookedAmount,
       required this.middleAirports,
@@ -44,6 +47,7 @@ class Flight extends Equatable {
         toAirport,
         dateTime,
         duration,
+        ticketClassPrice,
         seatAmount,
         bookedAmount,
         middleAirports,
@@ -57,6 +61,17 @@ class Flight extends Equatable {
     if (maps == null || maps.isEmpty) {
       return [];
     }
-    return maps.map((data) => Flight.fromJson(data)).toList();
+
+    // return maps.map((data) => Flight.fromJson(data)).toList();
+
+    return maps.map((data) {
+      Map<String, dynamic> json = data;
+      json['ticketClassPrice'] = {
+        'P': 100000.0,
+        'L': 200000.0,
+        'C': 300000.0,
+      };
+      return Flight.fromJson(json);
+    }).toList();
   }
 }

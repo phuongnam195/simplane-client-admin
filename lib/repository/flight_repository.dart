@@ -13,13 +13,15 @@ abstract class FlightRepository extends BaseRepository<Flight> {
     required DateTime toDate,
     Map<String, dynamic>? extraQuery,
   });
+
+  Future addFlight(Flight flight);
 }
 
 class FlightRepositoryImp extends BaseRepositoryImp<Flight>
     implements FlightRepository {
   @override
   Future<Flight> getById(int id) async {
-    return Flight.fromJson(await ApiClient(FLIGHT_GET).get(params: {'id': id}));
+    return Flight.fromJson(await ApiClient(FLIGHT).get(params: {'id': id}));
   }
 
   @override
@@ -37,6 +39,11 @@ class FlightRepositoryImp extends BaseRepositoryImp<Flight>
     };
     customQuery.addAll(extraQuery ?? {});
     return Flight.mapToList(
-        await getListFromApi(apiUrl: FLIGHT_GET, customQuery: customQuery));
+        await getListFromApi(apiUrl: FLIGHT, customQuery: customQuery));
+  }
+
+  @override
+  Future addFlight(Flight flight) async {
+    await ApiClient(FLIGHT).post(flight.toJson());
   }
 }
