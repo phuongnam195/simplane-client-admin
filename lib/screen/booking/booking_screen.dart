@@ -68,36 +68,56 @@ class _BookingScreenState extends State<BookingScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(S.current.pick_ticket_class),
+                const SizedBox(height: 20),
+                //Text(S.current.pick_ticket_class, style: AppStyle.heading),
+                _fieldHeading(S.current.pick_ticket_class),
+                // const SizedBox(height: 10),
                 _radioGroupTicketClasses(),
-                Text(S.current.passenger_info),
+                const SizedBox(height: 20),
+                //Text(S.current.passenger_info, style: AppStyle.heading),
+                _fieldHeading(S.current.passenger_info),
+                _fieldTitle(S.current.fullname),
                 Row(
                   children: [
                     Expanded(
                         child: _textField(
-                            S.current.first_name, _firstNameController,
+                            controller: _firstNameController,
+                            label: S.current.first_name,
                             onEditingComplete: () {
-                      _lastNameNode.requestFocus();
-                    })),
+                              _lastNameNode.requestFocus();
+                            })),
                     const SizedBox(width: 20),
                     Expanded(
                       child: _textField(
-                          S.current.last_name, _lastNameController,
-                          focusNode: _lastNameNode, onEditingComplete: () {
-                        _identityNode.requestFocus();
-                      }),
+                          label: S.current.last_name,
+                          controller: _lastNameController,
+                          focusNode: _lastNameNode,
+                          onEditingComplete: () {
+                            _identityNode.requestFocus();
+                          }),
                     ),
                   ],
                 ),
-                _textField(S.current.identity_number, _identityController,
-                    focusNode: _identityNode, onEditingComplete: () {
-                  _emailNode.requestFocus();
-                }),
-                _textField(S.current.email_address, _emailController,
-                    focusNode: _emailNode, onEditingComplete: () {
-                  _phoneNode.requestFocus();
-                }),
-                _textField(S.current.phone_number, _phoneController,
+                _fieldTitle(S.current.identity_number),
+                _textField(
+                    // label: S.current.identity_number,
+                    controller: _identityController,
+                    focusNode: _identityNode,
+                    onEditingComplete: () {
+                      _emailNode.requestFocus();
+                    }),
+                _fieldTitle(S.current.email_address),
+                _textField(
+                    // label: S.current.email_address,
+                    controller: _emailController,
+                    focusNode: _emailNode,
+                    onEditingComplete: () {
+                      _phoneNode.requestFocus();
+                    }),
+                _fieldTitle(S.current.phone_number),
+                _textField(
+                    // label: S.current.phone_number,
+                    controller: _phoneController,
                     focusNode: _phoneNode),
                 const SizedBox(height: 10),
                 Center(
@@ -175,7 +195,7 @@ class _BookingScreenState extends State<BookingScreen> {
                 });
               }),
           Expanded(
-            child: Text(
+            child: _radioContent(
                 '[$tcId] $name\n${S.current.avail_ticket_count(avail)}\n${formatCurrency(price)}'),
           )
         ]),
@@ -183,19 +203,97 @@ class _BookingScreenState extends State<BookingScreen> {
     );
   }
 
-  Widget _textField(String label, TextEditingController controller,
-      {bool? readOnly,
-      FocusNode? focusNode,
-      String? errorText,
-      void Function()? onEditingComplete}) {
+  // Widget _textField(String label, TextEditingController controller,
+  //     {bool? readOnly,
+  //     FocusNode? focusNode,
+  //     String? errorText,
+  //     void Function()? onEditingComplete}) {
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(vertical: 8),
+  //     child: TextFormField(
+  //       controller: controller,
+  //       decoration: InputDecoration(labelText: label, errorText: errorText),
+  //       focusNode: focusNode,
+  //       style: const TextStyle(fontSize: 16),
+  //       readOnly: readOnly ?? false,
+  //       validator: (value) {
+  //         if (value == null || value.isEmpty) {
+  //           return S.current.not_empty;
+  //         }
+  //         return null;
+  //       },
+  //       onEditingComplete: onEditingComplete,
+  //     ),
+  //   );
+  // }
+
+  double getTicketPrice(TicketClass tc) =>
+      _flight.ticketClassPrice[tc.id] ?? 0.0;
+  int countTotalTicket(TicketClass tc) =>
+      _flight.seatAmount[tc.id]?.toInt() ?? 0;
+  int countAvailTicket(TicketClass tc) =>
+      countTotalTicket(tc) - (_flight.bookedAmount[tc.id]?.toInt() ?? 0);
+
+  Widget _fieldTitle(String title) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, bottom: 4),
+      child: Text(
+        title,
+        style: AppStyle.content,
+      ),
+    );
+  }
+
+  Widget _radioContent(String content) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, bottom: 4),
+      child: Text(
+        content,
+        style: const TextStyle(
+          fontSize: 16,
+          color: Colors.black,
+        ),
+      ),
+    );
+  }
+
+  Widget _fieldHeading(String heading) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, bottom: 4),
+      child: Text(
+        heading,
+        style: const TextStyle(
+          color: Colors.black,
+          fontSize: 25,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
+  }
+
+  Widget _textField({
+    TextEditingController? controller,
+    String? label,
+    bool? readOnly,
+    FocusNode? focusNode,
+    String? errorText,
+    void Function()? onEditingComplete,
+    bool numberOnly = false,
+  }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: TextFormField(
         controller: controller,
-        decoration: InputDecoration(labelText: label, errorText: errorText),
+        decoration: InputDecoration(
+            labelText: label,
+            errorText: errorText,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+            border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(5.0))),
         focusNode: focusNode,
         style: const TextStyle(fontSize: 16),
         readOnly: readOnly ?? false,
+        keyboardType: numberOnly ? TextInputType.number : null,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return S.current.not_empty;
@@ -206,11 +304,4 @@ class _BookingScreenState extends State<BookingScreen> {
       ),
     );
   }
-
-  double getTicketPrice(TicketClass tc) =>
-      _flight.ticketClassPrice[tc.id] ?? 0.0;
-  int countTotalTicket(TicketClass tc) =>
-      _flight.seatAmount[tc.id]?.toInt() ?? 0;
-  int countAvailTicket(TicketClass tc) =>
-      countTotalTicket(tc) - (_flight.bookedAmount[tc.id]?.toInt() ?? 0);
 }

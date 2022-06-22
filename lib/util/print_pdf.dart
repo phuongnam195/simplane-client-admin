@@ -6,6 +6,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 import 'package:simplane_client_admin/util/utils.dart';
 
+import '../core/user_manager.dart';
 import '../generated/l10n.dart';
 import '../model/annual_report.dart';
 import 'constants.dart';
@@ -13,18 +14,20 @@ import 'constants.dart';
 class Pdf {
   static Future<File> generateReport(AnnualReport? report) async {
     final pdf = Document();
-
-    final headers = ['Month', 'Number of tickets', 'Revenue'];
-
-    // final users = [
-    //   User(name: 'James', age: 19),
-    //   User(name: 'Sarah', age: 21),
-    //   User(name: 'Emma', age: 28),
-    // ];
-
-    final data = report!.monthlyReports
+    var headers = [];
+    List<List<Object?>> data;
+    if (UserManager.instance.getUser()?.isAdmin == true) {
+      headers = ['Month', 'Number of flights', 'Number of tickets', 'Revenue'];
+      data = report!.monthlyReports
+        .map((rp) => [rp.month, rp.flightCount, rp.ticketCount, formatCurrencyPdf(rp.revenue)])
+        .toList();
+    } else {
+      headers = ['Month', 'Number of tickets', 'Revenue'];
+      data = report!.monthlyReports
         .map((rp) => [rp.month, rp.ticketCount, formatCurrencyPdf(rp.revenue)])
         .toList();
+    }
+  
 
     pdf.addPage(Page(
         pageTheme: const PageTheme(),
