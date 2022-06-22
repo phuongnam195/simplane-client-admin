@@ -1,10 +1,8 @@
 //region EVENT
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simplane_client_admin/core/rule_manager.dart';
 import 'package:simplane_client_admin/core/user_manager.dart';
 import 'package:simplane_client_admin/network/base/network_base.dart';
-import 'package:simplane_client_admin/repository/user_repository.dart';
 import 'package:simplane_client_admin/util/logger.dart';
 
 abstract class SplashEvent {}
@@ -43,8 +41,6 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
       'accessToken': UserManager.instance.accessToken(),
     });
     try {
-      // TODO: Load data
-      Future.delayed(const Duration(seconds: 2));
       await RuleManager.instance.load();
       emit(DataLoaded());
     } catch (e) {

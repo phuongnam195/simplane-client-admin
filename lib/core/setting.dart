@@ -25,4 +25,9 @@ class Setting {
     }
     return null;
   }
+
+  clearAllData() async {
+    final _prefs = await SharedPreferences.getInstance();
+    _prefs.clear();
+  }
 }
