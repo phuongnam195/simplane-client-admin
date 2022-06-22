@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:simplane_client_admin/generated/l10n.dart';
 
 part 'ticket_class.g.dart';
 
@@ -20,6 +21,8 @@ class TicketClass extends Equatable {
       _$TicketClassFromJson(json);
 
   Map<String, dynamic> toJson() => _$TicketClassToJson(this);
+
+  String get name => S.current.languageCode == 'en' ? enName : viName;
 
   @override
   List<Object> get props =>

@@ -1,6 +1,7 @@
 import 'package:simplane_client_admin/core/base_repository.dart';
 import 'package:simplane_client_admin/model/airport.dart';
 import 'package:simplane_client_admin/model/flight.dart';
+import 'package:simplane_client_admin/model/passenger.dart';
 import 'package:simplane_client_admin/model/ticket.dart';
 import 'package:simplane_client_admin/network/api_path.dart';
 import 'package:simplane_client_admin/network/base/api_client.dart';
@@ -15,13 +16,22 @@ abstract class TicketRepository extends BaseRepository<Ticket> {
     required DateTime toDate,
     Map<String, dynamic>? extraQuery,
   });
+
+  Future<Ticket> bookTicket({
+    required String flightCode,
+    required DateTime flightDate,
+    required Passenger passenger,
+    required String ticketClassId,
+    required double price,
+    required DateTime bookedTime,
+  });
 }
 
 class TicketRepositoryImp extends BaseRepositoryImp<Ticket>
     implements TicketRepository {
   @override
   Future<Ticket> getById(int id) async {
-    return Ticket.fromJson(await ApiClient(TICKET_GET).get(params: {'id': id}));
+    return Ticket.fromJson(await ApiClient(TICKET).get(params: {'id': id}));
   }
 
   @override
@@ -30,29 +40,44 @@ class TicketRepositoryImp extends BaseRepositoryImp<Ticket>
     required DateTime toDate,
     Map<String, dynamic>? extraQuery,
   }) async {
-    await fakeDelay;
-    if (extraQuery == null) {
-      return allTicketsDummy;
-    } else if (extraQuery['isBooked'] == true) {
-      return allTicketsDummy.where((e) => e.isApproved).toList();
-    } else if (extraQuery['isBooked'] == false) {
-      return allTicketsDummy.where((e) => !e.isBooked).toList();
-    } else if (extraQuery['isPending'] == true) {
-      return allTicketsDummy.where((e) => e.isPending).toList();
-    } else {
-      return allTicketsDummy;
-    }
+    // await fakeDelay;
+    // if (extraQuery == null) {
+    //   return allTicketsDummy;
+    // } else if (extraQuery['isBooked'] == true) {
+    //   return allTicketsDummy.where((e) => e.isBooked).toList();
+    // } else if (extraQuery['isBooked'] == false) {
+    //   return allTicketsDummy.where((e) => !e.isBooked).toList();
+    // } else {
+    //   return allTicketsDummy;
+    // }
 
-    // TODO: chưa có API
+    Map<String, dynamic> customQuery = {
+      'fromDate': fromDate.millisecondsSinceEpoch,
+      'toDate': toDate.millisecondsSinceEpoch,
+    };
 
-    // Map<String, dynamic> customQuery = {
-    //   'fromDate': fromDate.toIso8601String(),
-    //   'toDate': toDate.toIso8601String(),
-    // };
+    customQuery.addAll(extraQuery ?? {});
 
-    // customQuery.addAll(extraQuery ?? {});
+    return Ticket.mapToList(
+        await getListFromApi(apiUrl: TICKET, customQuery: customQuery));
+  }
 
-    // return Ticket.mapToList(
-    //     await getListFromApi(apiUrl: TICKET_GETS, customQuery: customQuery));
+  @override
+  Future<Ticket> bookTicket({
+    required String flightCode,
+    required DateTime flightDate,
+    required Passenger passenger,
+    required String ticketClassId,
+    required double price,
+    required DateTime bookedTime,
+  }) async {
+    return Ticket.fromJson(await ApiClient(TICKET).post({
+      'flightCode': flightCode,
+      'flightDate': flightDate,
+      'passenger': passenger.toJson(),
+      'ticketClassId': ticketClassId,
+      'price': price,
+      'bookedTime': bookedTime.microsecondsSinceEpoch,
+    }));
   }
 }
