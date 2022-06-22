@@ -19,7 +19,7 @@ class ApiException implements Exception {
       case EXCEPTION_CLIENT_TIMEOUT:
         return S.current.error_timeout;
       default:
-        return S.current.error;
+        return error;
     }
   }
 }

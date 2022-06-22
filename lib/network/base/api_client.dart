@@ -110,7 +110,7 @@ class ApiClient {
       Logger.e('ApiClient -> callApi() -> parse response', '$e');
       throw ApiException(S.current.unknown_error, EXCEPTION_CLIENT_UNKNOWN);
     }
-    if (baseResponse.statusCode != 0) {
+    if (baseResponse.statusCode == 0) {
       throw ApiException(
           (isNullOrEmpty(baseResponse.friendlyMessage)
                   ? (isNullOrEmpty(baseResponse.message)

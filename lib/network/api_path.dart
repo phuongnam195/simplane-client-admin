@@ -9,10 +9,9 @@ const LOGIN = '$URL/auth/sign-in';
 const SIGNUP = '$URL/auth/sign-up';
 const LOGOUT = '$URL/auth/sign-out';
 
-const FLIGHT_GET = '$URL/flight';
+const FLIGHT = '$URL/flight';
 
-const TICKET_GET = '$URL/ticket/get';
-const TICKET_GETS = '$URL/ticket/gets';
+const TICKET = '$URL/ticket';
 
 const REPORT_GET = '$URL/report/get';
 
