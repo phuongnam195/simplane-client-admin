@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:horizontal_data_table/horizontal_data_table.dart';
 import 'package:simplane_client_admin/core/base_mixin_function.dart';
 import 'package:simplane_client_admin/core/rule_manager.dart';
+import 'package:simplane_client_admin/core/user_manager.dart';
 import 'package:simplane_client_admin/generated/l10n.dart';
 import 'package:simplane_client_admin/model/flight.dart';
 import 'package:simplane_client_admin/model/ticket_class.dart';
-import 'package:simplane_client_admin/screen/staff/home/home_bloc.dart';
-import 'package:simplane_client_admin/screen/staff/home/home_screen.dart';
-import 'package:simplane_client_admin/screen/staff/flight/flight_detail.dart';
+import 'package:simplane_client_admin/screen/home/home_bloc.dart';
+import 'package:simplane_client_admin/screen/home/home_screen.dart';
+import 'package:simplane_client_admin/screen/flight/flight_detail.dart';
 import 'package:simplane_client_admin/util/constants.dart';
 import 'package:simplane_client_admin/util/date_time_utils.dart';
+
+import 'new_flight_screen.dart';
 
 class FlightPage extends StatefulWidget {
   static const pageName = 'flight';
@@ -49,101 +53,119 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
 
   @override
   void initState() {
-    homeBloc.add(LoadFlights(fromDate, toDate));
+    _loadFlights();
     super.initState();
   }
+
+  _loadFlights() => homeBloc.add(LoadFlights(fromDate, toDate));
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(
-                child: SizedBox(
-                  width: 700,
-                  child: Card(
-                      elevation: 1.0,
-                      child: TextField(
-                          decoration: InputDecoration(
-                              hintText: S.current.flight_search_hint,
-                              prefixIcon: const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Icon(Icons.search),
-                              ),
-                              border: InputBorder.none),
-                          onSubmitted: (value) {
-                            _onSearch(value);
-                          })),
-                ),
-              ),
-              Directionality(
-                textDirection: TextDirection.rtl,
-                child: TextButton.icon(
-                  icon: const Icon(Icons.date_range),
-                  label: Text(
-                    fromDate.compareTo(toDate) == 0
-                        ? DateTimeUtils.formatDate(toDate)
-                        : DateTimeUtils.formatDate(toDate) +
-                            ' - ' +
-                            DateTimeUtils.formatDate(fromDate),
+      child: Stack(children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                  child: SizedBox(
+                    width: 700,
+                    child: Card(
+                        elevation: 1.0,
+                        child: TextField(
+                            decoration: InputDecoration(
+                                hintText: S.current.flight_search_hint,
+                                prefixIcon: const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Icon(Icons.search),
+                                ),
+                                border: InputBorder.none),
+                            onSubmitted: (value) {
+                              _onSearch(value);
+                            })),
                   ),
-                  style: TextButton.styleFrom(
-                    primary: AppColor.primary,
-                    onSurface: AppColor.primary,
-                    textStyle: AppStyle.title,
-                  ),
-                  onPressed: () => showDateFilterDialog(context),
                 ),
-              )
-            ],
-          ),
-          BlocListener<HomeBloc, HomeState>(
-            bloc: homeBloc,
-            listenWhen: (previous, current) =>
-                current is FlightsLoaded ||
-                current is DataLoading ||
-                current is DataLoadFailed,
-            listener: (context, state) {
-              if (state is DataLoading) {
-                setState(() {
-                  _isLoading = true;
-                });
-              } else if (state is FlightsLoaded) {
-                setState(() {
-                  _isLoading = false;
-                  _data = state.flights;
-                  _dataToShow = _data;
-                });
-              } else if (state is DataLoadFailed) {
-                //TODO: show error dialog
-              }
-            },
-            child: Expanded(
-              child: _isLoading
-                  ? const Center(child: CircularProgressIndicator())
-                  : HorizontalDataTable(
-                      leftHandSideColumnWidth: colWidths['code']!,
-                      rightHandSideColumnWidth: tableWidth - colWidths['code']!,
-                      isFixedHeader: true,
-                      headerWidgets: _getTitleWidget(),
-                      leftSideItemBuilder: _generateFirstColumnRow,
-                      rightSideItemBuilder: _generateRightHandSideColumnRow,
-                      itemCount: _dataToShow.length,
-                      rowSeparatorWidget: const Divider(
-                        color: Colors.black54,
-                        height: 1.0,
-                        thickness: 0.0,
-                      ),
+                Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: TextButton.icon(
+                    icon: const Icon(Icons.date_range),
+                    label: Text(
+                      fromDate.compareTo(toDate) == 0
+                          ? DateTimeUtils.formatDate(toDate)
+                          : DateTimeUtils.formatDate(toDate) +
+                              ' - ' +
+                              DateTimeUtils.formatDate(fromDate),
                     ),
+                    style: TextButton.styleFrom(
+                      primary: AppColor.primary,
+                      onSurface: AppColor.primary,
+                      textStyle: AppStyle.title,
+                    ),
+                    onPressed: () => showDateFilterDialog(context),
+                  ),
+                )
+              ],
+            ),
+            BlocListener<HomeBloc, HomeState>(
+              bloc: homeBloc,
+              listenWhen: (previous, current) =>
+                  current is FlightsLoaded ||
+                  current is DataLoading ||
+                  current is DataLoadFailed,
+              listener: (context, state) {
+                if (state is DataLoading) {
+                  setState(() {
+                    _isLoading = true;
+                  });
+                } else if (state is FlightsLoaded) {
+                  setState(() {
+                    _isLoading = false;
+                    _data = state.flights;
+                    _dataToShow = _data;
+                  });
+                } else if (state is DataLoadFailed) {
+                  //TODO: show error dialog
+                }
+              },
+              child: Expanded(
+                child: _isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : HorizontalDataTable(
+                        leftHandSideColumnWidth: colWidths['code']!,
+                        rightHandSideColumnWidth:
+                            tableWidth - colWidths['code']!,
+                        isFixedHeader: true,
+                        headerWidgets: _getTitleWidget(),
+                        leftSideItemBuilder: _generateFirstColumnRow,
+                        rightSideItemBuilder: _generateRightHandSideColumnRow,
+                        itemCount: _dataToShow.length,
+                        rowSeparatorWidget: const Divider(
+                          color: Colors.black54,
+                          height: 1.0,
+                          thickness: 0.0,
+                        ),
+                      ),
+              ),
+            ),
+          ],
+        ),
+        if (UserManager.instance.getUser()?.isAdmin == true)
+          Align(
+            alignment: Alignment.bottomRight,
+            child: FloatingActionButton(
+              onPressed: () async {
+                final ok = await Get.toNamed(NewFlightScreen.routeName);
+                if (ok == true) {
+                  _loadFlights();
+                }
+              },
+              child: const Icon(Icons.add),
             ),
           ),
-        ],
-      ),
+      ]),
     );
   }
 
@@ -260,6 +282,6 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
 
   @override
   onDateChanged() {
-    setState(() {});
+    _loadFlights();
   }
 }

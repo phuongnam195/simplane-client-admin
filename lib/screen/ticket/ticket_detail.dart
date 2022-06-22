@@ -27,33 +27,10 @@ class TicketDetail extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                data.code,
+                data.id,
                 style:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
               ),
-              data.passenger == null
-                  ? Text(
-                      ' (' + S.current.not_sold + ')',
-                      style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.red),
-                    )
-                  : data.isApproved
-                      ? Text(
-                          ' (' + S.current.is_sold + ')',
-                          style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.red),
-                        )
-                      : Text(
-                          ' (' + S.current.pending + ')',
-                          style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.red),
-                        )
             ],
           ),
           Padding(
@@ -63,7 +40,7 @@ class TicketDetail extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
-                  children: [  
+                  children: [
                     _wxInfo(S.current.flight_code, data.flightCode),
                     _wxInfo(S.current.ticket_class, data.ticketClassId),
                   ],
@@ -86,16 +63,16 @@ class TicketDetail extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _wxInfo(S.current.passenger, data.passenger!.name),
+                  _wxInfo(S.current.passenger, data.passenger.name),
                   const Padding(
                     padding: EdgeInsets.only(right: 20),
                   ),
-                  _wxInfo(S.current.identity_number,
-                      data.passenger!.identityNumber),
+                  _wxInfo(
+                      S.current.identity_number, data.passenger.identityNumber),
                   const Padding(
                     padding: EdgeInsets.only(right: 20),
                   ),
-                  _wxInfo(S.current.phone_number, data.passenger!.phoneNumber),
+                  _wxInfo(S.current.phone_number, data.passenger.phoneNumber),
                 ],
               ),
             ),
