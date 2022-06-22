@@ -1,4 +1,5 @@
 {
+    "languageCode": "en",
     "app_name": "Simplane",
     "error_no_internet": "Cannot connect to server, please check your connection and try again!",
     "error_timeout": "Connection timeout. Please try again!",
@@ -41,7 +42,7 @@
     "ticket_code": "Ticket code",
     "flight_date": "Flight date",
     "passenger": "Passenger",
-    "identity_number": "Identity",
+    "identity_number": "Identity number",
     "phone_number": "Phone number",
     "ticket_class": "Ticket class",
     "price": "Price",
@@ -60,7 +61,42 @@
     "ticket_count": "Number of tickets",
     "revenue": "Revenue",
     "annual_revenue_report": "Annual Revenue Report",
-
+    "booking": "Booking",
+    "booking_title": "Booking for flight {flightCode}",
+    "@booking_title": {
+        "placeholders": {
+            "flightCode": {
+                "type": "String"
+            }
+        }
+    },
+    "avail_ticket_count": "{count} tickets left",
+    "@avail_ticket_count": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "pick_ticket_class": "Pick ticket class: ",
+    "passenger_info": "Passenger's info",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "email_address": "Email address",
+    "confirm": "Confirm",
+    "new_flight": "New flight",
+    "departure_airport": "Departure airport",
+    "arrival_airport": "Arrival airport",
+    "ticket_class_info": "{name} class's information",
+    "@ticket_class_info": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "seat_amount": "Seat amount",
+    "add_flight_successfully": "Add flight successfully!",
 
     "hahahaha": "hahahaha"
 }

@@ -20,37 +20,83 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'vi';
 
-  static String m0(ticketClass) => "${ticketClass} seat quantity";
+  static String m0(count) => "còn ${count} vé";
+
+  static String m1(flightCode) => "Đặt vé cho chuyến bay ${flightCode}";
+
+  static String m2(ticketClass) => "${ticketClass}\'s chỗ";
+
+  static String m3(flightCode) => "Chuyến bay ${flightCode}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "all": MessageLookupByLibrary.simpleMessage("Tất cả"),
+        "annual_revenue_report":
+            MessageLookupByLibrary.simpleMessage("Báo cáo doanh thu hàng năm"),
         "app_name": MessageLookupByLibrary.simpleMessage("Simplane"),
-        "class_seat_count": m0,
-        "error": MessageLookupByLibrary.simpleMessage("Error"),
+        "approved_time":
+            MessageLookupByLibrary.simpleMessage("Thời gian phê duyệt"),
+        "avail_ticket_count": m0,
+        "booked_time": MessageLookupByLibrary.simpleMessage("Thời gian đặt vé"),
+        "booking": MessageLookupByLibrary.simpleMessage("Đặt vé"),
+        "booking_title": m1,
+        "class_seat_count": m2,
+        "error": MessageLookupByLibrary.simpleMessage("Lỗi"),
         "error_no_internet": MessageLookupByLibrary.simpleMessage(
-            "Cannot connect to server, please check your connection and try again!"),
+            "Không thể kết nối với máy chủ, vui lòng kiểm tra kết nối của bạn và thử lại!"),
         "error_timeout": MessageLookupByLibrary.simpleMessage(
-            "Connection timeout. Please try again!"),
-        "flight_code": MessageLookupByLibrary.simpleMessage("Flight code"),
-        "flight_date": MessageLookupByLibrary.simpleMessage("Date"),
-        "flight_duration": MessageLookupByLibrary.simpleMessage("Duration"),
-        "from_airport": MessageLookupByLibrary.simpleMessage("From"),
-        "fullname": MessageLookupByLibrary.simpleMessage("Full name"),
+            "Hết thời gian kết nối. Vui lòng thử lại!"),
+        "flight_code": MessageLookupByLibrary.simpleMessage("Mã chuyến bay"),
+        "flight_count":
+            MessageLookupByLibrary.simpleMessage("Số lượng chuyến bay"),
+        "flight_date": MessageLookupByLibrary.simpleMessage("Ngày bay"),
+        "flight_datetime": MessageLookupByLibrary.simpleMessage("Ngày/giờ"),
+        "flight_duration":
+            MessageLookupByLibrary.simpleMessage("Thời gian bay"),
+        "flight_schedule":
+            MessageLookupByLibrary.simpleMessage("Lịch trình chuyến bay"),
+        "flight_search_hint":
+            MessageLookupByLibrary.simpleMessage("Mã chuyến bay, sân bay,..."),
+        "flight_title": m3,
+        "from_airport": MessageLookupByLibrary.simpleMessage("Từ"),
+        "fullname": MessageLookupByLibrary.simpleMessage("Họ và tên"),
         "hahahaha": MessageLookupByLibrary.simpleMessage("hahahaha"),
-        "no_data": MessageLookupByLibrary.simpleMessage("No data"),
-        "not_empty": MessageLookupByLibrary.simpleMessage("Cannot be empty!"),
-        "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "identity_number": MessageLookupByLibrary.simpleMessage("Số CCCD"),
+        "intermediate_airport":
+            MessageLookupByLibrary.simpleMessage("Sân bay trung gian"),
+        "is_sold": MessageLookupByLibrary.simpleMessage("Đã bán"),
+        "languageCode": MessageLookupByLibrary.simpleMessage("vi"),
+        "logout": MessageLookupByLibrary.simpleMessage("Đăng xuất"),
+        "month": MessageLookupByLibrary.simpleMessage("Tháng"),
+        "no_data": MessageLookupByLibrary.simpleMessage("Không có dữ liệu"),
+        "not_empty":
+            MessageLookupByLibrary.simpleMessage("Không được để trống!"),
+        "not_sold": MessageLookupByLibrary.simpleMessage("Chưa bán"),
+        "passenger": MessageLookupByLibrary.simpleMessage("Hành khách"),
+        "password": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
+        "pending": MessageLookupByLibrary.simpleMessage("Chờ xét duyệt"),
+        "phone_number": MessageLookupByLibrary.simpleMessage("Số điện thoại"),
         "pick_duration":
-            MessageLookupByLibrary.simpleMessage("Pick a duration"),
-        "register": MessageLookupByLibrary.simpleMessage("Register"),
+            MessageLookupByLibrary.simpleMessage("Chọn khoảng thời gian"),
+        "pick_ticket_class":
+            MessageLookupByLibrary.simpleMessage("Chọn hạng vé: "),
+        "price": MessageLookupByLibrary.simpleMessage("Giá"),
+        "register": MessageLookupByLibrary.simpleMessage("Đăng ký"),
+        "report": MessageLookupByLibrary.simpleMessage("Báo cáo"),
         "retype_password":
-            MessageLookupByLibrary.simpleMessage("Retype password"),
+            MessageLookupByLibrary.simpleMessage("Nhập lại mật khẩu"),
         "retype_password_not_match": MessageLookupByLibrary.simpleMessage(
-            "Retype password does not match!"),
-        "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
-        "to_airport": MessageLookupByLibrary.simpleMessage("To"),
+            "Mật khẩu nhập lại không khớp!"),
+        "revenue": MessageLookupByLibrary.simpleMessage("Doanh thu"),
+        "sign_in": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
+        "stop_duration": MessageLookupByLibrary.simpleMessage("Thời gian dừng"),
+        "ticket": MessageLookupByLibrary.simpleMessage("Vé"),
+        "ticket_class": MessageLookupByLibrary.simpleMessage("Hạng vé"),
+        "ticket_code": MessageLookupByLibrary.simpleMessage("Mã vé"),
+        "ticket_count": MessageLookupByLibrary.simpleMessage("Số lượng vé"),
+        "to_airport": MessageLookupByLibrary.simpleMessage("Đến"),
         "unknown_error": MessageLookupByLibrary.simpleMessage(
-            "Unknown error, please try again!"),
-        "username": MessageLookupByLibrary.simpleMessage("Username")
+            "Lỗi không xác định, vui lòng thử lại!"),
+        "username": MessageLookupByLibrary.simpleMessage("Tên đăng nhập")
       };
 }

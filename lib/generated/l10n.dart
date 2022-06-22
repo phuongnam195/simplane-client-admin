@@ -50,6 +50,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `en`
+  String get languageCode {
+    return Intl.message(
+      'en',
+      name: 'languageCode',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Simplane`
   String get app_name {
     return Intl.message(
@@ -330,10 +340,10 @@ class S {
     );
   }
 
-  /// `Identity`
+  /// `Identity number`
   String get identity_number {
     return Intl.message(
-      'Identity',
+      'Identity number',
       name: 'identity_number',
       desc: '',
       args: [],
@@ -515,6 +525,156 @@ class S {
     return Intl.message(
       'Annual Revenue Report',
       name: 'annual_revenue_report',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Booking`
+  String get booking {
+    return Intl.message(
+      'Booking',
+      name: 'booking',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Booking for flight {flightCode}`
+  String booking_title(String flightCode) {
+    return Intl.message(
+      'Booking for flight $flightCode',
+      name: 'booking_title',
+      desc: '',
+      args: [flightCode],
+    );
+  }
+
+  /// `{count} tickets left`
+  String avail_ticket_count(int count) {
+    return Intl.message(
+      '$count tickets left',
+      name: 'avail_ticket_count',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Pick ticket class: `
+  String get pick_ticket_class {
+    return Intl.message(
+      'Pick ticket class: ',
+      name: 'pick_ticket_class',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passenger's info`
+  String get passenger_info {
+    return Intl.message(
+      'Passenger\'s info',
+      name: 'passenger_info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `First name`
+  String get first_name {
+    return Intl.message(
+      'First name',
+      name: 'first_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last name`
+  String get last_name {
+    return Intl.message(
+      'Last name',
+      name: 'last_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email address`
+  String get email_address {
+    return Intl.message(
+      'Email address',
+      name: 'email_address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm`
+  String get confirm {
+    return Intl.message(
+      'Confirm',
+      name: 'confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New flight`
+  String get new_flight {
+    return Intl.message(
+      'New flight',
+      name: 'new_flight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Departure airport`
+  String get departure_airport {
+    return Intl.message(
+      'Departure airport',
+      name: 'departure_airport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Arrival airport`
+  String get arrival_airport {
+    return Intl.message(
+      'Arrival airport',
+      name: 'arrival_airport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{name} class's information`
+  String ticket_class_info(String name) {
+    return Intl.message(
+      '$name class\'s information',
+      name: 'ticket_class_info',
+      desc: '',
+      args: [name],
+    );
+  }
+
+  /// `Seat amount`
+  String get seat_amount {
+    return Intl.message(
+      'Seat amount',
+      name: 'seat_amount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add flight successfully!`
+  String get add_flight_successfully {
+    return Intl.message(
+      'Add flight successfully!',
+      name: 'add_flight_successfully',
       desc: '',
       args: [],
     );

@@ -20,23 +20,43 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(ticketClass) => "${ticketClass}\'s seat";
+  static String m0(count) => "${count} tickets left";
 
-  static String m1(flightCode) => "Flight ${flightCode}";
+  static String m1(flightCode) => "Booking for flight ${flightCode}";
+
+  static String m2(ticketClass) => "${ticketClass}\'s seat";
+
+  static String m3(flightCode) => "Flight ${flightCode}";
+
+  static String m4(name) => "${name} class\'s information";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "add_flight_successfully":
+            MessageLookupByLibrary.simpleMessage("Add flight successfully!"),
         "all": MessageLookupByLibrary.simpleMessage("All"),
         "annual_revenue_report":
             MessageLookupByLibrary.simpleMessage("Annual Revenue Report"),
         "app_name": MessageLookupByLibrary.simpleMessage("Simplane"),
+        "approved_time":
+            MessageLookupByLibrary.simpleMessage("Time of approving"),
+        "arrival_airport":
+            MessageLookupByLibrary.simpleMessage("Arrival airport"),
+        "avail_ticket_count": m0,
         "booked_time": MessageLookupByLibrary.simpleMessage("Time of booking"),
-        "class_seat_count": m0,
+        "booking": MessageLookupByLibrary.simpleMessage("Booking"),
+        "booking_title": m1,
+        "class_seat_count": m2,
+        "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
+        "departure_airport":
+            MessageLookupByLibrary.simpleMessage("Departure airport"),
+        "email_address": MessageLookupByLibrary.simpleMessage("Email address"),
         "error": MessageLookupByLibrary.simpleMessage("Error"),
         "error_no_internet": MessageLookupByLibrary.simpleMessage(
             "Cannot connect to server, please check your connection and try again!"),
         "error_timeout": MessageLookupByLibrary.simpleMessage(
             "Connection timeout. Please try again!"),
+        "first_name": MessageLookupByLibrary.simpleMessage("First name"),
         "flight_code": MessageLookupByLibrary.simpleMessage("Flight code"),
         "flight_count":
             MessageLookupByLibrary.simpleMessage("Number of flights"),
@@ -47,25 +67,33 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Flight schedule"),
         "flight_search_hint":
             MessageLookupByLibrary.simpleMessage("Flight code, airport,..."),
-        "flight_title": m1,
+        "flight_title": m3,
         "from_airport": MessageLookupByLibrary.simpleMessage("From"),
         "fullname": MessageLookupByLibrary.simpleMessage("Full name"),
         "hahahaha": MessageLookupByLibrary.simpleMessage("hahahaha"),
-        "identity_number": MessageLookupByLibrary.simpleMessage("Identity"),
+        "identity_number":
+            MessageLookupByLibrary.simpleMessage("Identity number"),
         "intermediate_airport":
             MessageLookupByLibrary.simpleMessage("Intermediate airport"),
         "is_sold": MessageLookupByLibrary.simpleMessage("Sold"),
+        "languageCode": MessageLookupByLibrary.simpleMessage("en"),
+        "last_name": MessageLookupByLibrary.simpleMessage("Last name"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "month": MessageLookupByLibrary.simpleMessage("Month"),
+        "new_flight": MessageLookupByLibrary.simpleMessage("New flight"),
         "no_data": MessageLookupByLibrary.simpleMessage("No data"),
         "not_empty": MessageLookupByLibrary.simpleMessage("Cannot be empty!"),
         "not_sold": MessageLookupByLibrary.simpleMessage("Not sold"),
         "passenger": MessageLookupByLibrary.simpleMessage("Passenger"),
+        "passenger_info":
+            MessageLookupByLibrary.simpleMessage("Passenger\'s info"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "pending": MessageLookupByLibrary.simpleMessage("Pending"),
         "phone_number": MessageLookupByLibrary.simpleMessage("Phone number"),
         "pick_duration":
             MessageLookupByLibrary.simpleMessage("Pick a duration"),
+        "pick_ticket_class":
+            MessageLookupByLibrary.simpleMessage("Pick ticket class: "),
         "price": MessageLookupByLibrary.simpleMessage("Price"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
         "report": MessageLookupByLibrary.simpleMessage("Report"),
@@ -74,10 +102,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "retype_password_not_match": MessageLookupByLibrary.simpleMessage(
             "Retype password does not match!"),
         "revenue": MessageLookupByLibrary.simpleMessage("Revenue"),
+        "seat_amount": MessageLookupByLibrary.simpleMessage("Seat amount"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
         "stop_duration": MessageLookupByLibrary.simpleMessage("Stop duration"),
         "ticket": MessageLookupByLibrary.simpleMessage("Ticket"),
         "ticket_class": MessageLookupByLibrary.simpleMessage("Ticket class"),
+        "ticket_class_info": m4,
         "ticket_code": MessageLookupByLibrary.simpleMessage("Ticket code"),
         "ticket_count":
             MessageLookupByLibrary.simpleMessage("Number of tickets"),

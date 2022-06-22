@@ -1,4 +1,5 @@
 {
+    "languageCode": "vi",
     "app_name": "Simplane",
     "error_no_internet": "Không thể kết nối với máy chủ, vui lòng kiểm tra kết nối của bạn và thử lại!",
     "error_timeout": "Hết thời gian kết nối. Vui lòng thử lại!",
@@ -41,7 +42,7 @@
     "ticket_code": "Mã vé",
     "flight_date": "Ngày bay",
     "passenger": "Hành khách",
-    "identity_number": "CCCD",
+    "identity_number": "Số CCCD",
     "phone_number": "Số điện thoại",
     "ticket_class": "Hạng vé",
     "price": "Giá",
@@ -60,6 +61,24 @@
     "ticket_count": "Số lượng vé",
     "revenue": "Doanh thu",
     "annual_revenue_report": "Báo cáo doanh thu hàng năm",
+    "booking": "Đặt vé",
+    "booking_title": "Đặt vé cho chuyến bay {flightCode}",
+    "@booking_title": {
+        "placeholders": {
+            "flightCode": {
+                "type": "String"
+            }
+        }
+    },
+    "avail_ticket_count": "còn {count} vé",
+    "@avail_ticket_count": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "pick_ticket_class": "Chọn hạng vé: ",
 
 
     "hahahaha": "hahahaha"
