@@ -650,6 +650,33 @@ class S {
     );
   }
 
+  String get airport {
+    return Intl.message(
+      'Airport',
+      name: 'Airport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get name_airport {
+    return Intl.message(
+      'Name Airport',
+      name: 'name_airport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get address_airport {
+    return Intl.message(
+      'Address Airport',
+      name: 'address_airport',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `{name} class's information`
   String ticket_class_info(String name) {
     return Intl.message(
