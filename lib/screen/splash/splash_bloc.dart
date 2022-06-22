@@ -44,7 +44,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
       await RuleManager.instance.load();
       emit(DataLoaded());
     } catch (e) {
-      Logger.e('SplashBloc -> _mapCheckSessionToState()', '$e');
+      Logger.e('SplashBloc -> _onCheckSession()', '$e');
       emit(SplashNotLoaded('$e'));
     }
   }

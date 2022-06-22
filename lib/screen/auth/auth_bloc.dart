@@ -72,11 +72,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       UserRepository repo = Get.find();
       final user = await repo.login(event.username, event.password);
+      await UserManager.instance.setUser(user);
       await Setting().saveUserInfo(user);
       NetworkBase.instance.addApiHeaders({
         'accessToken': UserManager.instance.accessToken(),
       });
-      UserManager.instance.setUser(user);
       await RuleManager.instance.load();
       emit(AuthSuccess());
     } catch (e) {
@@ -94,11 +94,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       UserRepository repo = Get.find();
       final user =
           await repo.signup(event.fullname, event.username, event.password);
+      await UserManager.instance.setUser(user);
       await Setting().saveUserInfo(user);
       NetworkBase.instance.addApiHeaders({
         'accessToken': UserManager.instance.accessToken(),
       });
-      UserManager.instance.setUser(user);
       await RuleManager.instance.load();
       emit(AuthSuccess());
     } catch (e) {
