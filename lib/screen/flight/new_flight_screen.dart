@@ -87,7 +87,7 @@ class _NewFlightScreenState extends State<NewFlightScreen> {
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width / 3),
+                horizontal: MediaQuery.of(context).size.width / 3.5),
             child: Form(
               key: _formKey,
               child: Column(
@@ -125,7 +125,8 @@ class _NewFlightScreenState extends State<NewFlightScreen> {
                             initialTime: TimeOfDay.fromDateTime(
                                 currentValue ?? DateTime.now()),
                           );
-                          return DateTimeField.combine(date, time);
+                          _dateTime = DateTimeField.combine(date, time);
+                          return _dateTime;
                         } else {
                           return currentValue;
                         }
@@ -223,7 +224,7 @@ class _NewFlightScreenState extends State<NewFlightScreen> {
   }
 
   _onSubmit() {
-    if (_formKey.currentState!.validate()) {
+    if (!_formKey.currentState!.validate()) {
       return;
     }
     if (_dateTime == null) {
@@ -239,12 +240,12 @@ class _NewFlightScreenState extends State<NewFlightScreen> {
     Map<String, double> seatAmount = {};
     Map<String, double> bookedAmount = {};
 
-    for (int i = 0; i < _listAirport.length; i++) {
-      ticketClassPrice[_listAirport[i].code] =
+    for (int i = 0; i < _listTicketClass.length; i++) {
+      ticketClassPrice[_listTicketClass[i].id] =
           double.tryParse(_priceController[i].text) ?? 0;
-      ticketClassPrice[_listAirport[i].code] =
+      seatAmount[_listTicketClass[i].id] =
           double.tryParse(_seatAmountController[i].text) ?? 0;
-      ticketClassPrice[_listAirport[i].code] = 0;
+      bookedAmount[_listTicketClass[i].id] = 0;
     }
 
     List<double> stopDurations = _stopDurationControllers.map((controller) {

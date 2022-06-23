@@ -73,7 +73,7 @@ class _StaffPageState extends State<StaffPage> {
                     elevation: 1.0,
                     child: TextField(
                         decoration: InputDecoration(
-                            hintText: S.current.flight_search_hint,
+                            hintText: S.current.staff_search_hint,
                             prefixIcon: const Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Icon(Icons.search),
@@ -262,7 +262,7 @@ class _StaffPageState extends State<StaffPage> {
             listenWhen: (prev, curr) => curr is StaffDeleted,
             listener: (ctx, state) {
               if (state is StaffDeleted) {
-                _staffBloc.add(LoadStaffs());
+                _loadStaffs();
                 Get.back();
               }
             },

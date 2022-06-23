@@ -494,11 +494,10 @@ final ticketClassesDummy = [
 ];
 
 final staffsDummy = [
+  const Staff(User('324', 'nam195', 'Dang Phuong Nam', true, ''), 87, 31200000),
   const Staff(
-      User('324', 'anhminh', 'Nguyen Anh Minh', true, ''), 87, 31200000),
+      User('325', 'anhminh', 'Nguyen Anh Minh', true, ''), 120, 54300000),
   const Staff(
-      User('324', 'minhanh', 'Nguyen Minh Anh', true, ''), 120, 54300000),
-  const Staff(
-      User('325', 'minhminh', 'Nguyen Minh Minh', true, ''), 46, 34200000),
-  const Staff(User('326', 'anhanh', 'Nguyen Anh Anh', true, ''), 66, 23400000),
+      User('326', 'minhminh', 'Nguyen Minh Minh', true, ''), 46, 34200000),
+  const Staff(User('327', 'anhanh', 'Nguyen Anh Anh', true, ''), 66, 23400000),
 ];

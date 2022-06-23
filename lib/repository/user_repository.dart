@@ -11,10 +11,6 @@ abstract class UserRepository extends BaseRepository<User> {
   Future<User> signup(String fullname, String username, String password);
 
   Future logout();
-
-  Future<List<Staff>> getStaffs();
-
-  Future removeStaff(String id);
 }
 
 class UserRepositoryImp extends BaseRepositoryImp<User>
@@ -23,43 +19,32 @@ class UserRepositoryImp extends BaseRepositoryImp<User>
   Future<User> login(String username, String password) async {
     // return userDummy;
 
-    return User.fromJson(
-      await ApiClient(LOGIN).post({
-        "username": username,
-        "password": password,
-      }),
-    );
+    Map<String, dynamic> json = await ApiClient(LOGIN).post({
+      "username": username,
+      "password": password,
+    });
+    json['accessToken'] = json['token'];
+    return User.fromJson(json);
   }
 
   @override
   Future<User> signup(String fullname, String username, String password) async {
     // return userDummy;
 
-    return User.fromJson(
-      await ApiClient(SIGNUP).post({
-        "fullname": fullname,
-        "username": username,
-        "password": password,
-        "idAdmin": false,
-        "isVerified": true,
-      }),
-    );
+    Map<String, dynamic> json = await ApiClient(SIGNUP).post({
+      "fullname": fullname,
+      "username": username,
+      "password": password,
+      "idAdmin": false,
+      "isVerified": true,
+    });
+    json['id'] = '123';
+    json['accessToken'] = 'empty';
+    return User.fromJson(json);
   }
 
   @override
   Future logout() async {
     // await ApiClient(LOGOUT).post({"commandStyle": 0});
-  }
-
-  @override
-  Future<List<Staff>> getStaffs() async {
-    // Chưa có API
-    return staffsDummy;
-  }
-
-  @override
-  Future removeStaff(String id) async {
-    // Chưa có API
-    staffsDummy.removeWhere((e) => e.user.id == id);
   }
 }

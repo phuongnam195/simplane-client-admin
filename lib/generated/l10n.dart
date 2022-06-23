@@ -270,6 +270,16 @@ class S {
     );
   }
 
+  /// `Staff's id, username, fullname,...`
+  String get staff_search_hint {
+    return Intl.message(
+      'Staff\'s id, username, fullname,...',
+      name: 'staff_search_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Pick a duration`
   String get pick_duration {
     return Intl.message(
@@ -735,6 +745,36 @@ class S {
     return Intl.message(
       'ID',
       name: 'id',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Successfully booking!`
+  String get booking_successfully {
+    return Intl.message(
+      'Successfully booking!',
+      name: 'booking_successfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete flight`
+  String get delete_flight {
+    return Intl.message(
+      'Delete flight',
+      name: 'delete_flight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure to delete this flight?`
+  String get delete_flight_confirm {
+    return Intl.message(
+      'Are you sure to delete this flight?',
+      name: 'delete_flight_confirm',
       desc: '',
       args: [],
     );

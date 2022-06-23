@@ -9,10 +9,11 @@ class User extends Equatable {
   final String username;
   final String fullname;
   final bool isVerified;
-  final String token;
+  final String accessToken;
   final bool isAdmin;
 
-  const User(this.id, this.username, this.fullname, this.isVerified, this.token,
+  const User(
+      this.id, this.username, this.fullname, this.isVerified, this.accessToken,
       [this.isAdmin = false]);
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
@@ -21,7 +22,7 @@ class User extends Equatable {
 
   @override
   List<Object> get props =>
-      [id, username, fullname, isVerified, token, isAdmin];
+      [id, username, fullname, isVerified, accessToken, isAdmin];
 
   @override
   bool get stringify => true;

@@ -21,6 +21,12 @@ class LoadFlights extends HomeEvent {
   LoadFlights(this.fromDate, this.toDate);
 }
 
+class DeleteFlight extends HomeEvent {
+  final String id;
+
+  DeleteFlight(this.id);
+}
+
 class LoadTickets extends HomeEvent {
   final DateTime fromDate;
   final DateTime toDate;
@@ -51,6 +57,8 @@ class FlightsLoaded extends HomeState {
   FlightsLoaded(this.flights);
 }
 
+class FlightDeleted extends HomeState {}
+
 class TicketsLoaded extends HomeState {
   final List<Ticket> tickets;
 
@@ -73,6 +81,7 @@ class DataLoadFailed extends HomeState {
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeLoading()) {
     on<LoadFlights>(_onLoadFlights);
+    on<DeleteFlight>(_onDeleteFlight);
     on<LoadTickets>(_onLoadTickets);
     on<LoadReport>(_onLoadReport);
     on<Logout>(_onLogout);
@@ -88,6 +97,18 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     } catch (e) {
       emit(DataLoadFailed(e.toString()));
       Logger.e('HomeBloc -> _onLoadFlights()', '$e');
+    }
+  }
+
+  _onDeleteFlight(DeleteFlight event, Emitter<HomeState> emit) async {
+    emit(DataLoading());
+    FlightRepository repo = Get.find();
+    try {
+      await repo.deleteFlight(event.id);
+      emit(FlightDeleted());
+    } catch (e) {
+      emit(DataLoadFailed(e.toString()));
+      Logger.e('HomeBloc -> _onDeleteFlight()', '$e');
     }
   }
 

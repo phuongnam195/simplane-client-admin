@@ -73,7 +73,7 @@ class TicketRepositoryImp extends BaseRepositoryImp<Ticket>
   }) async {
     return Ticket.fromJson(await ApiClient(TICKET).post({
       'flightCode': flightCode,
-      'flightDate': flightDate,
+      'flightDate': flightDate.microsecondsSinceEpoch,
       'passenger': passenger.toJson(),
       'ticketClassId': ticketClassId,
       'price': price,

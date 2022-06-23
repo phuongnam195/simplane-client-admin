@@ -28,6 +28,7 @@
         }
     },
     "flight_search_hint": "Flight code, airport,...",
+    "staff_search_hint": "Staff's id, username, fullname,...",
     "pick_duration": "Pick a duration",
     "flight_title": "Flight {flightCode}",
     "@flight_title": {
@@ -103,6 +104,9 @@
     "cancel": "Cancel",
     "delete": "Delete",
     "id": "ID",
+    "booking_successfully": "Successfully booking!",
+    "delete_flight": "Delete flight",
+    "delete_flight_confirm": "Are you sure to delete this flight?",
 
     "hahahaha": "hahahaha"
 }

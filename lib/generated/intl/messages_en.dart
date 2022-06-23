@@ -45,11 +45,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "avail_ticket_count": m0,
         "booked_time": MessageLookupByLibrary.simpleMessage("Time of booking"),
         "booking": MessageLookupByLibrary.simpleMessage("Booking"),
+        "booking_successfully":
+            MessageLookupByLibrary.simpleMessage("Successfully booking!"),
         "booking_title": m1,
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "class_seat_count": m2,
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "delete_flight": MessageLookupByLibrary.simpleMessage("Delete flight"),
+        "delete_flight_confirm": MessageLookupByLibrary.simpleMessage(
+            "Are you sure to delete this flight?"),
         "delete_staff": MessageLookupByLibrary.simpleMessage("Delete staff"),
         "delete_staff_confirm": MessageLookupByLibrary.simpleMessage(
             "Are you sure to delete this staff?"),
@@ -111,6 +116,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "seat_amount": MessageLookupByLibrary.simpleMessage("Seat amount"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
         "staff": MessageLookupByLibrary.simpleMessage("Staff"),
+        "staff_search_hint": MessageLookupByLibrary.simpleMessage(
+            "Staff\'s id, username, fullname,..."),
         "stop_duration": MessageLookupByLibrary.simpleMessage("Stop duration"),
         "ticket": MessageLookupByLibrary.simpleMessage("Ticket"),
         "ticket_class": MessageLookupByLibrary.simpleMessage("Ticket class"),

@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:simplane_client_admin/model/staff.dart';
 import 'package:simplane_client_admin/repository/report_repository.dart';
+import 'package:simplane_client_admin/repository/staff_repository.dart';
 import 'package:simplane_client_admin/repository/user_repository.dart';
 import 'package:simplane_client_admin/util/logger.dart';
 
@@ -45,9 +46,8 @@ class StaffBloc extends Bloc<StaffEvent, StaffState> {
 
   _onLoadStaffs(LoadStaffs event, Emitter<StaffState> emit) async {
     emit(StaffLoading());
-    UserRepository userRepo = Get.find();
-    ReportRepository reportRepo = Get.find();
-    List<Staff> result = [];
+    StaffRepository staffRepo = Get.find();
+    // List<Staff> result = [];
     try {
       // final users = await userRepo.getStaffs();
       // for (var user in users) {
@@ -57,7 +57,7 @@ class StaffBloc extends Bloc<StaffEvent, StaffState> {
       // }
       // emit(StaffsLoaded(result));
 
-      final staffs = await userRepo.getStaffs();
+      final staffs = await staffRepo.getStaffs();
       emit(StaffsLoaded(staffs));
     } catch (e) {
       emit(StaffError('$e'));
@@ -67,9 +67,9 @@ class StaffBloc extends Bloc<StaffEvent, StaffState> {
 
   _onDeleteStaff(DeleteStaff event, Emitter<StaffState> emit) async {
     emit(StaffLoading());
-    UserRepository userRepo = Get.find();
+    StaffRepository staffRepo = Get.find();
     try {
-      await userRepo.removeStaff(event.id);
+      await staffRepo.removeStaff(event.id);
       emit(StaffDeleted());
     } catch (e) {
       emit(StaffError('$e'));
