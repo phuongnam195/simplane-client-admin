@@ -630,10 +630,10 @@ class S {
     );
   }
 
-  String get cancel {
+  String get delete {
     return Intl.message(
-      'Cancel',
-      name: 'cancel',
+      'Delete',
+      name: 'delete',
       desc: '',
       args: [],
     );

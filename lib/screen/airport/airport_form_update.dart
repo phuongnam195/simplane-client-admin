@@ -285,84 +285,108 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:simplane_client_admin/dummy_data.dart';
 import 'package:simplane_client_admin/generated/l10n.dart';
 import 'package:simplane_client_admin/model/airport.dart';
+import 'package:simplane_client_admin/screen/home/home_bloc.dart';
+import 'package:simplane_client_admin/screen/home/home_screen.dart';
 import 'package:simplane_client_admin/util/constants.dart';
 
 class AirportFormUpdate extends StatelessWidget {
   final Airport data;
+  final _codeController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _addressController = TextEditingController();
+
   final _nameNode = FocusNode();
   final _addressNode = FocusNode();
 
   AirportFormUpdate(this.data, {Key? key}) : super(key: key);
 
+  _updateAirport(airportDelete, airportUpdate) =>
+      homeBloc.add(UpdateAirport(airportDelete, airportUpdate));
+  _deleteAirport(airportDelete) => homeBloc.add(DeleteAirport(airportDelete));
+
   @override
   Widget build(BuildContext context) {
     // final ticketClasses = RuleManager.instance.getListTicketClass();
-
-    return SizedBox(
-        width: 700,
-        height: 500,
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const SizedBox(height: 20),
-          Center(child: _fieldHeading(S.current.airport_form_update)),
-          _fieldTitle(S.current.code_airport),
-          _textField(
-              value: data.code,
-              // controller: _codeController,
-              // focusNode: _codeNode,
-              onEditingComplete: () {
-                _nameNode.requestFocus();
-              }),
-          _fieldTitle(S.current.name_airport),
-          _textField(
-              value: data.name,
-              // controller: _nameController,
-              focusNode: _nameNode,
-              onEditingComplete: () {
-                _addressNode.requestFocus();
-              }),
-          _fieldTitle(S.current.address_airport),
-          _textField(
-              value: data.address,
-              // controller: _addressController,
-              focusNode: _addressNode),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              ElevatedButton(
-                child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 25),
-                    child: Text(
-                      S.current.update,
-                      style: AppStyle.content.copyWith(color: Colors.white),
-                    )),
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  primary: AppColor.secondary,
-                  shape: const StadiumBorder(),
+    _codeController.text = data.code;
+    _nameController.text = data.name;
+    _addressController.text = data.address;
+    return 
+      SizedBox(
+          width: 700,
+          height: 500,
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            const SizedBox(height: 20),
+            Center(child: _fieldHeading(S.current.airport_form_update)),
+            _fieldTitle(S.current.code_airport),
+            _textField(
+                // value: data.code,
+                controller: _codeController,
+                // focusNode: _codeNode,
+                onEditingComplete: () {
+                  _nameNode.requestFocus();
+                }),
+            _fieldTitle(S.current.name_airport),
+            _textField(
+                // value: data.name,
+                controller: _nameController,
+                focusNode: _nameNode,
+                onEditingComplete: () {
+                  _addressNode.requestFocus();
+                }),
+            _fieldTitle(S.current.address_airport),
+            _textField(
+                // value: data.address,
+                controller: _addressController,
+                focusNode: _addressNode),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ElevatedButton(
+                  child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 25),
+                      child: Text(
+                        S.current.update,
+                        style: AppStyle.content.copyWith(color: Colors.white),
+                      )),
+                  onPressed: () async {
+                    await _onUpdate();
+                    Get.back();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: AppColor.secondary,
+                    shape: const StadiumBorder(),
+                  ),
                 ),
-              ),
-              const SizedBox(width: 20),
-              ElevatedButton(
-                child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 25),
-                    child: Text(
-                      S.current.cancel,
-                      style: AppStyle.content.copyWith(color: Colors.white),
-                    )),
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  primary: AppColor.secondary,
-                  shape: const StadiumBorder(),
+                const SizedBox(width: 20),
+                ElevatedButton(
+                  child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 25),
+                      child: Text(
+                        S.current.delete,
+                        style: AppStyle.content.copyWith(color: Colors.white),
+                      )),
+                  onPressed: () async {
+                    await _onDelete();
+                    Get.back();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: AppColor.secondary,
+                    shape: const StadiumBorder(),
+                  ),
                 ),
-              ),
-            ],
-          )
-        ]));
+              ],
+            )
+          ]));
+    //);
   }
 
   Widget _fieldHeading(String heading) {
@@ -380,9 +404,9 @@ class AirportFormUpdate extends StatelessWidget {
   }
 
   Widget _textField({
-    // TextEditingController? controller,
+    TextEditingController? controller,
     String? label,
-    required String value,
+    // required String value,
     bool? readOnly,
     FocusNode? focusNode,
     String? errorText,
@@ -392,8 +416,8 @@ class AirportFormUpdate extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: TextFormField(
-        // controller: controller,
-        initialValue: value,
+        controller: controller,
+        // initialValue: value,
         decoration: InputDecoration(
             labelText: label,
             errorText: errorText,
@@ -423,5 +447,15 @@ class AirportFormUpdate extends StatelessWidget {
         style: AppStyle.content,
       ),
     );
+  }
+
+  dynamic _onUpdate() async {
+    Airport newdata = Airport(
+        _codeController.text, _nameController.text, _addressController.text);
+    return await _updateAirport(data, newdata);
+  }
+
+  _onDelete() {
+    _deleteAirport(data);
   }
 }
