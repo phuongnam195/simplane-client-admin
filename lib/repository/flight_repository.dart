@@ -1,4 +1,5 @@
 import 'package:simplane_client_admin/core/base_repository.dart';
+import 'package:simplane_client_admin/core/user_manager.dart';
 import 'package:simplane_client_admin/model/flight.dart';
 import 'package:simplane_client_admin/network/api_path.dart';
 import 'package:simplane_client_admin/network/base/api_client.dart';
@@ -36,8 +37,8 @@ class FlightRepositoryImp extends BaseRepositoryImp<Flight>
     // return allFlightsDummy;
 
     Map<String, dynamic> customQuery = {
-      'fromDate': fromDate.millisecondsSinceEpoch,
-      'toDate': toDate.millisecondsSinceEpoch,
+      'fromDate': fromDate.toIso8601String(),
+      'toDate': toDate.toIso8601String(),
     };
     customQuery.addAll(extraQuery ?? {});
     return Flight.mapToList(

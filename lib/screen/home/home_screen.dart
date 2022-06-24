@@ -24,6 +24,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   String currPage = FlightPage.pageName;
 
+  final _isManager = UserManager.instance.getUser()?.isAdmin == true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,11 +69,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     backgroundColor: Colors.white,
                     radius: 25,
                     child: Icon(
-                      Icons.person,
+                      _isManager ? Icons.admin_panel_settings : Icons.person,
                       size: 35,
                       color: AppColor.primary,
                     ),
@@ -100,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
             selected: currPage == FlightPage.pageName,
             selectedColor: AppColor.primary,
           ),
-          if (UserManager.instance.getUser()?.isAdmin == false)
+          if (!_isManager)
             ListTile(
               leading: const Icon(Icons.airplane_ticket_outlined),
               title: Text(S.current.ticket),
@@ -113,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
               selected: currPage == TicketPage.pageName,
               selectedColor: AppColor.primary,
             ),
-          if (UserManager.instance.getUser()?.isAdmin == true)
+          if (_isManager)
             ListTile(
               leading: const Icon(Icons.group_outlined),
               title: Text(S.current.staff),

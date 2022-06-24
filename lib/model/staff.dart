@@ -1,16 +1,18 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:simplane_client_admin/model/user.dart';
 
 part 'staff.g.dart';
 
 @JsonSerializable()
 class Staff extends Equatable {
-  final User user;
+  final String id;
+  final String username;
+  final String fullname;
   final double totalTicket;
   final double totalRevenue;
 
-  const Staff(this.user, this.totalTicket, this.totalRevenue);
+  const Staff(this.id, this.username, this.fullname, this.totalTicket,
+      this.totalRevenue);
 
   factory Staff.fromJson(Map<String, dynamic> json) => _$StaffFromJson(json);
 
@@ -24,7 +26,7 @@ class Staff extends Equatable {
   }
 
   @override
-  List<Object> get props => [user, totalTicket, totalRevenue];
+  List<Object> get props => [id, username, fullname, totalTicket, totalRevenue];
 
   @override
   bool get stringify => true;

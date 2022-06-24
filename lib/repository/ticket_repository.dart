@@ -1,12 +1,9 @@
 import 'package:simplane_client_admin/core/base_repository.dart';
-import 'package:simplane_client_admin/model/airport.dart';
-import 'package:simplane_client_admin/model/flight.dart';
+import 'package:simplane_client_admin/core/user_manager.dart';
 import 'package:simplane_client_admin/model/passenger.dart';
 import 'package:simplane_client_admin/model/ticket.dart';
 import 'package:simplane_client_admin/network/api_path.dart';
 import 'package:simplane_client_admin/network/base/api_client.dart';
-
-import '../dummy_data.dart';
 
 abstract class TicketRepository extends BaseRepository<Ticket> {
   Future<Ticket> getById(int id);
@@ -52,8 +49,8 @@ class TicketRepositoryImp extends BaseRepositoryImp<Ticket>
     // }
 
     Map<String, dynamic> customQuery = {
-      'fromDate': fromDate.millisecondsSinceEpoch,
-      'toDate': toDate.millisecondsSinceEpoch,
+      'fromDate': fromDate.toIso8601String(),
+      'toDate': toDate.toIso8601String(),
     };
 
     customQuery.addAll(extraQuery ?? {});
@@ -73,11 +70,12 @@ class TicketRepositoryImp extends BaseRepositoryImp<Ticket>
   }) async {
     return Ticket.fromJson(await ApiClient(TICKET).post({
       'flightCode': flightCode,
-      'flightDate': flightDate.microsecondsSinceEpoch,
+      'flightDate': flightDate.toIso8601String(),
       'passenger': passenger.toJson(),
       'ticketClassId': ticketClassId,
       'price': price,
-      'bookedTime': bookedTime.microsecondsSinceEpoch,
+      'bookedTime': bookedTime.toIso8601String(),
+      'idUser': UserManager.instance.getUser()!.id,
     }));
   }
 }

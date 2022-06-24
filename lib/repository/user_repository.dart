@@ -1,6 +1,4 @@
 import 'package:simplane_client_admin/core/base_repository.dart';
-import 'package:simplane_client_admin/dummy_data.dart';
-import 'package:simplane_client_admin/model/staff.dart';
 import 'package:simplane_client_admin/model/user.dart';
 import 'package:simplane_client_admin/network/api_path.dart';
 import 'package:simplane_client_admin/network/base/api_client.dart';
@@ -23,7 +21,6 @@ class UserRepositoryImp extends BaseRepositoryImp<User>
       "username": username,
       "password": password,
     });
-    json['accessToken'] = json['token'];
     return User.fromJson(json);
   }
 
@@ -35,11 +32,9 @@ class UserRepositoryImp extends BaseRepositoryImp<User>
       "fullname": fullname,
       "username": username,
       "password": password,
-      "idAdmin": false,
+      "idAdmin": true,
       "isVerified": true,
     });
-    json['id'] = '123';
-    json['accessToken'] = 'empty';
     return User.fromJson(json);
   }
 

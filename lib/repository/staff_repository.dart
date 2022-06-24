@@ -25,7 +25,7 @@ class StaffRepositoryImp extends BaseRepositoryImp<Staff>
   @override
   Future removeStaff(String id) async {
     // Chưa có API
-    staffsDummy.removeWhere((e) => e.user.id == id);
+    staffsDummy.removeWhere((e) => e.id == id);
   }
 
   // @override

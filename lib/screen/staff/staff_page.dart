@@ -141,8 +141,8 @@ class _StaffPageState extends State<StaffPage> {
         onPressed: () {
           sortType = sortCode;
           isAscending = !isAscending;
-          _dataToShow.sort(((a, b) =>
-              (isAscending ? 1 : -1) * a.user.id.compareTo(b.user.id)));
+          _dataToShow
+              .sort(((a, b) => (isAscending ? 1 : -1) * a.id.compareTo(b.id)));
           setState(() {});
         },
       ),
@@ -156,8 +156,7 @@ class _StaffPageState extends State<StaffPage> {
           sortType = sortCode;
           isAscending = !isAscending;
           _dataToShow.sort(((a, b) =>
-              (isAscending ? 1 : -1) *
-              a.user.username.compareTo(b.user.username)));
+              (isAscending ? 1 : -1) * a.username.compareTo(b.username)));
           setState(() {});
         },
       ),
@@ -171,8 +170,7 @@ class _StaffPageState extends State<StaffPage> {
           sortType = sortCode;
           isAscending = !isAscending;
           _dataToShow.sort(((a, b) =>
-              (isAscending ? 1 : -1) *
-              a.user.fullname.compareTo(b.user.fullname)));
+              (isAscending ? 1 : -1) * a.fullname.compareTo(b.fullname)));
           setState(() {});
         },
       ),
@@ -219,19 +217,18 @@ class _StaffPageState extends State<StaffPage> {
   }
 
   Widget _generateFirstColumnRow(BuildContext context, int index) {
-    return _rightHandSideColumnRow(
-        _dataToShow[index].user.id, colWidths['id']!);
+    return _rightHandSideColumnRow(_dataToShow[index].id, colWidths['id']!);
   }
 
   Widget _generateRightHandSideColumnRow(BuildContext context, int index) {
     return InkWell(
-      onLongPress: () => _onDelete(_dataToShow[index].user.id),
+      onLongPress: () => _onDelete(_dataToShow[index].id),
       child: Row(
         children: [
           _rightHandSideColumnRow(
-              _dataToShow[index].user.username, colWidths['username']!),
+              _dataToShow[index].username, colWidths['username']!),
           _rightHandSideColumnRow(
-              _dataToShow[index].user.fullname, colWidths['fullname']!),
+              _dataToShow[index].fullname, colWidths['fullname']!),
           _rightHandSideColumnRow(
               _dataToShow[index].totalTicket.toInt().toString(),
               colWidths['tickets']!),
@@ -302,9 +299,9 @@ class _StaffPageState extends State<StaffPage> {
     setState(() {
       _dataToShow = _data
           .where((e) => [
-                e.user.id,
-                e.user.username,
-                e.user.fullname,
+                e.id,
+                e.username,
+                e.fullname,
               ].join('###').toLowerCase().contains(keyword.toLowerCase()))
           .toList();
     });
