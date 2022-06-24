@@ -1,6 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:simplane_client_admin/model/airport.dart';
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -639,6 +640,24 @@ class S {
       args: [],
     );
   }
+  
+  String get update {
+    return Intl.message(
+      'Update',
+      name: 'update',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get delete {
+    return Intl.message(
+      'Delete',
+      name: 'delete',
+      desc: '',
+      args: [],
+    );
+  }
 
   /// `New flight`
   String get new_flight {
@@ -665,6 +684,51 @@ class S {
     return Intl.message(
       'Arrival airport',
       name: 'arrival_airport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get airport {
+    return Intl.message(
+      'Airport',
+      name: 'Airport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get code_airport {
+    return Intl.message(
+      'Code Aircode',
+      name: 'code_airport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get name_airport {
+    return Intl.message(
+      'Name Airport',
+      name: 'name_airport',
+      desc: '',
+      args: [],
+    );
+  }
+
+   String get airport_form_update {
+    return Intl.message(
+      'Form Update',
+      name: 'airport_form_update',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get address_airport {
+    return Intl.message(
+      'Address Airport',
+      name: 'address_airport',
       desc: '',
       args: [],
     );

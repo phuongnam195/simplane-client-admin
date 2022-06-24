@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:simplane_client_admin/core/user_manager.dart';
 import 'package:simplane_client_admin/generated/l10n.dart';
+import 'package:simplane_client_admin/screen/airport/airport_page.dart';
 import 'package:simplane_client_admin/screen/auth/auth_screen.dart';
 import 'package:simplane_client_admin/screen/home/home_bloc.dart';
 import 'package:simplane_client_admin/screen/flight/flight_page.dart';
@@ -45,6 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     return const StaffPage();
                   case ReportPage.pageName:
                     return const ReportPage();
+                  case 3:
+                    return const AirportPage();
                   default:
                     return Container();
                 }
@@ -126,6 +129,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 });
               },
               selected: currPage == StaffPage.pageName,
+              selectedColor: AppColor.primary,
+            ),
+          if (UserManager.instance.getUser()?.isAdmin == true)
+            ListTile(
+              leading: const Icon(Icons.schedule),
+              title: Text(S.current.airport),
+              onTap: () {
+                if (curPageIdx == 3) return;
+                setState(() {
+                  curPageIdx = 3;
+                });
+              },
+              selected: curPageIdx == 3,
               selectedColor: AppColor.primary,
             ),
           ListTile(
