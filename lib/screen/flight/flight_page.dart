@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:horizontal_data_table/horizontal_data_table.dart';
 import 'package:simplane_client_admin/core/base_mixin_function.dart';
@@ -26,15 +27,16 @@ class FlightPage extends StatefulWidget {
 }
 
 class _FlightPageState extends State<FlightPage> with DatePickerFunction {
-  static const int sortCode = 0;
-  static const int sortFlightDate = 1;
+  static const String sortCode = 'SORT_CODE';
+  static const String sortFlightDate = 'SORT_FLIGHT_DATE';
+  static const String sortSeat = 'SORT_SEAT_';
 
   List<Flight> _data = [];
   List<Flight> _dataToShow = [];
   bool _isLoading = false;
 
   bool isAscending = true;
-  int sortType = sortCode;
+  String sortType = sortCode;
 
   final ticketClasses = RuleManager.instance.getListTicketClass();
 
@@ -127,7 +129,7 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
                     _dataToShow = _data;
                   });
                 } else if (state is DataLoadFailed) {
-                  //TODO: show error dialog
+                  EasyLoading.showError(state.error);
                 }
               },
               child: Expanded(
@@ -203,8 +205,25 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
       ),
       _getTitleItemWidget(S.current.flight_duration, colWidths['duration']!),
       for (TicketClass tc in RuleManager.instance.getListTicketClass())
-        _getTitleItemWidget(
-            S.current.class_seat_count(tc.enName), colWidths['seat']!),
+        TextButton(
+          style: TextButton.styleFrom(padding: EdgeInsets.zero),
+          child: _getTitleItemWidget(
+              S.current.class_seat_count(
+                      S.current.languageCode == 'en' ? tc.enName : tc.viName) +
+                  (sortType == sortSeat + tc.id
+                      ? (isAscending ? '↓' : '↑')
+                      : ''),
+              colWidths['seat']!),
+          onPressed: () {
+            sortType = sortSeat + tc.id;
+            isAscending = !isAscending;
+            _dataToShow.sort(((a, b) =>
+                (isAscending ? 1 : -1) *
+                (a.seatAmount[tc.id] ?? 0)
+                    .compareTo(b.seatAmount[tc.id] ?? 0)));
+            setState(() {});
+          },
+        ),
     ];
   }
 
@@ -225,6 +244,7 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
   Widget _generateRightHandSideColumnRow(BuildContext context, int index) {
     return InkWell(
       onTap: () => _showFlightDetail(_dataToShow[index]),
+      onLongPress: () => _deleteFlight(_dataToShow[index].id),
       child: Row(
         children: [
           _rightHandSideColumnRow(
@@ -277,6 +297,51 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
         context: context,
         builder: (context) {
           return AlertDialog(content: FlightDetail(flight));
+        });
+  }
+
+  _deleteFlight(String id) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return BlocListener<HomeBloc, HomeState>(
+            bloc: homeBloc,
+            listenWhen: (prev, curr) => curr is FlightDeleted,
+            listener: (ctx, state) {
+              if (state is FlightDeleted) {
+                _loadFlights();
+                Get.back();
+              }
+            },
+            child: AlertDialog(
+              title: Text(
+                S.current.delete_flight,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              content: Text(S.current.delete_flight_confirm),
+              actions: [
+                TextButton(
+                  child: Text(
+                    S.current.cancel,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  onPressed: () {
+                    Get.back();
+                  },
+                ),
+                TextButton(
+                  child: Text(
+                    S.current.delete,
+                    style: const TextStyle(
+                        color: Colors.red, fontWeight: FontWeight.bold),
+                  ),
+                  onPressed: () {
+                    homeBloc.add(DeleteFlight(id));
+                  },
+                ),
+              ],
+            ),
+          );
         });
   }
 

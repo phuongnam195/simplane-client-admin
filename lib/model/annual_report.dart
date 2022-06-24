@@ -8,7 +8,7 @@ part 'annual_report.g.dart';
 class AnnualReport extends Equatable {
   final int year;
   final List<MonthlyReport> monthlyReports; // 0-11 (1-12)
-  final int? staffId;
+  final String? staffId;
 
   const AnnualReport(this.year, this.monthlyReports, [this.staffId]);
 

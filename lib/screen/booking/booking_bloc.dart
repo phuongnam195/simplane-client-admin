@@ -1,4 +1,3 @@
-//region EVENT
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:simplane_client_admin/model/flight.dart';
@@ -7,6 +6,7 @@ import 'package:simplane_client_admin/model/ticket.dart';
 import 'package:simplane_client_admin/repository/ticket_repository.dart';
 import 'package:simplane_client_admin/util/logger.dart';
 
+//region EVENT
 abstract class BookingEvent {}
 
 class ConfirmBooking extends BookingEvent {
@@ -21,7 +21,6 @@ class ConfirmBooking extends BookingEvent {
       required this.ticketClassId,
       required this.price});
 }
-
 //endregion
 
 //region STATE
@@ -40,7 +39,6 @@ class BookingConfirmed extends BookingState {
 
   BookingConfirmed(this.ticket);
 }
-
 //endregion
 
 class BookingBloc extends Bloc<BookingEvent, BookingState> {

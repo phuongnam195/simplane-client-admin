@@ -15,6 +15,8 @@ abstract class FlightRepository extends BaseRepository<Flight> {
   });
 
   Future addFlight(Flight flight);
+
+  Future deleteFlight(String id);
 }
 
 class FlightRepositoryImp extends BaseRepositoryImp<Flight>
@@ -45,5 +47,12 @@ class FlightRepositoryImp extends BaseRepositoryImp<Flight>
   @override
   Future addFlight(Flight flight) async {
     await ApiClient(FLIGHT).post(flight.toJson());
+  }
+
+  @override
+  Future deleteFlight(String id) async {
+    await ApiClient(FLIGHT).delete({
+      'id': id,
+    });
   }
 }

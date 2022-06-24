@@ -9,7 +9,7 @@ class UserManager {
 
   String accessToken() {
     if (_user != null) {
-      return _user!.token;
+      return _user!.accessToken;
     }
     return "";
   }

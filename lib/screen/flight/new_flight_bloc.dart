@@ -1,4 +1,3 @@
-//region EVENT
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:simplane_client_admin/dummy_data.dart';
@@ -7,6 +6,7 @@ import 'package:simplane_client_admin/model/flight.dart';
 import 'package:simplane_client_admin/repository/flight_repository.dart';
 import 'package:simplane_client_admin/util/logger.dart';
 
+//region EVENT
 abstract class NewFlightEvent {}
 
 class AddFlight extends NewFlightEvent {
@@ -33,7 +33,6 @@ class AddFlight extends NewFlightEvent {
       required this.middleAirports,
       required this.stopDurations});
 }
-
 //endregion
 
 //region STATE
@@ -48,7 +47,6 @@ class NewFlightError extends NewFlightState {
 }
 
 class FlightAdded extends NewFlightState {}
-
 //endregion
 
 class NewFlightBloc extends Bloc<NewFlightEvent, NewFlightState> {
@@ -74,6 +72,7 @@ class NewFlightBloc extends Bloc<NewFlightEvent, NewFlightState> {
     );
     fakeDelay;
     try {
+      // TODO: api
       // await flightRepo.addFlight(flight);
       emit(FlightAdded());
     } catch (e) {

@@ -7,6 +7,7 @@ import 'package:simplane_client_admin/screen/auth/auth_screen.dart';
 import 'package:simplane_client_admin/screen/home/home_bloc.dart';
 import 'package:simplane_client_admin/screen/flight/flight_page.dart';
 import 'package:simplane_client_admin/screen/report/report_page.dart';
+import 'package:simplane_client_admin/screen/staff/staff_page.dart';
 import 'package:simplane_client_admin/screen/ticket/ticket_page.dart';
 import 'package:simplane_client_admin/util/constants.dart';
 
@@ -22,7 +23,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int curPageIdx = 0;
+  String currPage = FlightPage.pageName;
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +35,14 @@ class _HomeScreenState extends State<HomeScreen> {
           Expanded(
             child: Builder(
               builder: (context) {
-                switch (curPageIdx) {
-                  case 0:
+                switch (currPage) {
+                  case FlightPage.pageName:
                     return const FlightPage();
-                  case 1:
+                  case TicketPage.pageName:
                     return const TicketPage();
-                  case 2:
+                  case StaffPage.pageName:
+                    return const StaffPage();
+                  case ReportPage.pageName:
                     return const ReportPage();
                   case 3:
                     return const AirportPage();
@@ -61,9 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: ListView(
         children: [
           Container(
-            color: UserManager.instance.getUser()!.isAdmin
-                ? Colors.grey
-                : AppColor.primary,
+            color: AppColor.primary,
             padding: const EdgeInsets.all(10),
             child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -94,12 +95,12 @@ class _HomeScreenState extends State<HomeScreen> {
             leading: const Icon(Icons.flight),
             title: Text(S.current.flight_schedule),
             onTap: () {
-              if (curPageIdx == 0) return;
+              if (currPage == FlightPage.pageName) return;
               setState(() {
-                curPageIdx = 0;
+                currPage = FlightPage.pageName;
               });
             },
-            selected: curPageIdx == 0,
+            selected: currPage == FlightPage.pageName,
             selectedColor: AppColor.primary,
           ),
           if (UserManager.instance.getUser()?.isAdmin == false)
@@ -107,12 +108,25 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: const Icon(Icons.airplane_ticket_outlined),
               title: Text(S.current.ticket),
               onTap: () {
-                if (curPageIdx == 1) return;
+                if (currPage == TicketPage.pageName) return;
                 setState(() {
-                  curPageIdx = 1;
+                  currPage = TicketPage.pageName;
                 });
               },
-              selected: curPageIdx == 1,
+              selected: currPage == TicketPage.pageName,
+              selectedColor: AppColor.primary,
+            ),
+          if (UserManager.instance.getUser()?.isAdmin == true)
+            ListTile(
+              leading: const Icon(Icons.group_outlined),
+              title: Text(S.current.staff),
+              onTap: () {
+                if (currPage == StaffPage.pageName) return;
+                setState(() {
+                  currPage = StaffPage.pageName;
+                });
+              },
+              selected: currPage == StaffPage.pageName,
               selectedColor: AppColor.primary,
             ),
           if (UserManager.instance.getUser()?.isAdmin == true)
@@ -132,12 +146,12 @@ class _HomeScreenState extends State<HomeScreen> {
             leading: const Icon(Icons.summarize_outlined),
             title: Text(S.current.report),
             onTap: () {
-              if (curPageIdx == 2) return;
+              if (currPage == ReportPage.pageName) return;
               setState(() {
-                curPageIdx = 2;
+                currPage = ReportPage.pageName;
               });
             },
-            selected: curPageIdx == 2,
+            selected: currPage == ReportPage.pageName,
             selectedColor: AppColor.primary,
           ),
           ListTile(

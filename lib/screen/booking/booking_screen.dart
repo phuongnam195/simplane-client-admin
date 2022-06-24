@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:simplane_client_admin/core/rule_manager.dart';
 import 'package:simplane_client_admin/generated/l10n.dart';
@@ -53,90 +55,111 @@ class _BookingScreenState extends State<BookingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          S.current.booking_title(_flight.code),
+    return BlocListener<BookingBloc, BookingState>(
+      bloc: _bookingBloc,
+      listenWhen: (prev, curr) =>
+          curr is BookingLoading ||
+          curr is BookingError ||
+          curr is BookingConfirmed,
+      listener: (ctx, state) {
+        EasyLoading.dismiss();
+        if (state is BookingLoading) {
+          EasyLoading.show();
+        } else if (state is BookingError) {
+          EasyLoading.showError(state.error);
+        } else if (state is BookingConfirmed) {
+          EasyLoading.showSuccess(S.current.booking_successfully)
+              .then((_) => Get.back(result: true));
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            S.current.booking_title(_flight.code),
+          ),
+          backgroundColor: AppColor.primary,
         ),
-        backgroundColor: AppColor.primary,
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width / 3),
-          child: Form(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 20),
-                //Text(S.current.pick_ticket_class, style: AppStyle.heading),
-                _fieldHeading(S.current.pick_ticket_class),
-                // const SizedBox(height: 10),
-                _radioGroupTicketClasses(),
-                const SizedBox(height: 20),
-                //Text(S.current.passenger_info, style: AppStyle.heading),
-                _fieldHeading(S.current.passenger_info),
-                _fieldTitle(S.current.fullname),
-                Row(
-                  children: [
-                    Expanded(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width / 3.5),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 20),
+                  //Text(S.current.pick_ticket_class, style: AppStyle.heading),
+                  _fieldHeading(S.current.pick_ticket_class),
+                  // const SizedBox(height: 10),
+                  _radioGroupTicketClasses(),
+                  const SizedBox(height: 20),
+                  //Text(S.current.passenger_info, style: AppStyle.heading),
+                  _fieldHeading(S.current.passenger_info),
+                  _fieldTitle(S.current.fullname),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: _textField(
+                              controller: _firstNameController,
+                              label: S.current.first_name,
+                              onEditingComplete: () {
+                                _lastNameNode.requestFocus();
+                              })),
+                      const SizedBox(width: 20),
+                      Expanded(
                         child: _textField(
-                            controller: _firstNameController,
-                            label: S.current.first_name,
+                            label: S.current.last_name,
+                            controller: _lastNameController,
+                            focusNode: _lastNameNode,
                             onEditingComplete: () {
-                              _lastNameNode.requestFocus();
-                            })),
-                    const SizedBox(width: 20),
-                    Expanded(
-                      child: _textField(
-                          label: S.current.last_name,
-                          controller: _lastNameController,
-                          focusNode: _lastNameNode,
-                          onEditingComplete: () {
-                            _identityNode.requestFocus();
-                          }),
-                    ),
-                  ],
-                ),
-                _fieldTitle(S.current.identity_number),
-                _textField(
-                    // label: S.current.identity_number,
-                    controller: _identityController,
-                    focusNode: _identityNode,
-                    onEditingComplete: () {
-                      _emailNode.requestFocus();
-                    }),
-                _fieldTitle(S.current.email_address),
-                _textField(
-                    // label: S.current.email_address,
-                    controller: _emailController,
-                    focusNode: _emailNode,
-                    onEditingComplete: () {
-                      _phoneNode.requestFocus();
-                    }),
-                _fieldTitle(S.current.phone_number),
-                _textField(
-                    // label: S.current.phone_number,
-                    controller: _phoneController,
-                    focusNode: _phoneNode),
-                const SizedBox(height: 10),
-                Center(
-                  child: ElevatedButton(
-                    child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 25),
-                        child: Text(
-                          S.current.confirm,
-                          style: AppStyle.content.copyWith(color: Colors.white),
-                        )),
-                    onPressed: () => _onSubmit(),
-                    style: ElevatedButton.styleFrom(
-                      primary: AppColor.secondary,
-                      shape: const StadiumBorder(),
+                              _identityNode.requestFocus();
+                            }),
+                      ),
+                    ],
+                  ),
+                  _fieldTitle(S.current.identity_number),
+                  _textField(
+                      // label: S.current.identity_number,
+                      controller: _identityController,
+                      focusNode: _identityNode,
+                      onEditingComplete: () {
+                        _emailNode.requestFocus();
+                      }),
+                  _fieldTitle(S.current.email_address),
+                  _textField(
+                      // label: S.current.email_address,
+                      controller: _emailController,
+                      focusNode: _emailNode,
+                      onEditingComplete: () {
+                        _phoneNode.requestFocus();
+                      }),
+                  _fieldTitle(S.current.phone_number),
+                  _textField(
+                      // label: S.current.phone_number,
+                      controller: _phoneController,
+                      focusNode: _phoneNode),
+                  const SizedBox(height: 10),
+                  Center(
+                    child: ElevatedButton(
+                      child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 25),
+                          child: Text(
+                            S.current.confirm,
+                            style:
+                                AppStyle.content.copyWith(color: Colors.white),
+                          )),
+                      onPressed: () => _onSubmit(),
+                      style: ElevatedButton.styleFrom(
+                        primary: AppColor.secondary,
+                        shape: const StadiumBorder(),
+                      ),
                     ),
                   ),
-                )
-              ],
+                  const SizedBox(height: 40),
+                ],
+              ),
             ),
           ),
         ),

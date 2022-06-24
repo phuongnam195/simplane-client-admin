@@ -1,15 +1,16 @@
-//region EVENT
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:simplane_client_admin/core/rule_manager.dart';
 import 'package:simplane_client_admin/core/setting.dart';
 import 'package:simplane_client_admin/core/user_manager.dart';
 import 'package:simplane_client_admin/generated/l10n.dart';
+import 'package:simplane_client_admin/model/user.dart';
 import 'package:simplane_client_admin/network/base/network_base.dart';
 import 'package:simplane_client_admin/repository/user_repository.dart';
 import 'package:simplane_client_admin/util/logger.dart';
 import 'package:simplane_client_admin/util/my_exception.dart';
 
+//region EVENT
 abstract class AuthEvent {}
 
 class Login extends AuthEvent {
@@ -35,7 +36,6 @@ class SwitchTo extends AuthEvent {
 
   SwitchTo(this.type);
 }
-
 //endregion
 
 //region STATE
@@ -92,8 +92,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         throw MyException(S.current.retype_password_not_match);
       }
       UserRepository repo = Get.find();
-      final user =
+      User user =
           await repo.signup(event.fullname, event.username, event.password);
+      user = await repo.login(event.username, event.password);
       await UserManager.instance.setUser(user);
       await Setting().saveUserInfo(user);
       NetworkBase.instance.addApiHeaders({
