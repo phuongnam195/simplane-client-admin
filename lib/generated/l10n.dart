@@ -60,6 +60,16 @@ class S {
     );
   }
 
+  /// `English`
+  String get language {
+    return Intl.message(
+      'English',
+      name: 'language',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Simplane`
   String get app_name {
     return Intl.message(
@@ -270,10 +280,10 @@ class S {
     );
   }
 
-  /// `Staff's id, username, fullname,...`
+  /// `Staff's ID, username, fullname,...`
   String get staff_search_hint {
     return Intl.message(
-      'Staff\'s id, username, fullname,...',
+      'Staff\'s ID, username, fullname,...',
       name: 'staff_search_hint',
       desc: '',
       args: [],

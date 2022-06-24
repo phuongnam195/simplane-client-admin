@@ -13,11 +13,14 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _splashBloc = SplashBloc();
+    _splashBloc.add(LoadSetting());
     _splashBloc.add(CheckSession());
     return BlocListener<SplashBloc, SplashState>(
       bloc: _splashBloc,
       listener: (context, state) {
-        if (state is HasNotLoggedIn) {
+        if (state is SettingLoaded) {
+          //
+        } else if (state is HasNotLoggedIn) {
           Get.offAllNamed(AuthScreen.routeName);
         } else if (state is DataLoaded) {
           Get.offAllNamed(HomeScreen.routeName);

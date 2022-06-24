@@ -87,6 +87,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "intermediate_airport":
             MessageLookupByLibrary.simpleMessage("Intermediate airport"),
         "is_sold": MessageLookupByLibrary.simpleMessage("Sold"),
+        "language": MessageLookupByLibrary.simpleMessage("English"),
         "languageCode": MessageLookupByLibrary.simpleMessage("en"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last name"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
@@ -117,7 +118,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
         "staff": MessageLookupByLibrary.simpleMessage("Staff"),
         "staff_search_hint": MessageLookupByLibrary.simpleMessage(
-            "Staff\'s id, username, fullname,..."),
+            "Staff\'s ID, username, fullname,..."),
         "stop_duration": MessageLookupByLibrary.simpleMessage("Stop duration"),
         "ticket": MessageLookupByLibrary.simpleMessage("Ticket"),
         "ticket_class": MessageLookupByLibrary.simpleMessage("Ticket class"),

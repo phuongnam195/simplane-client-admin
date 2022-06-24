@@ -65,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "intermediate_airport":
             MessageLookupByLibrary.simpleMessage("Sân bay trung gian"),
         "is_sold": MessageLookupByLibrary.simpleMessage("Đã bán"),
+        "language": MessageLookupByLibrary.simpleMessage("Tiếng Việt"),
         "languageCode": MessageLookupByLibrary.simpleMessage("vi"),
         "logout": MessageLookupByLibrary.simpleMessage("Đăng xuất"),
         "month": MessageLookupByLibrary.simpleMessage("Tháng"),

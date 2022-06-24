@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:simplane_client_admin/core/rule_manager.dart';
@@ -36,6 +38,8 @@ class SwitchTo extends AuthEvent {
 
   SwitchTo(this.type);
 }
+
+class SwitchLanguage extends AuthEvent {}
 //endregion
 
 //region STATE
@@ -58,6 +62,8 @@ class SetAuthType extends AuthState {
 
   SetAuthType(this.type);
 }
+
+class LanguageSwitched extends AuthState {}
 //endregion
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
@@ -65,6 +71,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SwitchTo>(((event, emit) => emit(SetAuthType(event.type))));
     on<Login>(_onLogin);
     on<SignUp>(_onSignUp);
+    on<SwitchLanguage>(_onSwitchLanguage);
   }
 
   _onLogin(Login event, Emitter<AuthState> emit) async {
@@ -94,7 +101,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       UserRepository repo = Get.find();
       User user =
           await repo.signup(event.fullname, event.username, event.password);
-      user = await repo.login(event.username, event.password);
       await UserManager.instance.setUser(user);
       await Setting().saveUserInfo(user);
       NetworkBase.instance.addApiHeaders({
@@ -106,5 +112,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       Logger.e('AuthBloc -> _onSignUp()', '$e');
       emit(AuthError('$e'));
     }
+  }
+
+  _onSwitchLanguage(SwitchLanguage event, Emitter<AuthState> emit) async {
+    if (await Setting().getLanguage() == 'en') {
+      S.load(const Locale('vi'));
+      Setting().setLanguage('vi');
+    } else {
+      S.load(const Locale('en'));
+      Setting().setLanguage('en');
+    }
+    emit(LanguageSwitched());
   }
 }

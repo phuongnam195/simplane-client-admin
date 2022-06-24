@@ -1,5 +1,6 @@
 {
     "languageCode": "en",
+    "language": "English",
     "app_name": "Simplane",
     "error_no_internet": "Cannot connect to server, please check your connection and try again!",
     "error_timeout": "Connection timeout. Please try again!",
@@ -28,7 +29,7 @@
         }
     },
     "flight_search_hint": "Flight code, airport,...",
-    "staff_search_hint": "Staff's id, username, fullname,...",
+    "staff_search_hint": "Staff's ID, username, fullname,...",
     "pick_duration": "Pick a duration",
     "flight_title": "Flight {flightCode}",
     "@flight_title": {
