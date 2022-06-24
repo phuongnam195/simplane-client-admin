@@ -1,6 +1,8 @@
 import 'package:simplane_client_admin/core/base_repository.dart';
 import 'package:simplane_client_admin/model/annual_report.dart';
 import 'package:simplane_client_admin/model/staff.dart';
+import 'package:simplane_client_admin/network/api_path.dart';
+import 'package:simplane_client_admin/network/base/api_client.dart';
 
 import '../dummy_data.dart';
 
@@ -18,8 +20,9 @@ class StaffRepositoryImp extends BaseRepositoryImp<Staff>
     implements StaffRepository {
   @override
   Future<List<Staff>> getStaffs() async {
-    // Chưa có API
-    return staffsDummy;
+    return Staff.mapToList(await ApiClient(STAFF).get());
+
+    // return staffsDummy;
   }
 
   @override

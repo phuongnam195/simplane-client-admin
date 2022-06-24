@@ -40,7 +40,7 @@ class _BookingScreenState extends State<BookingScreen> {
   void initState() {
     _flight = Get.arguments;
 
-    for (var tc in RuleManager.instance.getListTicketClass()) {
+    for (var tc in RuleManager.instance.rule!.ticketClasses) {
       _mapTicketClass[tc.id] = {
         'name': tc.name,
         'avail': countAvailTicket(tc),
@@ -48,7 +48,7 @@ class _BookingScreenState extends State<BookingScreen> {
       };
     }
 
-    _selectedTicketClass = RuleManager.instance.getListTicketClass()[0].id;
+    _selectedTicketClass = RuleManager.instance.rule!.ticketClasses[0].id;
 
     super.initState();
   }
@@ -89,12 +89,9 @@ class _BookingScreenState extends State<BookingScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 20),
-                  //Text(S.current.pick_ticket_class, style: AppStyle.heading),
                   _fieldHeading(S.current.pick_ticket_class),
-                  // const SizedBox(height: 10),
                   _radioGroupTicketClasses(),
                   const SizedBox(height: 20),
-                  //Text(S.current.passenger_info, style: AppStyle.heading),
                   _fieldHeading(S.current.passenger_info),
                   _fieldTitle(S.current.fullname),
                   Row(
@@ -120,7 +117,6 @@ class _BookingScreenState extends State<BookingScreen> {
                   ),
                   _fieldTitle(S.current.identity_number),
                   _textField(
-                      // label: S.current.identity_number,
                       controller: _identityController,
                       focusNode: _identityNode,
                       onEditingComplete: () {
@@ -128,7 +124,6 @@ class _BookingScreenState extends State<BookingScreen> {
                       }),
                   _fieldTitle(S.current.email_address),
                   _textField(
-                      // label: S.current.email_address,
                       controller: _emailController,
                       focusNode: _emailNode,
                       onEditingComplete: () {
@@ -136,9 +131,7 @@ class _BookingScreenState extends State<BookingScreen> {
                       }),
                   _fieldTitle(S.current.phone_number),
                   _textField(
-                      // label: S.current.phone_number,
-                      controller: _phoneController,
-                      focusNode: _phoneNode),
+                      controller: _phoneController, focusNode: _phoneNode),
                   const SizedBox(height: 10),
                   Center(
                     child: ElevatedButton(

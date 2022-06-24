@@ -7,6 +7,7 @@ import 'package:simplane_client_admin/screen/auth/auth_screen.dart';
 import 'package:simplane_client_admin/screen/home/home_bloc.dart';
 import 'package:simplane_client_admin/screen/flight/flight_page.dart';
 import 'package:simplane_client_admin/screen/report/report_page.dart';
+import 'package:simplane_client_admin/screen/rule/rule_page.dart';
 import 'package:simplane_client_admin/screen/staff/staff_page.dart';
 import 'package:simplane_client_admin/screen/ticket/ticket_page.dart';
 import 'package:simplane_client_admin/util/constants.dart';
@@ -46,8 +47,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     return const StaffPage();
                   case ReportPage.pageName:
                     return const ReportPage();
-                  case 3:
+                  case AirportPage.pageName:
                     return const AirportPage();
+                  case RulePage.pageName:
+                    return const RulePage();
                   default:
                     return Container();
                 }
@@ -133,15 +136,15 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           if (UserManager.instance.getUser()?.isAdmin == true)
             ListTile(
-              leading: const Icon(Icons.schedule),
+              leading: const Icon(Icons.flight_land),
               title: Text(S.current.airport),
               onTap: () {
-                if (curPageIdx == 3) return;
+                if (currPage == AirportPage.pageName) return;
                 setState(() {
-                  curPageIdx = 3;
+                  currPage = AirportPage.pageName;
                 });
               },
-              selected: curPageIdx == 3,
+              selected: currPage == AirportPage.pageName,
               selectedColor: AppColor.primary,
             ),
           ListTile(
@@ -156,6 +159,19 @@ class _HomeScreenState extends State<HomeScreen> {
             selected: currPage == ReportPage.pageName,
             selectedColor: AppColor.primary,
           ),
+          if (UserManager.instance.getUser()?.isAdmin == true)
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: Text(S.current.rule),
+              onTap: () {
+                if (currPage == RulePage.pageName) return;
+                setState(() {
+                  currPage = RulePage.pageName;
+                });
+              },
+              selected: currPage == RulePage.pageName,
+              selectedColor: AppColor.primary,
+            ),
           ListTile(
             leading: const Icon(Icons.logout_outlined),
             title: Text(S.current.logout),

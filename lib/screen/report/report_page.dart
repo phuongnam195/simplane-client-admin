@@ -4,12 +4,9 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:simplane_client_admin/core/user_manager.dart';
 import 'package:simplane_client_admin/generated/l10n.dart';
 import 'package:simplane_client_admin/model/annual_report.dart';
-import 'package:simplane_client_admin/screen/home/home_bloc.dart';
-import 'package:simplane_client_admin/screen/home/home_screen.dart';
+import 'package:simplane_client_admin/screen/report/report_bloc.dart';
 import 'package:simplane_client_admin/util/constants.dart';
 import 'package:simplane_client_admin/util/utils.dart';
-
-import '../../../util/print_pdf.dart';
 
 class ReportPage extends StatefulWidget {
   static const pageName = 'report';
@@ -21,8 +18,9 @@ class ReportPage extends StatefulWidget {
 }
 
 class _ReportPageState extends State<ReportPage> {
+  final _reportBloc = ReportBloc();
   late int _selectedYear;
-  late final _isManager;
+  final _isManager = UserManager.instance.getUser()!.isAdmin;
 
   AnnualReport? _data;
   final ScrollController _scrollController = ScrollController();
@@ -30,10 +28,11 @@ class _ReportPageState extends State<ReportPage> {
   @override
   void initState() {
     _selectedYear = DateTime.now().year;
-    homeBloc.add(LoadReport(_selectedYear));
-    _isManager = UserManager.instance.getUser()!.isAdmin;
+    _loadReport();
     super.initState();
   }
+
+  _loadReport() => _reportBloc.add(LoadReport(_selectedYear));
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +56,7 @@ class _ReportPageState extends State<ReportPage> {
                   iconSize: 20,
                   onPressed: () {
                     _selectedYear--;
-                    homeBloc.add(LoadReport(_selectedYear));
+                    _loadReport();
                   },
                 ),
                 Text(
@@ -71,27 +70,27 @@ class _ReportPageState extends State<ReportPage> {
                       ? null
                       : () {
                           _selectedYear++;
-                          homeBloc.add(LoadReport(_selectedYear));
+                          _loadReport();
                         },
                 ),
               ],
             ),
           ),
-          BlocListener<HomeBloc, HomeState>(
-            bloc: homeBloc,
+          BlocListener<ReportBloc, ReportState>(
+            bloc: _reportBloc,
             listenWhen: (previous, current) =>
                 current is ReportLoaded ||
-                current is DataLoading ||
-                current is DataLoadFailed,
+                current is ReportLoading ||
+                current is ReportError,
             listener: (context, state) {
               EasyLoading.dismiss();
-              if (state is DataLoading) {
+              if (state is ReportLoading) {
                 EasyLoading.show();
               } else if (state is ReportLoaded) {
                 setState(() {
                   _data = state.report;
                 });
-              } else if (state is DataLoadFailed) {
+              } else if (state is ReportError) {
                 EasyLoading.showError(state.error);
               }
             },
@@ -156,14 +155,13 @@ class _ReportPageState extends State<ReportPage> {
       Align(
         alignment: Alignment.bottomRight,
         child: Padding(
-          padding: const EdgeInsets.all(30),
+          padding: const EdgeInsets.all(20),
           child: FloatingActionButton(
-            backgroundColor: AppColor.primary,
+            backgroundColor: AppColor.secondary,
             child: const Icon(Icons.print),
-            onPressed: () async {
-              final pdfFile = await Pdf.generateReport(_data);
-              Pdf.openFile(pdfFile);
-            },
+            onPressed: _data != null
+                ? () => _reportBloc.add(PrintReport(_data!))
+                : null,
           ),
         ),
       )

@@ -55,9 +55,9 @@
     "report": "Report",
     "logout": "Logout",
     "all": "All",
-    "not_sold": "Not sold",
-    "is_sold": "Sold",
-    "pending": "Pending",
+    "returnable": "Returnable",
+    "departed": "Departed",
+    "not_departed": "Not departed",
     "month": "Month",
     "flight_count": "Number of flights",
     "ticket_count": "Number of tickets",
@@ -108,6 +108,54 @@
     "booking_successfully": "Successfully booking!",
     "delete_flight": "Delete flight",
     "delete_flight_confirm": "Are you sure to delete this flight?",
-
-    "hahahaha": "hahahaha"
+    "airport": "Airport",
+    "code": "Code",
+    "name": "Name",
+    "address": "Address",
+    "airport_info_update": "Airport information update",
+    "update": "Update",
+    "update_airport_successfully": "Update airport successfully!",
+    "add_airport_successfully": "Add new airport successfully!",
+    "delete_airport_successfully": "Delete airport successfully!",
+    "add_airport": "Add airport",
+    "return_ticket": "Return ticket",
+    "ticket_return_overdued": "Sorry! Ticket return overdued.",
+    "ticket_return_not_suitable": "Sorry! This ticket class is not returnable!",
+    "ticket_return_confirm": "The return fee is {fee}. Do you want to proceed with the return?",
+    "@ticket_return_confirm": {
+        "placeholders": {
+            "fee": {
+                "type": "String"
+            }
+        }
+    },
+    "agree": "Agree",
+    "ticket_returned_successfully": "The ticket is returned successfully!",
+    "flight_duration_least": "Flight duration must be at least {minDuration} minutes!",
+    "@flight_duration_least": {
+        "placeholders": {
+            "minDuration": {
+                "type": "int"
+            }
+        }
+    },
+    "stop_duration_condition": "At intermediate airport, stop duration must belong to [{min}, {max}]!",
+    "@stop_duration_condition": {
+        "placeholders": {
+            "min": {
+                "type": "int"
+            },
+            "max": {
+                "type": "int"
+            }
+        }
+    },
+    "min_flight_duration": "Minimum flight duration",
+    "max_middle_airport": "Maximum number of intermediate airports",
+    "minimum": "Minimum",
+    "maximum": "Maximum",
+    "latest_time_booking": "Latest time when booking (before departure)",
+    "latest_time_cancel_booking": "Latest time when returning (before departure)",
+    "rule": "Rule",
+    "rule_updated_successfully": "Rule updated successfully!"
 }

@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:simplane_client_admin/core/rule_manager.dart';
 
 import 'airport.dart';
 
@@ -62,16 +63,15 @@ class Flight extends Equatable {
       return [];
     }
 
-    // return maps.map((data) => Flight.fromJson(data)).toList();
+    return maps.map((data) => Flight.fromJson(data)).toList();
+  }
 
-    return maps.map((data) {
-      Map<String, dynamic> json = data;
-      json['ticketClassPrice'] = {
-        'P': 100000.0,
-        'L': 200000.0,
-        'C': 300000.0,
-      };
-      return Flight.fromJson(json);
-    }).toList();
+  bool get canBook {
+    final rule = RuleManager.instance.rule!;
+    final latestTimeBooking = rule.latestTimeBooking.toInt();
+    final now = DateTime.now();
+    final diff = dateTime.difference(now);
+
+    return (diff.compareTo(Duration(minutes: latestTimeBooking)) >= 0);
   }
 }

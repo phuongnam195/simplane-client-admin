@@ -1,6 +1,8 @@
 import 'package:simplane_client_admin/core/base_repository.dart';
+import 'package:simplane_client_admin/core/rule_manager.dart';
 import 'package:simplane_client_admin/core/user_manager.dart';
 import 'package:simplane_client_admin/model/passenger.dart';
+import 'package:simplane_client_admin/model/return_ticket_state.dart';
 import 'package:simplane_client_admin/model/ticket.dart';
 import 'package:simplane_client_admin/network/api_path.dart';
 import 'package:simplane_client_admin/network/base/api_client.dart';
@@ -22,6 +24,8 @@ abstract class TicketRepository extends BaseRepository<Ticket> {
     required double price,
     required DateTime bookedTime,
   });
+
+  Future deleteTicket(String id);
 }
 
 class TicketRepositoryImp extends BaseRepositoryImp<Ticket>
@@ -53,10 +57,27 @@ class TicketRepositoryImp extends BaseRepositoryImp<Ticket>
       'toDate': toDate.toIso8601String(),
     };
 
-    customQuery.addAll(extraQuery ?? {});
+    // customQuery.addAll(extraQuery ?? {});
 
-    return Ticket.mapToList(
+    final allTickets = Ticket.mapToList(
         await getListFromApi(apiUrl: TICKET, customQuery: customQuery));
+    if (extraQuery?['filterReturnable'] == true) {
+      return allTickets.where((t) => t.returnState is Returnable).toList();
+    }
+
+    if (extraQuery?['filterDeparted'] == true) {
+      return allTickets
+          .where((t) => t.flightDate.compareTo(DateTime.now()) < 0)
+          .toList();
+    }
+
+    if (extraQuery?['filterDeparted'] == false) {
+      return allTickets
+          .where((t) => t.flightDate.compareTo(DateTime.now()) > 0)
+          .toList();
+    }
+
+    return allTickets;
   }
 
   @override
@@ -77,5 +98,12 @@ class TicketRepositoryImp extends BaseRepositoryImp<Ticket>
       'bookedTime': bookedTime.toIso8601String(),
       'idUser': UserManager.instance.getUser()!.id,
     }));
+  }
+
+  @override
+  Future deleteTicket(String id) async {
+    await ApiClient(TICKET).delete({
+      'id': id,
+    });
   }
 }

@@ -1,5 +1,6 @@
 import 'package:simplane_client_admin/model/annual_report.dart';
 import 'package:simplane_client_admin/model/passenger.dart';
+import 'package:simplane_client_admin/model/rule.dart';
 import 'package:simplane_client_admin/model/staff.dart';
 
 import 'model/airport.dart';
@@ -478,19 +479,19 @@ const staffReportsDummy = [
 ];
 
 final airportsDummy = [
-  const Airport('SGN', 'Tân Sơn Nhất', 'TP.HCM'),
-  const Airport('HAN', 'Nội Bài', 'Hà Nội'),
-  const Airport('VDH', 'Đồng Hới', 'Quảng Bình'),
-  const Airport('VII', 'Vinh', 'Nghệ An'),
-  const Airport('CXR', 'Cam Ranh', 'Khánh Hòa'),
-  const Airport('VCA', 'Cần Thơ', 'Cần Thơ'),
-  const Airport('DAD', 'Đà Nẵng', 'Đà Nẵng'),
+  const Airport('1', 'SGN', 'Tân Sơn Nhất', 'TP.HCM'),
+  const Airport('2', 'HAN', 'Nội Bài', 'Hà Nội'),
+  const Airport('3', 'VDH', 'Đồng Hới', 'Quảng Bình'),
+  const Airport('4', 'VII', 'Vinh', 'Nghệ An'),
+  const Airport('5', 'CXR', 'Cam Ranh', 'Khánh Hòa'),
+  const Airport('6', 'VCA', 'Cần Thơ', 'Cần Thơ'),
+  const Airport('7', 'DAD', 'Đà Nẵng', 'Đà Nẵng'),
 ];
 
-final ticketClassesDummy = [
-  const TicketClass('P', 'Super lite', 'Siêu tiết kiệm', false, 0, false, 0),
-  const TicketClass('L', 'Economy', 'Phổ thông', true, 120000.0, true, 0.0),
-  const TicketClass('C', 'Business', 'Thương gia', true, 0, true, 30000.0),
+const ticketClassesDummy = [
+  TicketClass('P', 'Super lite', 'Siêu tiết kiệm', false, 0, false, 0),
+  TicketClass('L', 'Economy', 'Phổ thông', true, 120000.0, true, 0.0),
+  TicketClass('C', 'Business', 'Thương gia', true, 0, true, 30000.0),
 ];
 
 final staffsDummy = [
@@ -499,3 +500,12 @@ final staffsDummy = [
   const Staff('326', 'minhminh', 'Nguyen Minh Minh', 46, 34200000),
   const Staff('327', 'anhanh', 'Nguyen Anh Anh', 66, 23400000),
 ];
+
+var ruleDummy = Rule(
+    ticketClasses: ticketClassesDummy,
+    minFlightDuration: 45,
+    maxMiddleAirport: 3,
+    minStopDuration: 5,
+    maxStopDuration: 20,
+    latestTimeBooking: 12 * 60,
+    latestTimeCancelBooking: 24 * 60);

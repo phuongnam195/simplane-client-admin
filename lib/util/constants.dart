@@ -7,6 +7,7 @@ class AppColor {
   static const Color title = Color(0xFF6E7E97);
   static const Color subtitle = Color(0xFF14171F);
   static const Color description = Color(0xFF9D9D9D);
+  static const Color negative = Colors.grey;
 }
 
 class AppStyle {

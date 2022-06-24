@@ -40,7 +40,7 @@ class _StaffPageState extends State<StaffPage> {
   bool isAscending = true;
   int sortType = sortCode;
 
-  final ticketClasses = RuleManager.instance.getListTicketClass();
+  final ticketClasses = RuleManager.instance.rule!.ticketClasses;
 
   final Map<String, double> colWidths = {
     'id': 120,

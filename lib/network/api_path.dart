@@ -13,9 +13,17 @@ const FLIGHT = '$URL/flight';
 
 const TICKET = '$URL/ticket';
 
-const REPORT_GET = '$URL/report/get';
+const AIRPORT = '$URL/air-port';
 
-const TICKET_CLASS_GETS = '$URL/ticket-class/gets';
+const LIST_AIRPORT = '$URL/air-port/list';
+
+const REPORT_GET = '$URL/report';
+
+const STAFF = '$URL/staff';
+
+const RULE = '$URL/rule';
+
+const TICKET_CLASS_GETS = '$URL/ticket-class';
 
 Future<List<dynamic>> getListFromApi(
     {required String apiUrl, Map<String, dynamic>? customQuery}) async {

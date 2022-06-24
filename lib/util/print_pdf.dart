@@ -2,16 +2,14 @@ import 'dart:io';
 
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 import 'package:simplane_client_admin/util/utils.dart';
 
 import '../core/user_manager.dart';
 import '../generated/l10n.dart';
 import '../model/annual_report.dart';
-import 'constants.dart';
 
-class Pdf {
+class PdfUtils {
   static Future<File> generateReport(AnnualReport? report) async {
     final pdf = Document();
     var headers = [];
@@ -19,15 +17,20 @@ class Pdf {
     if (UserManager.instance.getUser()?.isAdmin == true) {
       headers = ['Month', 'Number of flights', 'Number of tickets', 'Revenue'];
       data = report!.monthlyReports
-        .map((rp) => [rp.month, rp.flightCount, rp.ticketCount, formatCurrencyPdf(rp.revenue)])
-        .toList();
+          .map((rp) => [
+                rp.month,
+                rp.flightCount,
+                rp.ticketCount,
+                formatCurrencyPdf(rp.revenue)
+              ])
+          .toList();
     } else {
       headers = ['Month', 'Number of tickets', 'Revenue'];
       data = report!.monthlyReports
-        .map((rp) => [rp.month, rp.ticketCount, formatCurrencyPdf(rp.revenue)])
-        .toList();
+          .map(
+              (rp) => [rp.month, rp.ticketCount, formatCurrencyPdf(rp.revenue)])
+          .toList();
     }
-  
 
     pdf.addPage(Page(
         pageTheme: const PageTheme(),

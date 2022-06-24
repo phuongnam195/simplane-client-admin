@@ -20,7 +20,7 @@
     "to_airport": "Đến",
     "flight_datetime": "Ngày/giờ",
     "flight_duration": "Thời gian bay",
-    "class_seat_count": "{ticketClass}'s chỗ",
+    "class_seat_count": "Số vé {ticketClass}",
     "@class_seat_count": {
         "placeholders": {
             "ticketClass": {
@@ -54,14 +54,14 @@
     "report": "Báo cáo",
     "logout": "Đăng xuất",
     "all": "Tất cả",
-    "not_sold": "Chưa bán",
-    "is_sold": "Đã bán",
-    "pending": "Chờ xét duyệt",
+    "returnable": "Có thể hoàn",
+    "departed": "Đã khởi hành",
+    "not_departed": "Chưa khởi hành",
     "month": "Tháng",
     "flight_count": "Số lượng chuyến bay",
     "ticket_count": "Số lượng vé",
     "revenue": "Doanh thu",
-    "annual_revenue_report": "Báo cáo doanh thu hàng năm",
+    "annual_revenue_report": "Báo cáo doanh thu hằng năm",
     "booking": "Đặt vé",
     "booking_title": "Đặt vé cho chuyến bay {flightCode}",
     "@booking_title": {
@@ -80,7 +80,81 @@
         }
     },
     "pick_ticket_class": "Chọn hạng vé: ",
-
-
-    "hahahaha": "hahahaha"
+    "passenger_info": "Thông tin hành khách",
+    "first_name": "Họ và tên đêm",
+    "last_name": "Tên",
+    "email_address": "Địa chỉ email",
+    "confirm": "Xác nhận",
+    "new_flight": "Thêm chuyến bay mới",
+    "departure_airport": "Sân bay đi",
+    "arrival_airport": "Sân bay đến",
+    "ticket_class_info": "Thông tin hạng vé {name}",
+    "@ticket_class_info": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "seat_amount": "Số ghế",
+    "add_flight_successfully": "Thêm chuyến bay thành công!",
+    "staff": "Nhân viên",
+    "delete_staff": "Xóa nhân viên",
+    "delete_staff_confirm": "Bạn có chắc chắn xóa nhân viên này không?",
+    "cancel": "Hủy",
+    "delete": "Xóa",
+    "id": "ID",
+    "booking_successfully": "Đặt vé thành công!",
+    "delete_flight": "Xóa chuyến bay",
+    "delete_flight_confirm": "Bạn có chắc chắn xóa chuyến bay này không?",
+    "airport": "Sân bay",
+    "code": "Mã",
+    "name": "Tên",
+    "address": "Địa chỉ",
+    "airport_info_update": "Cập nhật thông tin sân bay",
+    "update": "Cập nhật",
+    "update_airport_successfully": "Cập nhật sân bay thành công!",
+    "add_airport_successfully": "Thêm sân bay thành công!",
+    "delete_airport_successfully": "Xóa sân bay thành công!",
+    "add_airport": "Thêm sân bay",
+    "return_ticket": "Hoàn vé",
+    "ticket_return_overdued": "Xin lỗi! Vé này đã quá hạn hoàn lại.",
+    "ticket_return_not_suitable": "Xin lỗi! Hạng vé này không thể hoàn lại.",
+    "ticket_return_confirm": "Phí hoàn vé là {fee}. Bạn có muốn tiếp tục không?",
+    "@ticket_return_confirm": {
+        "placeholders": {
+            "fee": {
+                "type": "String"
+            }
+        }
+    },
+    "agree": "Đồng ý",
+    "ticket_returned_successfully": "Vé đã được hoàn thành công!",
+    "flight_duration_least": "Thời lượng chuyến bay phải ít nhất là {minDuration} phút!",
+    "@flight_duration_least": {
+        "placeholders": {
+            "minDuration": {
+                "type": "int"
+            }
+        }
+    },
+    "stop_duration_condition": "Tại sân bay trung gian, thời gian dừng phải thuộc khoảng [{min}, {max}] phút!",
+    "@stop_duration_condition": {
+        "placeholders": {
+            "min": {
+                "type": "int"
+            },
+            "max": {
+                "type": "int"
+            }
+        }
+    },
+    "min_flight_duration": "Thời lượng bay tối thiểu",
+    "max_middle_airport": "Số lượng sân bay trung gian tối đa",
+    "minimum": "Tối thiểu",
+    "maximum": "Tối đa",
+    "latest_time_booking": "Thời gian chậm nhất khi đặt vé",
+    "latest_time_cancel_booking": "Thời gian chậm nhất khi hủy đặt vé",
+    "rule": "Quy định",
+    "rule_updated_successfully": "Đã cập nhật quy định thành công!"
 }

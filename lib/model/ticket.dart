@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:simplane_client_admin/core/rule_manager.dart';
+import 'package:simplane_client_admin/model/return_ticket_state.dart';
 
 import 'passenger.dart';
 
@@ -47,5 +49,28 @@ class Ticket extends Equatable {
       return [];
     }
     return maps.map((data) => Ticket.fromJson(data)).toList();
+  }
+
+  ReturnTicketState get returnState {
+    final rule = RuleManager.instance.rule!;
+
+    final ticketClasses = rule.ticketClasses;
+    final ticketClass =
+        ticketClasses.firstWhere((tc) => tc.id == ticketClassId);
+    final canReturn = ticketClass.canReturn;
+
+    if (!canReturn) {
+      return NotSuitableTicketClass();
+    }
+
+    final latestTimeCancelBooking = rule.latestTimeCancelBooking.toInt();
+    final now = DateTime.now();
+    final diff = flightDate.difference(now);
+
+    if (diff.compareTo(Duration(minutes: latestTimeCancelBooking)) < 0) {
+      return OverdueReturning();
+    }
+
+    return Returnable(ticketClass.returnFee);
   }
 }

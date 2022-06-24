@@ -7,11 +7,13 @@ import 'package:simplane_client_admin/network/base/api_client.dart';
 import '../dummy_data.dart';
 
 abstract class AirportRepository extends BaseRepository<Airport> {
-  Future<Airport> getById(String code);
+  Future<Airport> getByCode(String code);
 
   Future<List<Airport>> getAirports();
 
   Future addAirport(Airport airport);
+
+  Future updateAirport(Airport airport);
 
   Future deleteAirport(Airport airport);
 }
@@ -19,40 +21,40 @@ abstract class AirportRepository extends BaseRepository<Airport> {
 class AirportRepositoryImp extends BaseRepositoryImp<Airport>
     implements AirportRepository {
   @override
-  Future<Airport> getById(String code) async {
-    return airportsDummy.first;
-    // return Flight.fromJson(await ApiClient(FLIGHT).get(params: {'id': id}));
+  Future<Airport> getByCode(String code) async {
+    return Airport.fromJson(
+        await ApiClient(AIRPORT).get(params: {'code': code}));
+
+    // return airportsDummy.first;
   }
 
   @override
-  Future<List<Airport>> getAirports(
-    //{
-    // required DateTime fromDate,
-    // required DateTime toDate,
-    // Map<String, dynamic>? extraQuery,
-  //}
-  ) async {
-    // await fakeDelay;
-    // return allFlightsDummy;
+  Future<List<Airport>> getAirports() async {
+    final maps = await getListFromApi(apiUrl: LIST_AIRPORT);
+    return Airport.mapToList(maps);
 
-    // Map<String, dynamic> customQuery = {
-    //   'fromDate': fromDate.millisecondsSinceEpoch,
-    //   'toDate': toDate.millisecondsSinceEpoch,
-    // };
-    // customQuery.addAll(extraQuery ?? {});
-    // return Airp.mapToList(
-    //     await getListFromApi(apiUrl: FLIGHT, customQuery: customQuery));
-    return airportsDummy;
+    // return airportsDummy;
   }
-
 
   @override
   Future addAirport(Airport airport) async {
-    airportsDummy.add(airport);
+    await ApiClient(AIRPORT).post(airport.toJson());
+
+    // airportsDummy.add(airport);
   }
 
-   @override
+  @override
+  Future updateAirport(Airport airport) async {
+    await ApiClient(AIRPORT).post(airport.toJson());
+
+    // int i = airportsDummy.indexWhere((e) => e.id == airport.id);
+    // airportsDummy[i] = airport;
+  }
+
+  @override
   Future deleteAirport(Airport airport) async {
-    airportsDummy.remove(airport);
+    await ApiClient(AIRPORT + '?code=${airport.code}').delete({});
+
+    // airportsDummy.remove(airport);
   }
 }

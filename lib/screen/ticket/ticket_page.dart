@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:horizontal_data_table/horizontal_data_table.dart';
 import 'package:simplane_client_admin/core/base_mixin_function.dart';
 import 'package:simplane_client_admin/generated/l10n.dart';
 import 'package:simplane_client_admin/model/ticket.dart';
-import 'package:simplane_client_admin/screen/home/home_bloc.dart';
+import 'package:simplane_client_admin/screen/ticket/ticket_bloc.dart';
 import 'package:simplane_client_admin/screen/ticket/ticket_detail.dart';
 import 'package:simplane_client_admin/util/constants.dart';
 import 'package:simplane_client_admin/util/date_time_utils.dart';
 import 'package:simplane_client_admin/util/utils.dart';
 
-import '../home/home_screen.dart';
+import 'choice_bar.dart';
 
 class TicketPage extends StatefulWidget {
   static const pageName = 'ticket';
@@ -22,6 +23,13 @@ class TicketPage extends StatefulWidget {
 }
 
 class _TicketPageState extends State<TicketPage> with DatePickerFunction {
+  final _ticketBloc = TicketBloc();
+
+  static const int CHOICE_ALL = 0;
+  static const int CHOICE_RETURNABLE = 1;
+  static const int CHOICE_DEPARTED = 2;
+  static const int CHOICE_NOT_DEPARTED = 3;
+
   static const int SORT_FLIGHT_CODE = 0;
   static const int SORT_FLIGHT_DATE = 1;
   static const int SORT_TICKET_CLASS = 2;
@@ -30,10 +38,10 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
 
   List<Ticket> _data = [];
   List<Ticket> _dataToShow = [];
-  bool _isLoading = false;
 
   bool isAscending = true;
   int sortType = SORT_FLIGHT_CODE;
+  int choiceType = CHOICE_ALL;
 
   final Map<String, double> colWidths = {
     'code': 120,
@@ -54,7 +62,22 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
     super.initState();
   }
 
-  _loadTickets() => homeBloc.add(LoadTickets(fromDate, toDate, {}));
+  _loadTickets() {
+    Map<String, dynamic> extraQuery = {};
+    if (choiceType == CHOICE_RETURNABLE) {
+      extraQuery['filterReturnable'] = true;
+    }
+
+    if (choiceType == CHOICE_DEPARTED) {
+      extraQuery['filterDeparted'] = true;
+    }
+
+    if (choiceType == CHOICE_NOT_DEPARTED) {
+      extraQuery['filterDeparted'] = false;
+    }
+
+    _ticketBloc.add(LoadTickets(fromDate, toDate, extraQuery));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,44 +129,61 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
             ],
           ),
           const SizedBox(height: 10),
-          BlocListener<HomeBloc, HomeState>(
-            bloc: homeBloc,
-            listenWhen: (previous, current) =>
-                current is TicketsLoaded ||
-                current is DataLoading ||
-                current is DataLoadFailed,
+          ChoiceBar(
+            {
+              S.current.all: () {
+                choiceType = CHOICE_ALL;
+                _loadTickets();
+              },
+              S.current.returnable: () {
+                choiceType = CHOICE_RETURNABLE;
+                _loadTickets();
+              },
+              S.current.departed: () {
+                choiceType = CHOICE_DEPARTED;
+                _loadTickets();
+              },
+              S.current.not_departed: () {
+                choiceType = CHOICE_NOT_DEPARTED;
+                _loadTickets();
+              },
+            },
+          ),
+          const SizedBox(height: 10),
+          BlocListener<TicketBloc, TicketState>(
+            bloc: _ticketBloc,
+            listenWhen: (prev, curr) =>
+                curr is TicketsLoaded ||
+                curr is TicketLoading ||
+                curr is TicketError,
             listener: (context, state) {
-              if (state is DataLoading) {
-                setState(() {
-                  _isLoading = true;
-                });
+              EasyLoading.dismiss();
+              if (state is TicketLoading) {
+                EasyLoading.show();
               } else if (state is TicketsLoaded) {
                 setState(() {
-                  _isLoading = false;
                   _data = state.tickets;
                   _dataToShow = _data;
                 });
-              } else if (state is DataLoadFailed) {
-                //TODO: show error dialog
+              } else if (state is TicketError) {
+                EasyLoading.showError(state.error);
               }
             },
             child: Expanded(
-              child: _isLoading
-                  ? const Center(child: CircularProgressIndicator())
-                  : HorizontalDataTable(
-                      leftHandSideColumnWidth: colWidths['code']!,
-                      rightHandSideColumnWidth: tableWidth - colWidths['code']!,
-                      isFixedHeader: true,
-                      headerWidgets: _getTitleWidget(),
-                      leftSideItemBuilder: _generateFirstColumnRow,
-                      rightSideItemBuilder: _generateRightHandSideColumnRow,
-                      itemCount: _dataToShow.length,
-                      rowSeparatorWidget: const Divider(
-                        color: Colors.black54,
-                        height: 1.0,
-                        thickness: 0.0,
-                      ),
-                    ),
+              child: HorizontalDataTable(
+                leftHandSideColumnWidth: colWidths['code']!,
+                rightHandSideColumnWidth: tableWidth - colWidths['code']!,
+                isFixedHeader: true,
+                headerWidgets: _getTitleWidget(),
+                leftSideItemBuilder: _generateFirstColumnRow,
+                rightSideItemBuilder: _generateRightHandSideColumnRow,
+                itemCount: _dataToShow.length,
+                rowSeparatorWidget: const Divider(
+                  color: Colors.black54,
+                  height: 1.0,
+                  thickness: 0.0,
+                ),
+              ),
             ),
           ),
         ],
@@ -306,11 +346,15 @@ class _TicketPageState extends State<TicketPage> with DatePickerFunction {
     });
   }
 
-  _showTicketDetail(Ticket ticket) {
-    showDialog(
+  _showTicketDetail(Ticket ticket) async {
+    final message = await showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(content: TicketDetail(ticket));
+          return TicketDetail(ticket);
         });
+    if (message is String) {
+      EasyLoading.showSuccess(message);
+      _loadTickets();
+    }
   }
 }

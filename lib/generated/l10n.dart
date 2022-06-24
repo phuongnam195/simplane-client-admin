@@ -1,7 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:simplane_client_admin/model/airport.dart';
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -471,31 +470,31 @@ class S {
     );
   }
 
-  /// `Not sold`
-  String get not_sold {
+  /// `Returnable`
+  String get returnable {
     return Intl.message(
-      'Not sold',
-      name: 'not_sold',
+      'Returnable',
+      name: 'returnable',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sold`
-  String get is_sold {
+  /// `Departed`
+  String get departed {
     return Intl.message(
-      'Sold',
-      name: 'is_sold',
+      'Departed',
+      name: 'departed',
       desc: '',
       args: [],
     );
   }
 
-  /// `Pending`
-  String get pending {
+  /// `Not departed`
+  String get not_departed {
     return Intl.message(
-      'Pending',
-      name: 'pending',
+      'Not departed',
+      name: 'not_departed',
       desc: '',
       args: [],
     );
@@ -640,24 +639,6 @@ class S {
       args: [],
     );
   }
-  
-  String get update {
-    return Intl.message(
-      'Update',
-      name: 'update',
-      desc: '',
-      args: [],
-    );
-  }
-
-  String get delete {
-    return Intl.message(
-      'Delete',
-      name: 'delete',
-      desc: '',
-      args: [],
-    );
-  }
 
   /// `New flight`
   String get new_flight {
@@ -684,51 +665,6 @@ class S {
     return Intl.message(
       'Arrival airport',
       name: 'arrival_airport',
-      desc: '',
-      args: [],
-    );
-  }
-
-  String get airport {
-    return Intl.message(
-      'Airport',
-      name: 'Airport',
-      desc: '',
-      args: [],
-    );
-  }
-
-  String get code_airport {
-    return Intl.message(
-      'Code Aircode',
-      name: 'code_airport',
-      desc: '',
-      args: [],
-    );
-  }
-
-  String get name_airport {
-    return Intl.message(
-      'Name Airport',
-      name: 'name_airport',
-      desc: '',
-      args: [],
-    );
-  }
-
-   String get airport_form_update {
-    return Intl.message(
-      'Form Update',
-      name: 'airport_form_update',
-      desc: '',
-      args: [],
-    );
-  }
-
-  String get address_airport {
-    return Intl.message(
-      'Address Airport',
-      name: 'address_airport',
       desc: '',
       args: [],
     );
@@ -854,11 +790,261 @@ class S {
     );
   }
 
-  /// `hahahaha`
-  String get hahahaha {
+  /// `Airport`
+  String get airport {
     return Intl.message(
-      'hahahaha',
-      name: 'hahahaha',
+      'Airport',
+      name: 'airport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Code`
+  String get code {
+    return Intl.message(
+      'Code',
+      name: 'code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name`
+  String get name {
+    return Intl.message(
+      'Name',
+      name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Address`
+  String get address {
+    return Intl.message(
+      'Address',
+      name: 'address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Airport information update`
+  String get airport_info_update {
+    return Intl.message(
+      'Airport information update',
+      name: 'airport_info_update',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update`
+  String get update {
+    return Intl.message(
+      'Update',
+      name: 'update',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update airport successfully!`
+  String get update_airport_successfully {
+    return Intl.message(
+      'Update airport successfully!',
+      name: 'update_airport_successfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new airport successfully!`
+  String get add_airport_successfully {
+    return Intl.message(
+      'Add new airport successfully!',
+      name: 'add_airport_successfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete airport successfully!`
+  String get delete_airport_successfully {
+    return Intl.message(
+      'Delete airport successfully!',
+      name: 'delete_airport_successfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add airport`
+  String get add_airport {
+    return Intl.message(
+      'Add airport',
+      name: 'add_airport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Return ticket`
+  String get return_ticket {
+    return Intl.message(
+      'Return ticket',
+      name: 'return_ticket',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sorry! Ticket return overdued.`
+  String get ticket_return_overdued {
+    return Intl.message(
+      'Sorry! Ticket return overdued.',
+      name: 'ticket_return_overdued',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sorry! This ticket class is not returnable!`
+  String get ticket_return_not_suitable {
+    return Intl.message(
+      'Sorry! This ticket class is not returnable!',
+      name: 'ticket_return_not_suitable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The return fee is {fee}. Do you want to proceed with the return?`
+  String ticket_return_confirm(String fee) {
+    return Intl.message(
+      'The return fee is $fee. Do you want to proceed with the return?',
+      name: 'ticket_return_confirm',
+      desc: '',
+      args: [fee],
+    );
+  }
+
+  /// `Agree`
+  String get agree {
+    return Intl.message(
+      'Agree',
+      name: 'agree',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The ticket is returned successfully!`
+  String get ticket_returned_successfully {
+    return Intl.message(
+      'The ticket is returned successfully!',
+      name: 'ticket_returned_successfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Flight duration must be at least {minDuration} minutes!`
+  String flight_duration_least(int minDuration) {
+    return Intl.message(
+      'Flight duration must be at least $minDuration minutes!',
+      name: 'flight_duration_least',
+      desc: '',
+      args: [minDuration],
+    );
+  }
+
+  /// `At intermediate airport, stop duration must belong to [{min}, {max}]!`
+  String stop_duration_condition(int min, int max) {
+    return Intl.message(
+      'At intermediate airport, stop duration must belong to [$min, $max]!',
+      name: 'stop_duration_condition',
+      desc: '',
+      args: [min, max],
+    );
+  }
+
+  /// `Minimum flight duration`
+  String get min_flight_duration {
+    return Intl.message(
+      'Minimum flight duration',
+      name: 'min_flight_duration',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Maximum number of intermediate airports`
+  String get max_middle_airport {
+    return Intl.message(
+      'Maximum number of intermediate airports',
+      name: 'max_middle_airport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Minimum`
+  String get minimum {
+    return Intl.message(
+      'Minimum',
+      name: 'minimum',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Maximum`
+  String get maximum {
+    return Intl.message(
+      'Maximum',
+      name: 'maximum',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Latest time when booking (before departure)`
+  String get latest_time_booking {
+    return Intl.message(
+      'Latest time when booking (before departure)',
+      name: 'latest_time_booking',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Latest time when returning (before departure)`
+  String get latest_time_cancel_booking {
+    return Intl.message(
+      'Latest time when returning (before departure)',
+      name: 'latest_time_cancel_booking',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rule`
+  String get rule {
+    return Intl.message(
+      'Rule',
+      name: 'rule',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rule updated successfully!`
+  String get rule_updated_successfully {
+    return Intl.message(
+      'Rule updated successfully!',
+      name: 'rule_updated_successfully',
       desc: '',
       args: [],
     );
