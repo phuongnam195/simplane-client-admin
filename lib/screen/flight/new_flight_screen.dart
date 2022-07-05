@@ -269,9 +269,12 @@ class _NewFlightScreenState extends State<NewFlightScreen> {
       bookedAmount[_listTicketClass[i].id] = 0;
     }
 
-    List<double> stopDurations = _stopDurationControllers.map((controller) {
-      return double.tryParse(controller.text) ?? 0;
-    }).toList();
+    List<double> stopDurations = _stopDurationControllers
+        .map((controller) {
+          return double.tryParse(controller.text) ?? 0;
+        })
+        .toList()
+        .sublist(0, _selectedMiddleAirports.length);
 
     _newFlightBloc.add(AddFlight(
         flightCode: 'set trên server',

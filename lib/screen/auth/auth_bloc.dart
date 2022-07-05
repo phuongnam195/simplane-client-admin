@@ -101,6 +101,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       UserRepository repo = Get.find();
       User user =
           await repo.signup(event.fullname, event.username, event.password);
+      user = await repo.login(event.username, event.password);
       await UserManager.instance.setUser(user);
       await Setting().saveUserInfo(user);
       NetworkBase.instance.addApiHeaders({

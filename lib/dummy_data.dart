@@ -9,8 +9,6 @@ import 'model/ticket.dart';
 import 'model/ticket_class.dart';
 import 'model/user.dart';
 
-final fakeDelay = Future.delayed(const Duration(milliseconds: 500));
-
 const userDummy = User('123', 'nam1952001', 'Đặng Phương Nam', true, '');
 
 final allFlightsDummy = [
@@ -478,15 +476,15 @@ const staffReportsDummy = [
   ),
 ];
 
-final airportsDummy = [
-  const Airport('1', 'SGN', 'Tân Sơn Nhất', 'TP.HCM'),
-  const Airport('2', 'HAN', 'Nội Bài', 'Hà Nội'),
-  const Airport('3', 'VDH', 'Đồng Hới', 'Quảng Bình'),
-  const Airport('4', 'VII', 'Vinh', 'Nghệ An'),
-  const Airport('5', 'CXR', 'Cam Ranh', 'Khánh Hòa'),
-  const Airport('6', 'VCA', 'Cần Thơ', 'Cần Thơ'),
-  const Airport('7', 'DAD', 'Đà Nẵng', 'Đà Nẵng'),
-];
+// final airportsDummy = [
+//   const Airport('1', 'SGN', 'Tân Sơn Nhất', 'TP.HCM'),
+//   const Airport('2', 'HAN', 'Nội Bài', 'Hà Nội'),
+//   const Airport('3', 'VDH', 'Đồng Hới', 'Quảng Bình'),
+//   const Airport('4', 'VII', 'Vinh', 'Nghệ An'),
+//   const Airport('5', 'CXR', 'Cam Ranh', 'Khánh Hòa'),
+//   const Airport('6', 'VCA', 'Cần Thơ', 'Cần Thơ'),
+//   const Airport('7', 'DAD', 'Đà Nẵng', 'Đà Nẵng'),
+// ];
 
 const ticketClassesDummy = [
   TicketClass('P', 'Super lite', 'Siêu tiết kiệm', false, 0, false, 0),
@@ -500,12 +498,3 @@ final staffsDummy = [
   const Staff('326', 'minhminh', 'Nguyen Minh Minh', 46, 34200000),
   const Staff('327', 'anhanh', 'Nguyen Anh Anh', 66, 23400000),
 ];
-
-var ruleDummy = Rule(
-    ticketClasses: ticketClassesDummy,
-    minFlightDuration: 45,
-    maxMiddleAirport: 3,
-    minStopDuration: 5,
-    maxStopDuration: 20,
-    latestTimeBooking: 12 * 60,
-    latestTimeCancelBooking: 24 * 60);

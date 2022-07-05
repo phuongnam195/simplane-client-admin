@@ -10,7 +10,11 @@ class Airport extends Equatable {
   final String name;
   final String address;
 
-  const Airport(this.id, this.code, this.name, this.address);
+  const Airport(
+      {this.id = '0',
+      required this.code,
+      required this.name,
+      required this.address});
 
   factory Airport.fromJson(Map<String, dynamic> json) =>
       _$AirportFromJson(json);

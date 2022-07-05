@@ -32,9 +32,10 @@ class UserRepositoryImp extends BaseRepositoryImp<User>
       "fullname": fullname,
       "username": username,
       "password": password,
-      "idAdmin": true,
+      "idAdmin": false,
       "isVerified": true,
     });
+    json['id'] = 'empty';
     return User.fromJson(json);
   }
 

@@ -38,27 +38,27 @@ class FlightRepositoryImp extends BaseRepositoryImp<Flight>
       'toDate': toDate.toIso8601String(),
     };
     customQuery.addAll(extraQuery ?? {});
-    // return Flight.mapToList(
-    //     await getListFromApi(apiUrl: FLIGHT, customQuery: customQuery));
+    return Flight.mapToList(
+        await getListFromApi(apiUrl: FLIGHT, customQuery: customQuery));
 
-    final maps = await getListFromApi(apiUrl: FLIGHT);
+    // final maps = await getListFromApi(apiUrl: FLIGHT);
 
-    List<Flight> result = [];
-    for (int i = 0; i < maps.length; i++) {
-      Map<String, dynamic> map = maps[i];
-      var fixMap = map
-        ..addAll({
-          'ticketClassPrice': {
-            'P': 100000.0,
-            'L': 200000.0,
-            'C': 300000.0,
-          }
-        });
-      fixMap['fromAirport']['id'] = '$i';
-      fixMap['toAirport']['id'] = '${i + 100}';
-      result.add(Flight.fromJson(fixMap));
-    }
-    return result;
+    // List<Flight> result = [];
+    // for (int i = 0; i < maps.length; i++) {
+    //   Map<String, dynamic> map = maps[i];
+    //   var fixMap = map
+    //     ..addAll({
+    //       'ticketClassPrice': {
+    //         'P': 100000.0,
+    //         'L': 200000.0,
+    //         'C': 300000.0,
+    //       }
+    //     });
+    //   fixMap['fromAirport']['id'] = '$i';
+    //   fixMap['toAirport']['id'] = '${i + 100}';
+    //   result.add(Flight.fromJson(fixMap));
+    // }
+    // return result;
   }
 
   @override
@@ -71,8 +71,6 @@ class FlightRepositoryImp extends BaseRepositoryImp<Flight>
 
   @override
   Future deleteFlight(String id) async {
-    await ApiClient(FLIGHT).delete({
-      'id': id,
-    });
+    await ApiClient(FLIGHT + '/' + id).delete({});
   }
 }

@@ -214,14 +214,20 @@ class _AirportFormState extends State<AirportForm> {
   }
 
   _onAdd() {
-    Airport airport = Airport('not set', _codeController.text,
-        _nameController.text, _addressController.text);
+    Airport airport = Airport(
+        id: 'not set',
+        code: _codeController.text,
+        name: _nameController.text,
+        address: _addressController.text);
     _airportBloc.add(AddAirport(airport));
   }
 
   _onUpdate() {
-    Airport newData = Airport(widget.data!.id, _codeController.text,
-        _nameController.text, _addressController.text);
+    Airport newData = Airport(
+        id: widget.data!.id,
+        code: _codeController.text,
+        name: _nameController.text,
+        address: _addressController.text);
     _airportBloc.add(UpdateAirport(newData));
   }
 

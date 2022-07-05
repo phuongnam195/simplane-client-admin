@@ -64,74 +64,74 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: Stack(children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Flexible(
-                  child: SizedBox(
-                    width: 700,
-                    child: Card(
-                        elevation: 1.0,
-                        child: TextField(
-                            decoration: InputDecoration(
-                                hintText: S.current.flight_search_hint,
-                                prefixIcon: const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Icon(Icons.search),
-                                ),
-                                border: InputBorder.none),
-                            onSubmitted: (value) {
-                              _onSearch(value);
-                            })),
-                  ),
-                ),
-                Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: TextButton.icon(
-                    icon: const Icon(Icons.date_range),
-                    label: Text(
-                      fromDate.compareTo(toDate) == 0
-                          ? DateTimeUtils.formatDate(toDate)
-                          : DateTimeUtils.formatDate(toDate) +
-                              ' - ' +
-                              DateTimeUtils.formatDate(fromDate),
+    return BlocListener<FlightBloc, FlightState>(
+      bloc: _flightBloc,
+      listenWhen: (previous, current) =>
+          current is FlightLoading ||
+          current is FlightError ||
+          current is FlightsLoaded,
+      listener: (context, state) {
+        EasyLoading.dismiss();
+        if (state is FlightLoading) {
+          EasyLoading.show();
+        } else if (state is FlightsLoaded) {
+          setState(() {
+            _data = state.flights;
+            _dataToShow = _data;
+          });
+        } else if (state is FlightError) {
+          EasyLoading.showError(state.error);
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Stack(children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    child: SizedBox(
+                      width: 700,
+                      child: Card(
+                          elevation: 1.0,
+                          child: TextField(
+                              decoration: InputDecoration(
+                                  hintText: S.current.flight_search_hint,
+                                  prefixIcon: const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Icon(Icons.search),
+                                  ),
+                                  border: InputBorder.none),
+                              onSubmitted: (value) {
+                                _onSearch(value);
+                              })),
                     ),
-                    style: TextButton.styleFrom(
-                      primary: AppColor.primary,
-                      onSurface: AppColor.primary,
-                      textStyle: AppStyle.title,
-                    ),
-                    onPressed: () => showDateFilterDialog(context),
                   ),
-                )
-              ],
-            ),
-            BlocListener<FlightBloc, FlightState>(
-              bloc: _flightBloc,
-              listenWhen: (previous, current) =>
-                  current is FlightLoading ||
-                  current is FlightError ||
-                  current is FlightsLoaded,
-              listener: (context, state) {
-                EasyLoading.dismiss();
-                if (state is FlightLoading) {
-                  EasyLoading.show();
-                } else if (state is FlightsLoaded) {
-                  setState(() {
-                    _data = state.flights;
-                    _dataToShow = _data;
-                  });
-                } else if (state is FlightError) {
-                  EasyLoading.showError(state.error);
-                }
-              },
-              child: Expanded(
+                  Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: TextButton.icon(
+                      icon: const Icon(Icons.date_range),
+                      label: Text(
+                        fromDate.compareTo(toDate) == 0
+                            ? DateTimeUtils.formatDate(toDate)
+                            : DateTimeUtils.formatDate(toDate) +
+                                ' - ' +
+                                DateTimeUtils.formatDate(fromDate),
+                      ),
+                      style: TextButton.styleFrom(
+                        primary: AppColor.primary,
+                        onSurface: AppColor.primary,
+                        textStyle: AppStyle.title,
+                      ),
+                      onPressed: () => showDateFilterDialog(context),
+                    ),
+                  )
+                ],
+              ),
+              Expanded(
                 child: HorizontalDataTable(
                   leftHandSideColumnWidth: colWidths['code']!,
                   rightHandSideColumnWidth: tableWidth - colWidths['code']!,
@@ -147,23 +147,23 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
-        if (UserManager.instance.getUser()?.isAdmin == true)
-          Align(
-            alignment: Alignment.bottomRight,
-            child: FloatingActionButton(
-              onPressed: () async {
-                final ok = await Get.toNamed(NewFlightScreen.routeName);
-                if (ok == true) {
-                  _loadFlights();
-                }
-              },
-              child: const Icon(Icons.add),
-            ),
+            ],
           ),
-      ]),
+          if (UserManager.instance.getUser()?.isAdmin == true)
+            Align(
+              alignment: Alignment.bottomRight,
+              child: FloatingActionButton(
+                onPressed: () async {
+                  final ok = await Get.toNamed(NewFlightScreen.routeName);
+                  if (ok == true) {
+                    _loadFlights();
+                  }
+                },
+                child: const Icon(Icons.add),
+              ),
+            ),
+        ]),
+      ),
     );
   }
 
@@ -299,17 +299,16 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
     }
   }
 
-  _deleteFlight(String id) {
-    showDialog(
+  _deleteFlight(String id) async {
+    final ok = await showDialog(
         context: context,
         builder: (context) {
-          return BlocListener<HomeBloc, HomeState>(
-            bloc: homeBloc,
+          return BlocListener<FlightBloc, FlightState>(
+            bloc: _flightBloc,
             listenWhen: (prev, curr) => curr is FlightDeleted,
             listener: (ctx, state) {
               if (state is FlightDeleted) {
-                _loadFlights();
-                Get.back();
+                Get.back(result: true);
               }
             },
             child: AlertDialog(
@@ -342,6 +341,9 @@ class _FlightPageState extends State<FlightPage> with DatePickerFunction {
             ),
           );
         });
+    if (ok == true) {
+      _loadFlights();
+    }
   }
 
   @override
